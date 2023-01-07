@@ -21,25 +21,22 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
   const classes = useStyles();
 
   const user: IUser = useSelector((state: IApplicationState) => state.user);
-  
- const initialValues = {
-  fullName: user.fullName,
-  note:"",
-  sector: "",
-speed:1
- 
-};
 
-const [imagePath, setImagePath] = useState("");
+  const initialValues = {
+    fullName: user.fullName,
+    note: "",
+    sector: userTypeEnum.CONSTRUCTOR,
+    speed: 1,
+  };
 
-
+  const [imagePath, setImagePath] = useState("");
 
   const onHandleSubmit = (values) => {
     let data = {
       fullName: values.fullName,
       note: values.note,
-      id:user.id,
-      imagePath:imagePath
+      speed: values.speed,
+      sector: parseInt(values.sector),
     };
     axios.post(`/Craftsman/updateInformation`, data).then((res) => {
       if (res.data) {
@@ -56,7 +53,7 @@ const [imagePath, setImagePath] = useState("");
       const data = {
         image: base64data,
       };
-      axios.post(`/Account/UpdateProfileImage`, data).then((res) => {
+      axios.post(`/UserSettings/UpdateProfileImage`, data).then((res) => {
         if (res.data) {
         }
         setImagePath(path);
@@ -76,28 +73,28 @@ const [imagePath, setImagePath] = useState("");
       >
         {({ errors, touched }) => (
           <Form>
-            
             <Box className={classes.root}>
-              <ImageUpload text={"profile image"} type={"image/*"}
-              
-              onChange ={(path)=>handleOnChangeImage(path)} 
+              <ImageUpload
+                text={"profile image"}
+                type={"image/*"}
+                onChange={(path) => handleOnChangeImage(path)}
               />
-              
+
               <TextInput
                 name="fullName"
                 placeholder="full Name"
                 type="string"
                 error={touched.fullName && errors.fullName}
-                label="Full Name"                 />
-              
-               <TextInput
+                label="Full Name"
+              />
+
+              <TextInput
                 name="speed"
                 placeholder="speed"
                 type="number"
                 label="speed"
                 error={touched.speed && errors.speed}
               />
-
 
               <SelectInput
                 name="sector"

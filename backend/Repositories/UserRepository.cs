@@ -16,7 +16,7 @@ namespace Backend.Repositories
         public async Task<User?> Login(LoginRequest request)
         {
 
-            var asd = await _context.Users.FirstOrDefaultAsync(t => t.UserName == request.Username);
+            var asd = await _context.userProfile.FirstOrDefaultAsync(t => t.UserName == request.Username);
             return new User
             {
                 UserName = asd.UserName,

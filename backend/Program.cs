@@ -31,6 +31,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUploadService, UploadService>();
+builder.Services.AddScoped<ICraftsmanInformationRepository, CraftsmanInformationRepository>();
+builder.Services.AddScoped<ICraftsmanService, CraftsmanService>();
 /*builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileUploaderServices, FileUploaderServices>();*/
 
@@ -43,7 +45,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler();
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -58,7 +60,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

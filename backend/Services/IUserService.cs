@@ -1,5 +1,5 @@
 ﻿using Backend.Dtos;
-using WebApplication1.Dtos.Craftsman.Settings;
+using WebApplication1.Dtos.Settings;
 
 namespace Backend.Services
 {

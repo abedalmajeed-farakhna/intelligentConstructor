@@ -1,5 +1,4 @@
 ﻿using Backend.Dtos;
-using Backend.Enums;
 using Backend.Repositories;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
@@ -32,7 +31,7 @@ namespace Backend.Services
                 throw new ArgumentNullException();
             }
 
-            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            if (IsAuthenticated())
             {
                 throw new Exception("User is Already Logged in");
             }
@@ -41,6 +40,10 @@ namespace Backend.Services
           
             var user = await _userManager.FindByNameAsync(request.Username);
 
+            if(user == null)
+            {
+                throw new Exception();
+            }
             if (asd != null)
             {
                 if (asd.Succeeded)
@@ -56,6 +59,7 @@ namespace Backend.Services
 
             return new LoginResponse { isAuthontecated = false };
         }
+
         public async Task<bool> SignUpAsync(SignUpRequest request)
         {
             if (request == null)
@@ -73,23 +77,16 @@ namespace Backend.Services
             await _userManager.CreateAsync(user, request.Password);
 
             return true;
-            //return await _userRepository.SignUpAsync(request);
         }
+
         public async Task<bool> SignOutAsync()
         {
             await _signInManager.SignOutAsync();
-            //_httpContextAccessor.HttpContext.Request.HttpContext.Session.Clear();
             return true;
         }
-        /*
-        private Task<User> GetCurrentUserAsync()
-        {
-            return _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
-        }*/
 
         public Guid? GetCurrentUserId()
         {
-            //var asd = GetCurrentUserAsync();
             if (_httpContextAccessor.HttpContext == null)
             {
                 return null;
@@ -97,6 +94,16 @@ namespace Backend.Services
             Guid.TryParse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier), out var ID);
             return ID;
 
+        }
+
+        private bool IsAuthenticated()
+        {
+            var userIdentity = _httpContextAccessor.HttpContext?.User.Identity;
+            if (userIdentity == null)
+            {
+                return false;
+            }
+            return userIdentity.IsAuthenticated;
         }
     }
 }

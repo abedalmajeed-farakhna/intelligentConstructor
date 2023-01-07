@@ -1,14 +1,11 @@
-﻿using System.Drawing;
+﻿using System.Buffers.Text;
+using System.Drawing;
 using System.Drawing.Imaging;
-using WebApplication1.Dtos.Craftsman.Settings;
-
 
 namespace Backend.Services
 {
     public class UploadService : IUploadService
     {
-
-
         public UploadService()
         {
 
@@ -16,6 +13,10 @@ namespace Backend.Services
 
         public string SaveImage(string imageBase64, string outputPath)
         {
+            if (!IsBase64(imageBase64))
+            {
+                throw new Exception();
+            }
             var imageData = imageBase64.Split(new string[] { "base64," }, StringSplitOptions.RemoveEmptyEntries);
 
             //we multiply with 1.37 because the final size of Base64-encoded binary data is equal to 1.37 times the original data size
@@ -26,7 +27,7 @@ namespace Backend.Services
                 var imageType = imageData[0];
                 var format = GetImageFormat(imageType);
 
-                var filename = Path.GetRandomFileName() + format.ToString().ToLower();
+                var filename = Path.GetRandomFileName() + "."+format.ToString().ToLower();
                 var base64 = imageData[1];
 
                 Save(base64, outputPath, filename, format);
@@ -37,7 +38,7 @@ namespace Backend.Services
         }
 
 
-        public async Task<bool> UpdateProfileImageAsync(UpdateProfileImageRequest request)
+      /*  public async Task<bool> UpdateProfileImageAsync(UpdateProfileImageRequest request)
         {
             try
             {
@@ -67,7 +68,7 @@ namespace Backend.Services
                 var asd = ex.ToString();
                 return false;
             }
-        }
+        }*/
 
         private void Save(string base64, string outputPath, string fileName, ImageFormat format)
         {
@@ -84,7 +85,7 @@ namespace Backend.Services
             }
             catch (Exception ex)
             {
-                var asd = ex.ToString();
+                throw new Exception(ex.ToString());
 
             }
 
