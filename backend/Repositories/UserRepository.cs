@@ -24,6 +24,20 @@ namespace Backend.Repositories
 
             };
         }
+
+        public async Task<bool> UpdateUserProfile (Guid userId, string profileImage)
+        {
+            var user = await _context.userProfile.FirstOrDefaultAsync(t=>t.Id== userId.ToString());
+            user.ProfileImage = profileImage;
+            _context.SaveChanges();
+            return true;
+        }
+
+
+        public async Task <UserProfile?> GetUserProfile(Guid userId)
+        {
+            return _context.userProfile.FirstOrDefault(t=> t.Id == userId.ToString());
+        }
       
      /*   public async Task<bool> SignUpAsync(SignUpRequest request)
         {

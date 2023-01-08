@@ -33,7 +33,7 @@ namespace Backend.Repositories
                 userInformation = new CraftsmanInformation
                 {
                     UserId = userID,
-                    CraftsManType = request.CraftsManType,
+                    Sector = request.Sector,
                      Note= request.Note,
                       Speed= request.Speed
                 };
@@ -41,7 +41,7 @@ namespace Backend.Repositories
             }
             else
             {
-                userInformation.CraftsManType = request.CraftsManType;
+                userInformation.Sector = request.Sector;
                 userInformation.Note = request.Note;
                 userInformation.Speed = request.Speed;
             }

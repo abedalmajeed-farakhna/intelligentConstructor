@@ -21,7 +21,7 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<bool> UpdateProfileImage([FromBody] UpdateProfileImageRequest request)
         {
-            _uploadService.SaveImage(request.Image, "./Upload");
+            await _uploadService.SaveImageAsync(request.Image, "./Upload");
 
             return true;
         }

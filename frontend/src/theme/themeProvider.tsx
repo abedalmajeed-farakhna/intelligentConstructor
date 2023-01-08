@@ -1,5 +1,5 @@
 import { createMuiTheme, createTheme } from "@mui/material";
-import { green, purple } from "@mui/material/colors";
+import { blue, green, purple, red } from "@mui/material/colors";
 import React from "react";
 
 
@@ -40,7 +40,7 @@ declare module "@mui/material/styles" {
 
 export const theme = createTheme({
   palette: {
-    primary: purple,
+    primary: blue,
     secondary: green,
   },
   colors: {
@@ -59,3 +59,5 @@ export const theme = createTheme({
     small: 10,
   },
 });
+
+

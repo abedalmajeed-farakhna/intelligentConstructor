@@ -20,8 +20,11 @@ namespace Backend.Controllers
 
         }
 
-
-
+        [HttpGet]
+        public async Task<GetUserInformationResponse> GetUserInformation()
+        {
+            return await _craftsmanService.GetUserInformation();
+        }
 
         // [Authorize]
         [HttpPost]

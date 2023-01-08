@@ -2,7 +2,7 @@ import { Person } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "../../components/CoreComponents/CustomButton/customButton.index";
 
 import SelectInput from "../../components/CoreComponents/SelectInput/selectInput.index";
@@ -16,20 +16,37 @@ import { useSelector } from "react-redux";
 import { IApplicationState } from "../../redux/ApplicationState";
 import ImageUpload from "../../components/ImageUpload/imageUpload.index";
 import FileUploader from "../../components/CoreComponents/FileUploader/fileUploader.index";
+import { sectorEnum } from "../../enums/sectorEnum";
 
 const CraftsmanInformation: React.FC<any> = ({}) => {
   const classes = useStyles();
 
   const user: IUser = useSelector((state: IApplicationState) => state.user);
-
-  const initialValues = {
-    fullName: user.fullName,
+  const [initialValues, setInitialValues] = useState({
+    fullName: "",
     note: "",
-    sector: userTypeEnum.CONSTRUCTOR,
-    speed: 1,
-  };
+    sector:"",
+    speed: "",
+  });
 
   const [imagePath, setImagePath] = useState("");
+
+
+  useEffect(() => {
+    axios.get(`/Craftsman/GetUserInformation`).then((res) => {
+      if (res.data) {
+        const data = res.data;
+        setInitialValues({
+          fullName: data.fullName,
+          note: data.note,
+          sector: data.sector,
+          speed: data.speed,
+        });
+       // setImagePath(`/Upload/${data.profileImage}`)
+      }
+    });
+  }, []);
+
 
   const onHandleSubmit = (values) => {
     let data = {
@@ -54,12 +71,13 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
         image: base64data,
       };
       axios.post(`/UserSettings/UpdateProfileImage`, data).then((res) => {
-        if (res.data) {
-        }
-        setImagePath(path);
+        
       });
     };
   };
+  
+  
+  if(! initialValues.fullName) return<></>;
 
   return (
     <div>
@@ -78,6 +96,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
                 text={"profile image"}
                 type={"image/*"}
                 onChange={(path) => handleOnChangeImage(path)}
+                //defaultImage={imagePath}
               />
 
               <TextInput
@@ -97,11 +116,17 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
               />
 
               <SelectInput
+              label="sector"
                 name="sector"
                 options={[
-                  { name: "Conractor", value: userTypeEnum.CONSTRUCTOR },
-                  { name: "Craftman", value: userTypeEnum.CRAFTSMAN },
-                  { name: "Guest", value: userTypeEnum.GUEST },
+                  { name: "NONE", value: sectorEnum.NONE },
+                  { name: "Builder", value: sectorEnum.Builder },
+                  { name: "Tiler", value: sectorEnum.Tiler },
+                  { name: "HousePainter", value: sectorEnum.HousePainter },
+                  { name: "Plumber", value: sectorEnum.Plumber },
+                  { name: "Electrician", value: sectorEnum.Electrician },
+                  { name: "Carpenter", value: sectorEnum.Carpenter },
+
                 ]}
               />
               <TextInput

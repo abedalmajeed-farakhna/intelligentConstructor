@@ -3,8 +3,8 @@
     public interface IUploadService
     {
 
-      //  Task<bool> UpdateProfileImageAsync(UpdateProfileImageRequest request);
-        string SaveImage(string imageBase64, string outputPath);
+        //  Task<bool> UpdateProfileImageAsync(UpdateProfileImageRequest request);
+        Task<string> SaveImageAsync(string imageBase64, string outputPath);
 
     }
 }

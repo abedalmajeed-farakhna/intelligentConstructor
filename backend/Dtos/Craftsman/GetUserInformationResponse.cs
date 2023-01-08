@@ -3,16 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Dtos.Craftsman
 {
-    public class UpdateInformationRequest
+    public class GetUserInformationResponse
     {
-        [Required]
         public string FullName { get; set; }
-        [Required]
         public string Note { get; set; }
-        [Required]
-        public int Speed { get; set; }
-        [Required]
-        public SectorEnum Sector { get; set; }
+        public int? Speed { get; set; }
+        public SectorEnum? Sector { get; set; }
+        public string? ProfileImage { get; set; }
 
     }
 }

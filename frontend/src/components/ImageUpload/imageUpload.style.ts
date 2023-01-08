@@ -9,8 +9,8 @@ const useStyle = makeStyles((theme) => ({
     width: 300,
   },
   imageContainer:{
-  width:30,
-  height:40,
+  width:120,
+  height:120,
    
   },
   image:{

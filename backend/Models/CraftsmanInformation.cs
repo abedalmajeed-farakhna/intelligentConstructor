@@ -10,7 +10,7 @@ namespace WebApplication1.Models
         public Guid UserId { get; set; }
 
         [Required]
-        public userTypeEnum CraftsManType { get; set; }
+        public SectorEnum Sector { get; set; }
 
         [Required]
         public int Speed { get; set; }

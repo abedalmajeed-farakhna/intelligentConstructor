@@ -6,6 +6,7 @@ namespace Backend.Services
     {
 
         Task<bool> UpdateInformationAsync(UpdateInformationRequest request);
-       
+        Task<GetUserInformationResponse> GetUserInformation();
+
     }
 }

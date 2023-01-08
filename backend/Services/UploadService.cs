@@ -1,17 +1,27 @@
-﻿using System.Buffers.Text;
+﻿using Backend.Repositories;
+using Microsoft.AspNetCore.Identity;
+using System.Buffers.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
+using WebApplication1.Models;
 
 namespace Backend.Services
 {
     public class UploadService : IUploadService
     {
-        public UploadService()
-        {
+        private readonly IUserRepository _userRepository;
+        private readonly IAuthenticationService _authenticationService;
+        private readonly UserManager<UserProfile> _userManager;
 
+        public UploadService(IUserRepository userRepository, IAuthenticationService authenticationService , UserManager<UserProfile> userManager)
+        {
+           _userRepository= userRepository;
+            _authenticationService= authenticationService;
+            _userManager= userManager;
+            
         }
 
-        public string SaveImage(string imageBase64, string outputPath)
+        public async Task<string> SaveImageAsync(string imageBase64, string outputPath)
         {
             if (!IsBase64(imageBase64))
             {
@@ -30,7 +40,8 @@ namespace Backend.Services
                 var filename = Path.GetRandomFileName() + "."+format.ToString().ToLower();
                 var base64 = imageData[1];
 
-                Save(base64, outputPath, filename, format);
+                await Save(base64, outputPath, filename, format);
+
                 return filename;
             }
 
@@ -70,7 +81,7 @@ namespace Backend.Services
             }
         }*/
 
-        private void Save(string base64, string outputPath, string fileName, ImageFormat format)
+        private async Task<bool> Save(string base64, string outputPath, string fileName, ImageFormat format)
         {
             try
             {
@@ -82,13 +93,20 @@ namespace Backend.Services
                     tempImage.Save(pathToSave, format);
                 }
 
+
+                var userId = _authenticationService.GetCurrentUserId();
+
+                var user = await _userRepository.GetUserProfile(userId.GetValueOrDefault());
+                user.ProfileImage = fileName;
+                await _userManager.UpdateAsync(user);
             }
+            //await  _userRepository.UpdateUserProfile(userId.GetValueOrDefault(), fileName);           }
             catch (Exception ex)
             {
                 throw new Exception(ex.ToString());
 
             }
-
+            return true;
         }
 
         private ImageFormat GetImageFormat(string fileType)
