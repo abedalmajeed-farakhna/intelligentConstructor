@@ -1,8 +1,8 @@
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { IImageUploadProps } from "./imageUpload.types";
 import React, { useState } from "react";
 import useStyles from "./imageUpload.style";
-
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 const ImageUpload: React.FC<IImageUploadProps> = ({text,type,isMultiple,defaultImage,onChange}) => {
 
   const classes = useStyles();
@@ -20,22 +20,26 @@ const ImageUpload: React.FC<IImageUploadProps> = ({text,type,isMultiple,defaultI
      
   }
     return (
-    <div className={classes.root}>
-     <div className={classes.imageContainer} >
-     <img src={file } 
+      <div className={classes.root}>
+        <div className={classes.imageContainer}>
+          <img src={file} className={classes.image} />
+        </div>
 
-    className={classes.image}
-    />    </div>
-
-    <Button variant="contained" component="label">
-      {text}
-      <input hidden accept={type} multiple={isMultiple} type="file" onChange={handleChange} />
-      
-    </Button>
-    
-    
-    </div>
-  );
+        <IconButton className={classes.cameraIcones}
+          aria-label="upload picture"
+          component="label"
+        >
+          <input
+            hidden
+            accept={type}
+            multiple={isMultiple}
+            type="file"
+            onChange={handleChange}
+          />
+          <PhotoCameraIcon  />
+        </IconButton>
+      </div>
+    );
 };
 
 export default ImageUpload;
