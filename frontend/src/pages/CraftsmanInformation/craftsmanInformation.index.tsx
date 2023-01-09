@@ -42,7 +42,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
           sector: data.sector,
           speed: data.speed,
         });
-       // setImagePath(`/Upload/${data.profileImage}`)
+        setImagePath(`/Upload/${data.profileImage}`)
       }
     });
   }, []);
@@ -96,7 +96,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
                 text={"profile image"}
                 type={"image/*"}
                 onChange={(path) => handleOnChangeImage(path)}
-                //defaultImage={imagePath}
+                defaultImage={imagePath}
               />
 
               <TextInput
