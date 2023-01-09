@@ -58,8 +58,8 @@ app.UseStaticFiles();
 app.UseStaticFiles(new StaticFileOptions()
 {
     FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "@Upload")),
-    RequestPath = new PathString("/Upload")
+        Path.Combine(builder.Environment.ContentRootPath, "Upload")),
+    RequestPath = "/Upload"
 
 });
 app.UseRouting();
