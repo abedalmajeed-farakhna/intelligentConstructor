@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using WebApplication1.Data;
 using WebApplication1.Models;
+using WebApplication1.Services.Guest;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,8 +35,9 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUploadService, UploadService>();
 builder.Services.AddScoped<ICraftsmanInformationRepository, CraftsmanInformationRepository>();
 builder.Services.AddScoped<ICraftsmanService, CraftsmanService>();
-/*builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IFileUploaderServices, FileUploaderServices>();*/
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IGuestService, GuestService>();
+/*builder.Services.AddScoped<IFileUploaderServices, FileUploaderServices>();*/
 
 var app = builder.Build();
 

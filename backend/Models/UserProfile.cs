@@ -7,6 +7,7 @@ namespace WebApplication1.Models
     public class UserProfile : IdentityUser
     {
         public string? ProfileImage { get; set; }
+        public string? FullName { get; set; }
 
         [Required]
         public userTypeEnum UserType { get; set; }

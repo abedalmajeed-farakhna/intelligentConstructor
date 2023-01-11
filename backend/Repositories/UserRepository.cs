@@ -1,6 +1,8 @@
 ﻿using Backend.Dtos;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
+using WebApplication1.Data.Migrations;
+using WebApplication1.Dtos.Settings;
 using WebApplication1.Models;
 
 namespace Backend.Repositories
@@ -33,6 +35,13 @@ namespace Backend.Repositories
             return true;
         }
 
+        public async Task<bool> updateUserInformation(Guid userId, UpdateUserInformationRequest request)
+        {
+            var user = await _context.userProfile.FirstOrDefaultAsync(t => t.Id == userId.ToString());
+            user.FullName = request.FullName;
+            _context.SaveChanges();
+            return true;
+        }
 
         public async Task <UserProfile?> GetUserProfile(Guid userId)
         {

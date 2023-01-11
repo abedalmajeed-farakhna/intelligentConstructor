@@ -1,9 +1,10 @@
-﻿using Backend.Dtos;
+﻿//using Backend.Dtos;
 using Backend.Dtos.Craftsman;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using WebApplication1.Data;
 using WebApplication1.Models;
+using WebApplication1.Models.Craftsman;
 
 namespace Backend.Repositories
 {
@@ -21,6 +22,15 @@ namespace Backend.Repositories
         {
 
             return await _context.craftsmanInformation.FirstOrDefaultAsync(t => t.UserId == userId);
+
+        }
+
+        public async Task<List<CraftsmanUserInformationSP>> getAllCraftsmanInformation()
+        {
+
+            string sql = "exec [dbo].[CraftsmanUserInformation_sp]";
+            var asd = _context.CraftsmanUserInformation.FromSqlRaw(sql);
+            return await _context.CraftsmanUserInformation.FromSqlRaw(sql)?.ToListAsync();
 
         }
 

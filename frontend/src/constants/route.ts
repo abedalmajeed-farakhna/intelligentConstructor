@@ -4,5 +4,6 @@ export const PATH_NAMES = {
   LOGIN: "/login",
   Logout: "/logout",
   SIGNUP: "/signup",
-  INFORMATION: "/information",   
+  INFORMATION: "/information",  
+  CRAFTSMAN:"/craftsman", 
 };

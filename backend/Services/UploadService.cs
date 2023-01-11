@@ -1,24 +1,14 @@
-﻿using Backend.Repositories;
-using Microsoft.AspNetCore.Identity;
-using System.Buffers.Text;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
-using WebApplication1.Models;
 
 namespace Backend.Services
 {
     public class UploadService : IUploadService
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationService _authenticationService;
-        private readonly UserManager<UserProfile> _userManager;
 
-        public UploadService(IUserRepository userRepository, IAuthenticationService authenticationService , UserManager<UserProfile> userManager)
+        public UploadService()
         {
-           _userRepository= userRepository;
-            _authenticationService= authenticationService;
-            _userManager= userManager;
-            
+
         }
 
         public async Task<string> SaveImageAsync(string imageBase64, string outputPath)
@@ -37,7 +27,7 @@ namespace Backend.Services
                 var imageType = imageData[0];
                 var format = GetImageFormat(imageType);
 
-                var filename = Path.GetRandomFileName() + "."+format.ToString().ToLower();
+                var filename = Path.GetRandomFileName() + "." + format.ToString().ToLower();
                 var base64 = imageData[1];
 
                 await Save(base64, outputPath, filename, format);
@@ -45,41 +35,41 @@ namespace Backend.Services
                 return filename;
             }
 
-            return null;
+            return string.Empty;
         }
 
 
-      /*  public async Task<bool> UpdateProfileImageAsync(UpdateProfileImageRequest request)
-        {
-            try
-            {
+        /*  public async Task<bool> UpdateProfileImageAsync(UpdateProfileImageRequest request)
+          {
+              try
+              {
 
-                var path = request.Image.Remove(0, 5);
+                  var path = request.Image.Remove(0, 5);
 
-                FileStream formFile = new FileStream(request.Image, FileMode.Open);
-
-
-                if (formFile.Length > 0)
-                {
-                    var filePath = Path.Combine("./Upload",
-                        Path.GetRandomFileName());
-
-                    using (var stream = File.Create(filePath))
-                    {
-                        await formFile.CopyToAsync(stream);
-                    }
-                }
+                  FileStream formFile = new FileStream(request.Image, FileMode.Open);
 
 
-                return true;
-            }
-            catch (Exception ex)
-            {
+                  if (formFile.Length > 0)
+                  {
+                      var filePath = Path.Combine("./Upload",
+                          Path.GetRandomFileName());
 
-                var asd = ex.ToString();
-                return false;
-            }
-        }*/
+                      using (var stream = File.Create(filePath))
+                      {
+                          await formFile.CopyToAsync(stream);
+                      }
+                  }
+
+
+                  return true;
+              }
+              catch (Exception ex)
+              {
+
+                  var asd = ex.ToString();
+                  return false;
+              }
+          }*/
 
         private async Task<bool> Save(string base64, string outputPath, string fileName, ImageFormat format)
         {
@@ -92,15 +82,7 @@ namespace Backend.Services
                     var tempImage = Image.FromStream(ms);
                     tempImage.Save(pathToSave, format);
                 }
-
-
-                var userId = _authenticationService.GetCurrentUserId();
-
-                var user = await _userRepository.GetUserProfile(userId.GetValueOrDefault());
-                user.ProfileImage = fileName;
-                await _userManager.UpdateAsync(user);
             }
-            //await  _userRepository.UpdateUserProfile(userId.GetValueOrDefault(), fileName);           }
             catch (Exception ex)
             {
                 throw new Exception(ex.ToString());

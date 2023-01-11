@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.FluentApi.Craftsman;
 using WebApplication1.Models;
+using WebApplication1.Models.Craftsman;
 
 namespace WebApplication1.Data
 {
@@ -13,6 +14,8 @@ namespace WebApplication1.Data
 
         }
         public virtual DbSet<UserProfile> userProfile { get; set; }
+        public virtual DbSet<CraftsmanUserInformationSP> CraftsmanUserInformation { get; set; }
+
         public virtual DbSet<CraftsmanInformation> craftsmanInformation { get; set; }
 
 
@@ -22,6 +25,7 @@ namespace WebApplication1.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration( new CraftsmanInformationConfigration());
+            modelBuilder.Entity<CraftsmanUserInformationSP>().HasNoKey().ToView("__notExist");
 
         }
     }

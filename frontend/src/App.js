@@ -12,6 +12,8 @@ import { PATH_NAMES } from "./constants/route";
 import CraftsmanInformation from "./pages/CraftsmanInformation/craftsmanInformation.index";
 import Logout from "./pages/Authentication/Logout/logout.index";
 import { theme } from "./theme/themeProvider";
+import InformationDBContainer from "./pages/Authentication/InformationDBContainer/informationDBContainer";
+import CraftsmanList from "./pages/CraftsmanList/craftsmanList.index";
 
 const App = () => {
   return (
@@ -52,7 +54,17 @@ const App = () => {
             element={
               <RedirectToLogin>
                 <MainDashboard>
-                  <CraftsmanInformation />
+                  <InformationDBContainer />
+                </MainDashboard>
+              </RedirectToLogin>
+            }
+          />
+           <Route
+            path={PATH_NAMES.CRAFTSMAN}
+            element={
+              <RedirectToLogin>
+                <MainDashboard>
+                  <CraftsmanList />
                 </MainDashboard>
               </RedirectToLogin>
             }

@@ -1,12 +1,13 @@
-import { Button, IconButton } from "@mui/material";
-import { IImageUploadProps } from "./imageUpload.types";
+import { IconButton } from "@mui/material";
+import { IProfileImageUploadProps } from "./profileImageUpload.types";
 import React, { useState } from "react";
-import useStyles from "./imageUpload.style";
+import useStyles from "./profileImageUpload.style";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-const ImageUpload: React.FC<IImageUploadProps> = ({text,type,isMultiple,defaultImage,onChange}) => {
+const ProfileImageUpload: React.FC<IProfileImageUploadProps> = ({text,type,isMultiple,defaultImage,onChange}) => {
 
   const classes = useStyles();
 
+  console.log(defaultImage,"defaultImage")
   const [file, setFile] = useState(defaultImage??"images/Default_pecture.png");
  
   const handleChange=(e) =>{
@@ -21,9 +22,7 @@ const ImageUpload: React.FC<IImageUploadProps> = ({text,type,isMultiple,defaultI
   }
     return (
       <div className={classes.root}>
-        <div className={classes.imageContainer}>
-          <img src={file} className={classes.image} />
-        </div>
+        <div className={classes.imageContainer} style={{backgroundImage:`URL(${file})`}}/>
 
         <IconButton className={classes.cameraIcones}
           aria-label="upload picture"
@@ -42,7 +41,7 @@ const ImageUpload: React.FC<IImageUploadProps> = ({text,type,isMultiple,defaultI
     );
 };
 
-export default ImageUpload;
+export default ProfileImageUpload;
 
 
 

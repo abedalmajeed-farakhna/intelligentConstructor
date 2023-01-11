@@ -30,12 +30,14 @@ const Login: React.FC<any> = ({}) => {
   const onHandleSubmit = (values) => {
     console.log(values,"values")
     axios.post(`/Account/Login`, values).then((res) => {
-      if (res.data.isAuthontecated) {
+      const data = res.data;
+      if (data.isAuthontecated) {
         const user: IUser = {
           username: values.username,
-          type: res.data.userType,
-          fullName: res.data.fullName,
-          id:res.data.id
+          type: data.userType,
+          fullName: data.fullName,
+          id:data.id,
+          profileImage:data.profileImage
         };
 
         dispatch(setUser(user));

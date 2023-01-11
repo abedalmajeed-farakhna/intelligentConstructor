@@ -1,5 +1,8 @@
 ﻿using Backend.Dtos.Craftsman;
 using Backend.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Dtos.Settings;
+using WebApplication1.Models.Craftsman;
 
 namespace Backend.Services
 {
@@ -24,20 +27,35 @@ namespace Backend.Services
             {
                 throw new Exception();
             }
+
+            var updateUserInformationRequest = new UpdateUserInformationRequest
+            {
+                FullName = request.FullName,
+            };
+            await _userRepository.updateUserInformation(userId.GetValueOrDefault(), updateUserInformationRequest);
             await _craftsmanInformationRepository.AddOrUpdateUserInformation( request, userId.GetValueOrDefault());
             
             return true;
         }
 
-
+        public async Task<List<CraftsmanUserInformationSP>> getAllCraftsmanInformation()
+        {
+            return  await _craftsmanInformationRepository.getAllCraftsmanInformation();
+        }
         public async Task<GetUserInformationResponse> GetUserInformation()
         {
             var userId = _authenticationService.GetCurrentUserId();
             var user = await _userRepository.GetUserProfile(userId.GetValueOrDefault());
+            if(user == null)
+            {
+                throw new Exception("Unauthorized");
+
+            }
             var craftmanInformation = await _craftsmanInformationRepository.getUserInformation(userId.GetValueOrDefault());
             return new GetUserInformationResponse
             {
-                FullName = user.UserName,
+                UserName = user.UserName,
+                FullName = user.FullName,
                 ProfileImage = user.ProfileImage,
                 Sector = craftmanInformation?.Sector,
                 Speed = craftmanInformation?.Speed,

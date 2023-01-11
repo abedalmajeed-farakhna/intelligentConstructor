@@ -4,5 +4,6 @@ export interface IUser {
   fullName: string;
   username: string;
   type: userTypeEnum;
-  id:number
+  id:number,
+  profileImage?:string
 }

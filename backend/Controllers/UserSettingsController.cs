@@ -8,22 +8,20 @@ namespace Backend.Controllers
 
     public class UserSettingsController : Controller
     {
+        private readonly IUserService _userService;
+        private readonly ICraftsmanService _craftsmanService;
 
-
-        private readonly IUploadService _uploadService;
-
-
-        public UserSettingsController(IUploadService uploadService)
+        public UserSettingsController(IUserService userService, ICraftsmanService craftsmanService)
         {
-            _uploadService = uploadService;
+            _userService = userService;
+            _craftsmanService = craftsmanService;
         }
 
         [HttpPost]
         public async Task<bool> UpdateProfileImage([FromBody] UpdateProfileImageRequest request)
         {
-            await _uploadService.SaveImageAsync(request.Image, "./Upload");
-
-            return true;
+            var asd = await _craftsmanService.getAllCraftsmanInformation();
+            return await _userService.UpdateProfileImageAsync(request);
         }
     }
 }

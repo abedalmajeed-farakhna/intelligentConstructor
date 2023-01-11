@@ -4,43 +4,34 @@ import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import CustomButton from "../../components/CoreComponents/CustomButton/customButton.index";
-import SelectInput from "../../components/CoreComponents/SelectInput/selectInput.index";
-import TextInput from "../../components/CoreComponents/TextInput/textInput.index";
-import { IUser } from "../../types/types";
-import { IApplicationState } from "../../redux/ApplicationState";
-import ProfileImageUpload from "../../components/ProfileImageUpload/profileImageUpload.index";
-import FileUploader from "../../components/CoreComponents/FileUploader/fileUploader.index";
-import { sectorEnum } from "../../enums/sectorEnum";
+import { validationSchema } from "./guestInformation.utils";
+import useStyles from "./guestInformation.style";
+import CustomButton from "../../../../components/CoreComponents/CustomButton/customButton.index";
+import FileUploader from "../../../../components/CoreComponents/FileUploader/fileUploader.index";
+import TextInput from "../../../../components/CoreComponents/TextInput/textInput.index";
+import ProfileImageUpload from "../../../../components/ProfileImageUpload/profileImageUpload.index";
+import { IApplicationState } from "../../../../redux/ApplicationState";
+import { IUser } from "../../../../types/types";
 
-import { validationSchema } from "./craftsmanInformation.utils";
-import useStyles from "./craftsmanInformation.style";
-
-const CraftsmanInformation: React.FC<any> = ({}) => {
+const GuestInformation: React.FC<any> = ({}) => {
   const classes = useStyles();
 
   const user: IUser = useSelector((state: IApplicationState) => state.user);
   const [initialValues, setInitialValues] = useState({
     fullName: "",
-    note: "",
-    sector: "",
-    speed: "",
     userName:""
   });
 
   const [imagePath, setImagePath] = useState(null);
 
   useEffect(() => {
-    axios.get(`/Craftsman/GetUserInformation`).then((res) => {
+    axios.get(`/Guest/GetUserInformation`).then((res) => {
       if (res.data) {
         const data = res.data;
         setInitialValues({
           fullName: data.fullName,
-          userName:data.userName,
-          note: data.note,
-          sector: data.sector,
-          speed: data.speed,
-        });
+          userName:data.userName
+                });
         if (data.profileImage) {
           setImagePath(`/Upload/${data.profileImage}`);
         }
@@ -51,11 +42,8 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
   const onHandleSubmit = (values) => {
     let data = {
       fullName: values.fullName,
-      note: values.note,
-      speed: values.speed,
-      sector: parseInt(values.sector),
     };
-    axios.post(`/Craftsman/updateInformation`, data).then((res) => {
+    axios.post(`/Guest/updateInformation`, data).then((res) => {
       if (res.data) {
       }
       const persons = res.data;
@@ -106,36 +94,6 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
                 label="Full Name"
               />
 
-              <TextInput
-                name="speed"
-                placeholder="speed"
-                type="number"
-                label="speed"
-                error={touched.speed && errors.speed}
-              />
-
-              <SelectInput
-                label="sector"
-                name="sector"
-                options={[
-                  { name: "NONE", value: sectorEnum.NONE },
-                  { name: "Builder", value: sectorEnum.Builder },
-                  { name: "Tiler", value: sectorEnum.Tiler },
-                  { name: "HousePainter", value: sectorEnum.HousePainter },
-                  { name: "Plumber", value: sectorEnum.Plumber },
-                  { name: "Electrician", value: sectorEnum.Electrician },
-                  { name: "Carpenter", value: sectorEnum.Carpenter },
-                ]}
-              />
-              <TextInput
-                as="textarea"
-                name="note"
-                placeholder="note"
-                type="string"
-                error={touched.note && errors.note}
-                label="note"
-              />
-
               <CustomButton text={"save"} />
 
               <Box>
@@ -150,4 +108,4 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
   );
 };
 
-export default CraftsmanInformation;
+export default GuestInformation;

@@ -36,7 +36,7 @@ namespace Backend.Services
                 throw new Exception("User is Already Logged in");
             }
 
-            var asd = await _signInManager.PasswordSignInAsync(request.Username,request.Password,true,true);
+            var signIn = await _signInManager.PasswordSignInAsync(request.Username,request.Password,true,true);
           
             var user = await _userManager.FindByNameAsync(request.Username);
 
@@ -44,15 +44,16 @@ namespace Backend.Services
             {
                 throw new Exception();
             }
-            if (asd != null)
+            if (signIn != null)
             {
-                if (asd.Succeeded)
+                if (signIn.Succeeded)
                 {
                     return new LoginResponse
                     {
                         isAuthontecated = true,
                         FullName = "Abed Test",
-                        userType = user.UserType
+                        UserType = user.UserType,
+                        ProfileImage = user.ProfileImage
                     };
                 }
             }
@@ -69,14 +70,16 @@ namespace Backend.Services
 
             var user = new UserProfile
             {
+                Email = request.Username,
                 UserName = request.Username,
+                FullName = request.FullName,
                 EmailConfirmed = true,
                 UserType = request.UserType
             };
 
-            await _userManager.CreateAsync(user, request.Password);
-
-            return true;
+            var createUser = await _userManager.CreateAsync(user, request.Password);
+            
+            return createUser.Succeeded;
         }
 
         public async Task<bool> SignOutAsync()

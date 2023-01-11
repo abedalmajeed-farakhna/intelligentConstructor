@@ -25,6 +25,7 @@ const AccountMenu = () => {
     setAnchorEl(null);
   };
 
+  console.log(user?.profileImage,"user?.profileImage")
   return (
     <>
       <div className={classes.root}>
@@ -38,9 +39,14 @@ const AccountMenu = () => {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>
-              {user?.fullName?.charAt(0)?.toLocaleUpperCase()}
-            </Avatar>
+            
+            
+          {user?.profileImage? 
+          <div>
+            <img className={classes.ProfileImage} src= {`Upload/${user?.profileImage}`}alt="profile pecher" width="25px" height="25px"/>
+            </div> 
+          : <Avatar sx={{ width: 32, height: 32 }}/>
+                        }
           </IconButton>
         </Tooltip>
       </div>

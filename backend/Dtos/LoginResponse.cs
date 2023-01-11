@@ -6,6 +6,7 @@ namespace Backend.Dtos
     {
         public bool isAuthontecated { get; set; }
         public string? FullName { get; set; }
-        public userTypeEnum userType { get; set; }
+        public userTypeEnum UserType { get; set; }
+        public string? ProfileImage { get; set; }
     }
 }

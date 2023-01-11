@@ -6,7 +6,7 @@ import useStyles from "./craftsmanDashboard.style";
 
 const CraftsmanDashboard :React.FC<any>= ({children}) => {
   const classes = useStyles();
-
+console.log("CraftsmanDashboard")
 
   return (
     <Box className={classes.root}>
