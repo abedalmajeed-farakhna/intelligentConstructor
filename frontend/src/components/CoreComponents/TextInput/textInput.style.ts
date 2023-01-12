@@ -19,7 +19,7 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
 
     "& :: focus-visible ": {
       outline: `0px !important`,
-      border:`0px !important`,
+      border: `0px !important`,
     },
   },
   error: {
@@ -27,8 +27,8 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
   },
   "input :focus-visible": {
     outline: `0px !important`,
-    border:`0px !important`,
-  },
+    border: `0px !important`,
+  }
 }));
 
 export default useStyle;

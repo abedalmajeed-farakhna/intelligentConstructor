@@ -1,26 +1,24 @@
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { Login as LoginIcon, Person } from "@mui/icons-material";
-import React, { Component, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import axios from "axios";
-import { useFormik } from "formik";
 //import { useHistory } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import Navbar from "../../../components/Navbar/navbar.index";
 import { IUser } from "../../../types/types";
 import { useDispatch } from "react-redux";
 
 //import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { setUser } from "../../../reducers/reducers/userReducer";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import { loginInitialValues, loginSchema } from "./login.utils";
 import { PATH_NAMES } from "../../../constants/route";
 import TextInput from "../../../components/CoreComponents/TextInput/textInput.index";
 import CustomLink from "../../../components/CoreComponents/CustomLink/customLink.index";
 import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
 import ErrorMessage from "../../../components/CoreComponents/Alerts/Error/errorMessage.index";
+import Navbar from "../../../components/CoreComponents/Navbar/navbar.index";
 
 const Login: React.FC<any> = ({}) => {
   const [error, setError] = useState("");

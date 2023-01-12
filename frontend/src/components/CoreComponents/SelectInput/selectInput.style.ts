@@ -1,7 +1,7 @@
 import { ThemeOptions } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-const useStyle = makeStyles((theme:ThemeOptions) => ({
+const useStyle = makeStyles((theme: ThemeOptions) => ({
   container: {
     width: 300,
   },
@@ -17,15 +17,14 @@ const useStyle = makeStyles((theme:ThemeOptions) => ({
     padding: "10.5px 14px 10.5px 12px",
     fontSize: "14px",
 
-  
     "& :: focus-visible ": {
       outline: `0px !important`,
-    }
+    },
   },
 
   "input :focus-visible": {
     outline: `0px !important`,
-  },
+  }
 }));
 
 export default useStyle;

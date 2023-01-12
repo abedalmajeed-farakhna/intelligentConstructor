@@ -1,7 +1,8 @@
 
 import React from "react";
-import Navbar from "../../components/Navbar/navbar.index";
-import SlideShow2 from "../../components/SlideShow2/SlideShow2";
+
+import Navbar from "../../components/CoreComponents/Navbar/navbar.index";
+import SlideShow2 from "../../components/CoreComponents/SlideShow2/SlideShow2";
 
 
 const Main=()=> {

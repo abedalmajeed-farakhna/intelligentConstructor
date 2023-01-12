@@ -1,0 +1,30 @@
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
+import { IApplicationState } from "../../../redux/ApplicationState";
+import { IUser } from "../../../types/types";
+import { userTypeEnum } from "../../../enums/userTypeEnum";
+import AdminDashboard from "../../Admin/adminDashboard";
+import ConstuctorDashboard from "../../Constuctor/constuctorDashboard";
+import CraftsmanDashboard from "../../Craftsman/MainDashboard/craftsmanDashboard.index";
+import GuestDashboard from "../../Guest/Dashboard/guestDashboard.index";
+
+const DashboardContainer: React.FC<any> = ({ children }) => {
+  const user: IUser = useSelector((state: IApplicationState) => state.user);
+  
+  switch (user.type) {
+    case userTypeEnum.ADMIN:
+      return <AdminDashboard>{children}</AdminDashboard>;
+
+    case userTypeEnum.CRAFTSMAN:
+      return <CraftsmanDashboard>{children}</CraftsmanDashboard>;
+
+    case userTypeEnum.CONSTRUCTOR:
+      return <ConstuctorDashboard>{children}</ConstuctorDashboard>;
+
+    case userTypeEnum.GUEST:
+      return <GuestDashboard>{children}</GuestDashboard>;
+  }
+  return <></>;
+};
+export default DashboardContainer;

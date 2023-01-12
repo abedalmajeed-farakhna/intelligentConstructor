@@ -1,5 +1,4 @@
 export interface ICustomButtonProps {
-  text: string
-  icon?: any,
-  }
-  
+  text: string;
+  icon?: any;
+}

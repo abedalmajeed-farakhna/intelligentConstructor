@@ -10,5 +10,6 @@ namespace Backend.Repositories
         Task<CraftsmanInformation?> getUserInformation(Guid userId);
         Task<bool> AddOrUpdateUserInformation(UpdateInformationRequest request, Guid userID);
         Task<List<CraftsmanUserInformationSP>> getAllCraftsmanInformation();
+        Task<CraftsmanUserInformationSP> getCraftsmanInformation(Guid id);
     }
 }

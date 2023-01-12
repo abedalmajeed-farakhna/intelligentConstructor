@@ -9,6 +9,9 @@ namespace Backend.Services
         Task<bool> UpdateInformationAsync(UpdateInformationRequest request);
         Task<GetUserInformationResponse> GetUserInformation();
         Task<List<CraftsmanUserInformationSP>> getAllCraftsmanInformation();
+        Task<CraftsmanUserInformationSP> getCraftsmanInformation(Guid id);
+
+
 
     }
 }

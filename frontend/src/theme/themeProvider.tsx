@@ -21,7 +21,7 @@ declare module "@mui/material/styles" {
     };
   }
   interface ThemeOptions {
-    colors?: {
+    colors: {
       primary: React.CSSProperties["color"];
       secondary?: React.CSSProperties["color"];
       error?: React.CSSProperties["color"];

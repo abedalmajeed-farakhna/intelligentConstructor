@@ -1,4 +1,4 @@
 export interface ICustomLinkProps {
-  path: string,
-  text: string
+  path: string;
+  text: string;
 }

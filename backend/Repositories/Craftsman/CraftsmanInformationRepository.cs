@@ -29,8 +29,14 @@ namespace Backend.Repositories
         {
 
             string sql = "exec [dbo].[CraftsmanUserInformation_sp]";
-            var asd = _context.CraftsmanUserInformation.FromSqlRaw(sql);
             return await _context.CraftsmanUserInformation.FromSqlRaw(sql)?.ToListAsync();
+
+        }
+        public async Task<CraftsmanUserInformationSP> getCraftsmanInformation(Guid id)
+        {
+
+            string sql = "exec [dbo].[CraftsmanUserInformation_sp]";
+            return await _context.CraftsmanUserInformation.FromSqlRaw(sql)?.FirstOrDefaultAsync(t=>t.Id == id.ToString());
 
         }
 

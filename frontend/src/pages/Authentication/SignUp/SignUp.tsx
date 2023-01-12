@@ -1,15 +1,17 @@
+import React from "react";
+import axios from "axios";
+import { Formik, Form } from "formik";
 import { Person } from "@mui/icons-material";
 import { Box, Button, Container, Typography } from "@mui/material";
-import axios from "axios";
-import React from "react";
-import Navbar from "../../../components/Navbar/navbar.index";
+
 import { userTypeEnum } from "../../../enums/userTypeEnum";
-import { Formik, Form } from "formik";
-import { signUpInitialValues, signUpSchema } from "./signUp.utils";
 import TextInput from "../../../components/CoreComponents/TextInput/textInput.index";
 import SelectInput from "../../../components/CoreComponents/SelectInput/selectInput.index";
 import CustomLink from "../../../components/CoreComponents/CustomLink/customLink.index";
 import { PATH_NAMES } from "../../../constants/route";
+import Navbar from "../../../components/CoreComponents/Navbar/navbar.index";
+
+import { signUpInitialValues, signUpSchema } from "./signUp.utils";
 
 const SignUp: React.FC<any> = ({}) => {
   const onHandleSubmit = (values) => {

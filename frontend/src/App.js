@@ -1,19 +1,19 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import Main from "./pages/Main/Main.tsx";
-import React from "react";
-import Login from "./pages/Authentication/Login/Login.tsx";
-import SignUp from "./pages/Authentication/SignUp/SignUp.tsx";
 
-import MainDashboard from "./pages/Dashboards/mainDashboard";
 import RedirectToLogin from "./utils/Redirections/redirectToLogin";
 import RedirectToHome from "./utils/Redirections/redirectToHome";
 import { PATH_NAMES } from "./constants/route";
-import CraftsmanInformation from "./pages/CraftsmanInformation/craftsmanInformation.index";
 import Logout from "./pages/Authentication/Logout/logout.index";
 import { theme } from "./theme/themeProvider";
-import InformationDBContainer from "./pages/Authentication/InformationDBContainer/informationDBContainer";
-import CraftsmanList from "./pages/CraftsmanList/craftsmanList.index";
+import Login from "./pages/Authentication/Login/Login.tsx"
+import InformationDBContainer from "./pages/InformationDBContainer/informationDBContainer";
+import CraftsmanList from "./pages/Guest/CraftsmanList/craftsmanList.index";
+import MainDashboard from "./pages/Containers/Dashboards/mainDashboard";
+import SignUp from "./pages/Authentication/SignUp/SignUp";
+import Main from "./pages/Main/Main";
+
 
 const App = () => {
   return (

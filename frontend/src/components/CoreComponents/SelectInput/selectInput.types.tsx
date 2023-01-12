@@ -1,7 +1,5 @@
 export interface ISelectProps {
-  
-  name:string,
-  options:any,
-  label?:string
-  }
-  
+  name: string;
+  options: any;
+  label?: string;
+}

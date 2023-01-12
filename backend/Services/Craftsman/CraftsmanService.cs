@@ -42,6 +42,11 @@ namespace Backend.Services
         {
             return  await _craftsmanInformationRepository.getAllCraftsmanInformation();
         }
+        public async Task<CraftsmanUserInformationSP> getCraftsmanInformation(Guid id)
+        {
+
+            return await _craftsmanInformationRepository.getCraftsmanInformation(id);
+        }
         public async Task<GetUserInformationResponse> GetUserInformation()
         {
             var userId = _authenticationService.GetCurrentUserId();
