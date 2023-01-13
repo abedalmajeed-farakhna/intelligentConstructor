@@ -1,6 +1,8 @@
+import { sectorEnum } from "../../../enums/sectorEnum";
+
 export interface ICardProps {
     text: string;
     description: string;
-    icon?: any;
+    sector: sectorEnum;
     imagePath: string;
   }

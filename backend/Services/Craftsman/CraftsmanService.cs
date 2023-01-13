@@ -1,4 +1,5 @@
 ﻿using Backend.Dtos.Craftsman;
+using Backend.Enums;
 using Backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Dtos.Settings;
@@ -67,5 +68,13 @@ namespace Backend.Services
                 Note = craftmanInformation?.Note
             };
         }
+        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanbYSector(SectorEnum sector)
+        {
+
+            return await _craftsmanInformationRepository.GetCraftsmanbYSector(sector);
+        }
+
+
+       
     }
 }

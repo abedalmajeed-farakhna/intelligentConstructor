@@ -2,6 +2,8 @@
 using Backend.Dtos;
 using Backend.Services;
 using Backend.Dtos.Craftsman;
+using WebApplication1.Models.Craftsman;
+using Backend.Enums;
 
 namespace Backend.Controllers
 {
@@ -24,6 +26,11 @@ namespace Backend.Controllers
         public async Task<GetUserInformationResponse> GetUserInformation()
         {
             return await _craftsmanService.GetUserInformation();
+        }
+        [HttpGet]
+        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySector(SectorEnum sector)
+        {
+            return await _craftsmanService.GetCraftsmanbYSector(sector);
         }
 
         // [Authorize]

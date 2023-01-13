@@ -1,10 +1,11 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
+import CustomLink from "../CustomLink/customLink.index";
 
 import useStyles from "./imageCard.style";
 import { ICardProps } from "./imageCard.type";
 
-const ImageCard: React.FC<ICardProps> = ({ text,description, icon,imagePath }) => {
+const ImageCard: React.FC<ICardProps> = ({ text,description, sector,imagePath }) => {
   const classes = useStyles();
 
   return (
@@ -17,8 +18,9 @@ const ImageCard: React.FC<ICardProps> = ({ text,description, icon,imagePath }) =
     />
     <CardContent>
       <Typography gutterBottom variant="h5" component="div">
-        {text}
-      </Typography>
+       
+       <CustomLink path={`${sector}`} text={text}/>
+             </Typography>
       <Typography variant="body2" color="text.secondary">
         {description}
       </Typography>

@@ -1,4 +1,5 @@
 ﻿using Backend.Dtos.Craftsman;
+using Backend.Enums;
 using WebApplication1.Models.Craftsman;
 
 namespace Backend.Services
@@ -10,6 +11,7 @@ namespace Backend.Services
         Task<GetUserInformationResponse> GetUserInformation();
         Task<List<CraftsmanUserInformationSP>> getAllCraftsmanInformation();
         Task<CraftsmanUserInformationSP> getCraftsmanInformation(Guid id);
+        Task<List<CraftsmanUserInformationSP>> GetCraftsmanbYSector(SectorEnum sector);
 
 
 

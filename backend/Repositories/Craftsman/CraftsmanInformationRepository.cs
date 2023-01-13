@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 using WebApplication1.Models;
 using WebApplication1.Models.Craftsman;
+using Backend.Enums;
 
 namespace Backend.Repositories
 {
@@ -66,5 +67,18 @@ namespace Backend.Repositories
 
             return true;
         }
+
+        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanbYSector(SectorEnum sector)
+        {
+
+            string sql = "exec [dbo].[CraftsmanUserInformation_sp]";
+            var asd = await _context.CraftsmanUserInformation.FromSqlRaw(sql).ToListAsync();
+            var result = asd.Where(t => t.Sector == sector).ToList();
+            return result;
+
+
+        }
+
+       
     }
 }
