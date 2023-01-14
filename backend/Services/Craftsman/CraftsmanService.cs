@@ -68,6 +68,10 @@ namespace Backend.Services
                 Note = craftmanInformation?.Note
             };
         }
+        public async Task<CraftsmanInformationSP> GetCraftsmanInformationById(Guid id)
+        {
+           return await _craftsmanInformationRepository.GetCratsmanInformationById(id);
+        }
         public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanbYSector(SectorEnum sector)
         {
 

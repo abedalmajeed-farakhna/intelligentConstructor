@@ -6,6 +6,7 @@ using WebApplication1.Data;
 using WebApplication1.Models;
 using WebApplication1.Models.Craftsman;
 using Backend.Enums;
+using WebApplication1.Data.Migrations;
 
 namespace Backend.Repositories
 {
@@ -25,7 +26,13 @@ namespace Backend.Repositories
             return await _context.craftsmanInformation.FirstOrDefaultAsync(t => t.UserId == userId);
 
         }
+        public async Task<CraftsmanInformationSP> GetCratsmanInformationById(Guid userId)
+        {
 
+            string sql = $"EXECUTE [dbo].[GetCraftsmanInformationByUserId_SP]  {userId}";
+            return await _context.GetUserInformationById.FromSqlRaw(sql).FirstOrDefaultAsync();
+
+        }
         public async Task<List<CraftsmanUserInformationSP>> getAllCraftsmanInformation()
         {
 
@@ -72,10 +79,8 @@ namespace Backend.Repositories
         {
 
             string sql = "exec [dbo].[CraftsmanUserInformation_sp]";
-            var asd = await _context.CraftsmanUserInformation.FromSqlRaw(sql).ToListAsync();
-            var result = asd.Where(t => t.Sector == sector).ToList();
-            return result;
-
+            var list = await _context.CraftsmanUserInformation.FromSqlRaw(sql).ToListAsync();
+            return list.Where(t => t.Sector == sector).ToList();
 
         }
 

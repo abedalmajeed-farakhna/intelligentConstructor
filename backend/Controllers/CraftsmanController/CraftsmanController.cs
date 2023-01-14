@@ -28,6 +28,11 @@ namespace Backend.Controllers
             return await _craftsmanService.GetUserInformation();
         }
         [HttpGet]
+        public async Task<CraftsmanInformationSP> GetCraftsmanInformationById(Guid id)
+        {
+            return await _craftsmanService.GetCraftsmanInformationById(id);
+        }
+        [HttpGet]
         public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySector(SectorEnum sector)
         {
             return await _craftsmanService.GetCraftsmanbYSector(sector);

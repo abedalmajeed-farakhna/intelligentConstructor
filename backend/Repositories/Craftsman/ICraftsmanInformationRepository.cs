@@ -9,6 +9,7 @@ namespace Backend.Repositories
     public interface ICraftsmanInformationRepository
     {
         Task<CraftsmanInformation?> getUserInformation(Guid userId);
+        Task<CraftsmanInformationSP?> GetCratsmanInformationById(Guid userId);
         Task<bool> AddOrUpdateUserInformation(UpdateInformationRequest request, Guid userID);
         Task<List<CraftsmanUserInformationSP>> getAllCraftsmanInformation();
         Task<CraftsmanUserInformationSP> getCraftsmanInformation(Guid id);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Backend.Dtos.Craftsman;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.FluentApi.Craftsman;
 using WebApplication1.Models;
@@ -15,6 +16,7 @@ namespace WebApplication1.Data
         }
         public virtual DbSet<UserProfile> userProfile { get; set; }
         public virtual DbSet<CraftsmanUserInformationSP> CraftsmanUserInformation { get; set; }
+        public virtual DbSet<CraftsmanInformationSP> GetUserInformationById { get; set; }
 
         public virtual DbSet<CraftsmanInformation> craftsmanInformation { get; set; }
 
@@ -26,7 +28,7 @@ namespace WebApplication1.Data
 
             modelBuilder.ApplyConfiguration( new CraftsmanInformationConfigration());
             modelBuilder.Entity<CraftsmanUserInformationSP>().HasNoKey().ToView("__notExist");
-
+            modelBuilder.Entity<CraftsmanInformationSP>().HasNoKey().ToView("__notExist2");
         }
     }
 }
