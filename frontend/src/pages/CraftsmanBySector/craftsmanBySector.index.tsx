@@ -1,8 +1,10 @@
-import { Grid } from "@mui/material";
-import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { Button, Grid } from "@mui/material";
+import { GridColDef, GridRenderCellParams, GridValueGetterParams } from "@mui/x-data-grid";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CustomDataGrid from "../../components/CoreComponents/CustomDataGrid/customDataGrid.index";
+import CustomLink from "../../components/CoreComponents/CustomLink/customLink.index";
+import { PATH_NAMES } from "../../constants/route";
 
 
 
@@ -26,7 +28,12 @@ const columns2: GridColDef[] = [
         headerName: 'User name',
         description: 'Username ',
         sortable: false,
-        width: 160
+        width: 160,
+        renderCell:(params) => (
+          
+          <CustomLink path={`/craftsmanInformation/${params.row.id}`} text={params.row.userName}/>
+      ),
+
       },
 
     {
@@ -39,7 +46,18 @@ const columns2: GridColDef[] = [
       field: 'speed',
       headerName: 'speed',
       width: 150,
-      
+      renderCell:(params) => (
+          <Button
+            variant="contained"
+            size="small"
+            style={{ marginLeft: 16 }}
+            tabIndex={params.hasFocus ? 0 : -1}
+          >
+            {params.row.speed}
+          </Button>
+      ),
+     
+
     },
  
 

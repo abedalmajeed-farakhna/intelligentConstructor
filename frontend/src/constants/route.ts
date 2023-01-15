@@ -6,5 +6,6 @@ export const PATH_NAMES = {
   SIGNUP: "/signup",
   INFORMATION: "/information",  
   CRAFTSMAN:"/craftsman", 
-  CRAFTSMAN_BY_SECTOR:"/craftsman/:id", 
+  CRAFTSMAN_BY_SECTOR:"/craftsman/:id",
+  CRAFTSMAN_INFORMATION:"/craftsmanInformation/:id", 
 };
