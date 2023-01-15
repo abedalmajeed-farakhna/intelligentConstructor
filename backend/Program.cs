@@ -37,6 +37,11 @@ builder.Services.AddScoped<ICraftsmanInformationRepository, CraftsmanInformation
 builder.Services.AddScoped<ICraftsmanService, CraftsmanService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IGuestService, GuestService>();
+builder.Services.AddScoped<ICraftsmanScheduleRepository, CraftsmanScheduleRepository>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
+
 /*builder.Services.AddScoped<IFileUploaderServices, FileUploaderServices>();*/
 
 var app = builder.Build();

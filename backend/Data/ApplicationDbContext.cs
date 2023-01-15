@@ -14,11 +14,15 @@ namespace WebApplication1.Data
         {
 
         }
+
         public virtual DbSet<UserProfile> userProfile { get; set; }
         public virtual DbSet<CraftsmanUserInformationSP> CraftsmanUserInformation { get; set; }
         public virtual DbSet<CraftsmanInformationSP> GetUserInformationById { get; set; }
 
         public virtual DbSet<CraftsmanInformation> craftsmanInformation { get; set; }
+        public virtual DbSet<CraftsmanSchedule> craftsmanSchedule { get; set; }
+
+        public virtual DbSet<CraftsmanSchedule> craftsmanProject { get; set; }
 
 
 
@@ -27,6 +31,8 @@ namespace WebApplication1.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration( new CraftsmanInformationConfigration());
+            modelBuilder.ApplyConfiguration(new CraftsmanScheduleConfigration());
+            modelBuilder.ApplyConfiguration(new CraftsmanProjectConfigration());
             modelBuilder.Entity<CraftsmanUserInformationSP>().HasNoKey().ToView("__notExist");
             modelBuilder.Entity<CraftsmanInformationSP>().HasNoKey().ToView("__notExist2");
         }
