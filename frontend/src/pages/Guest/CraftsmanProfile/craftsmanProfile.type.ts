@@ -4,5 +4,6 @@ export interface IUser {
     username: string;
       id:number,
     profileImage?:string
+    
   }
   

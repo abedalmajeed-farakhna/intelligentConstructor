@@ -13,7 +13,7 @@ const ProfileImage: React.FC<IProfileImageProps> = ({ path }) => {
         <div>
           <img
             className={classes.root}
-            src={`Upload/${path}`}
+            src={`/Upload/${path}`}
             alt="profile pecher"
             width="25px"
             height="25px"
