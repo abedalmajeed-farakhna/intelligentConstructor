@@ -32,7 +32,6 @@ namespace WebApplication1.Data
 
             modelBuilder.ApplyConfiguration( new CraftsmanInformationConfigration());
             modelBuilder.ApplyConfiguration(new CraftsmanScheduleConfigration());
-            modelBuilder.ApplyConfiguration(new CraftsmanProjectConfigration());
             modelBuilder.Entity<CraftsmanUserInformationSP>().HasNoKey().ToView("__notExist");
             modelBuilder.Entity<CraftsmanInformationSP>().HasNoKey().ToView("__notExist2");
         }

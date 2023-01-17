@@ -4,24 +4,18 @@ import CraftsmanSidebar from "../../../components/commonComponent/Craftsman/Side
 
 import useStyles from "./craftsmanDashboard.style";
 
-const CraftsmanDashboard :React.FC<any>= ({children}) => {
+const CraftsmanDashboard: React.FC<any> = ({ children }) => {
   const classes = useStyles();
-console.log("CraftsmanDashboard")
+  console.log("CraftsmanDashboard");
 
   return (
     <Box className={classes.root}>
-      <CssBaseline />
       <CraftsmanSidebar />
       
       <Box
         component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${200}px)` },
-        }}
+      
       >
-        <Toolbar />
        {children}
       </Box>
     </Box>

@@ -70,7 +70,7 @@ namespace Backend.Services
         }
         public async Task<CraftsmanInformationSP> GetCraftsmanInformationById(Guid id)
         {
-           return await _craftsmanInformationRepository.GetCratsmanInformationById(id);
+           return await _craftsmanInformationRepository.GetCraftsmanInformationById(id);
         }
         public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanbYSector(SectorEnum sector)
         {

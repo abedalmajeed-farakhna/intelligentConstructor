@@ -9,7 +9,7 @@ const useStyle = makeStyles((theme) => ({
     height: 170,
     borderRadius: "50%",
     overflow: "hidden",
-    border: "2px solid black",
+    border: "2px solid #fff",
     backgroundSize: "cover",
   },
   image: {

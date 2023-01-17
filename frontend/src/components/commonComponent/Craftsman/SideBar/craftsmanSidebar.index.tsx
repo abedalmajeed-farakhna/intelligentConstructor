@@ -17,7 +17,7 @@ const CraftsmanSidebar = () => {
           <List>
             <CustomeListItem
               icon={<InfoIcon />}
-              text={"Infrmation"}
+              text={"Information"}
               path={PATH_NAMES.INFORMATION}
             />
           </List>

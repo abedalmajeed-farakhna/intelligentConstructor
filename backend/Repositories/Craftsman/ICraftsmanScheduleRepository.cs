@@ -1,13 +1,14 @@
-﻿using Backend.Dtos;
-using Backend.Dtos.Craftsman;
-using Backend.Enums;
-using WebApplication1.Models;
-using WebApplication1.Models.Craftsman;
+﻿using Backend.Dtos.Craftsman;
 
 namespace Backend.Repositories
 {
     public interface ICraftsmanScheduleRepository
     {
-        
+
+        Task<bool> AcceptRequest(int projectId);
+        Task<bool> RejectRequest(int projectId);
+
+        Task<bool> AddNewRequest(AddNewRequestDto request);
+
     }
 }

@@ -8,7 +8,7 @@ namespace Backend.Dtos.Craftsman
         public string Note { get; set; }
         public int? Speed { get; set; }
         public string? ProfileImage { get; set; }
-        public Guid? Id { get; set; }
+        public string? Id { get; set; }
         public string? PhoneNumber { get; set; }
 
 

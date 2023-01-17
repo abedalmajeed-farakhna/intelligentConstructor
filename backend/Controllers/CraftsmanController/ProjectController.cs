@@ -13,20 +13,28 @@ namespace Backend.Controllers
     {
 
 
-        private readonly ICraftsmanService _craftsmanService;
+        private readonly ICraftsmanScheduleService _craftsmanScheduleService;
 
 
-        public ProjectController(ICraftsmanService craftsmanService)
+        public ProjectController(ICraftsmanScheduleService craftsmanScheduleService)
         {
-            _craftsmanService = craftsmanService;
+            _craftsmanScheduleService = craftsmanScheduleService;
 
         }
 
-        [HttpGet]
-        public async Task<GetUserInformationResponse> sendRequest()
+        [HttpPost]
+        public async Task<bool> SendRequest([FromBody] SendRequestDto request )
         {
-            return await _craftsmanService.GetUserInformation();
+             return await _craftsmanScheduleService.SendRequest(request);
         }
-       
+        public async Task<bool> AcceptRequest ([FromBody] AcceptRequestDto request)
+        {
+            return await _craftsmanScheduleService.AcceptRequest(request.projectId);
+        }
+        public async Task<bool> RejectRequest([FromBody] RejectRequestDto request)
+        {
+            return await _craftsmanScheduleService.RejectRequest(request.projectId);
+        }
+
     }
 }
