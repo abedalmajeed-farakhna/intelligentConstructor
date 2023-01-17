@@ -7,6 +7,7 @@
         Inprogres = 2,
         Rejected = 3,
         Aproved = 4, 
+        Cancel= 5,
           
 
     }

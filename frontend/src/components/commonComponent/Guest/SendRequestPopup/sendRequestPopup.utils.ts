@@ -1,5 +1,7 @@
+import moment from "moment";
+
 export const InitialValues = {
-    from: "",
-    to: "",
+    from: moment(),
+    to: moment(),
     description:"",
   };

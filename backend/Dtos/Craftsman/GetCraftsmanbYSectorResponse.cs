@@ -1,7 +1,7 @@
 ﻿
 namespace Backend.Dtos.Craftsman
 {
-    public class GetCraftsmanbYSectorResponse
+    public class GetCraftsmanBySectorResponse
     {
         public string FullName { get; set; }
         public string UserName { get; set; }

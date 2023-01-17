@@ -8,12 +8,13 @@ using WebApplication1.Models.Craftsman;
 using Backend.Enums;
 using WebApplication1.Data.Migrations;
 using Azure.Core;
+using System.Collections.Generic;
 
 namespace Backend.Repositories
 {
     public class CraftsmanScheduleRepository : ICraftsmanScheduleRepository
     {
-        
+
 
         private ApplicationDbContext _context;
 
@@ -22,41 +23,68 @@ namespace Backend.Repositories
             _context = context;
         }
 
-        public async Task<bool> AcceptRequest (int projectId )
+        public async Task<bool> AcceptRequest(int RequestId)
         {
-            var item = await _context.craftsmanSchedule.FirstOrDefaultAsync(t => t.Id == projectId);
+            var item = await _context.craftsmanSchedule.FirstOrDefaultAsync(t => t.Id == RequestId);
+            if (item == null)
+            {
+                return false;
+            }
             item.Status = ProjectStatusEnum.Aproved;
             _context.SaveChanges();
             return true;
         }
 
-        public async Task<bool> RejectRequest(int projectId)
+        public async Task<bool> RejectRequest(int RequestId)
         {
-            var item = await _context.craftsmanSchedule.FirstOrDefaultAsync(t => t.Id == projectId);
+            var item = await _context.craftsmanSchedule.FirstOrDefaultAsync(t => t.Id == RequestId);
+            if (item == null)
+            {
+                return false;
+            }
             item.Status = ProjectStatusEnum.Rejected;
             _context.SaveChanges();
             return true;
         }
-        public async Task<bool>  AddNewRequest(AddNewRequestDto request )
+        public async Task<bool> AddNewRequest(AddNewRequestDto request)
         {
-           
 
-           var item = new CraftsmanSchedule
-           {
-               Status= ProjectStatusEnum.Pending,
-               Frome=request.From,
-               To=request.To,
-               FromUserId=request.FromUserId,
-               ToUserId = request.ToUserId
 
-           };
+            var item = new CraftsmanSchedule
+            {
+                Status = ProjectStatusEnum.Pending,
+                Frome = request.From,
+                To = request.To,
+                FromUserId = request.FromUserId,
+                ToUserId = request.ToUserId,
+                Description = request.Description
+
+            };
             await _context.craftsmanSchedule.AddAsync(item);
             _context.SaveChanges();
 
             return true;
         }
-
-
+        public async Task<bool> CancelRequest(int RequestId)
+        {
+            var item = await _context.craftsmanSchedule.FirstOrDefaultAsync(t => t.Id == RequestId);
+            if(item == null)
+            {
+                return false;
+            }
+            item.Status = ProjectStatusEnum.Cancel;
+            _context.SaveChanges();
+            return true;
+        }
+        public async Task<List<CraftsmanSchedule>> GetGuestRequestList(Guid userId)
+        {
+            return await _context.craftsmanSchedule.Where(t => t.FromUserId == userId).ToListAsync();
+        }
+        public async Task<List<CraftsmanSchedule>> GetCraftsmanRequestList(Guid userId)
+        {
+            return await _context.craftsmanSchedule.Where(t => t.ToUserId == userId).ToListAsync();
+        }
+        
 
 
     }

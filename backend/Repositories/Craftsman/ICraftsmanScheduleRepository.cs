@@ -1,14 +1,23 @@
 ﻿using Backend.Dtos.Craftsman;
+using WebApplication1.Models.Craftsman;
 
 namespace Backend.Repositories
 {
     public interface ICraftsmanScheduleRepository
     {
 
-        Task<bool> AcceptRequest(int projectId);
-        Task<bool> RejectRequest(int projectId);
+        Task<bool> AcceptRequest(int RequestId);
+        Task<bool> RejectRequest(int RequestId);
 
         Task<bool> AddNewRequest(AddNewRequestDto request);
+        Task<bool> CancelRequest(int RequestId);
+
+        Task<List<CraftsmanSchedule>> GetGuestRequestList(Guid userId);
+        Task<List<CraftsmanSchedule>> GetCraftsmanRequestList(Guid userId);
+        
+
+
+
 
     }
 }

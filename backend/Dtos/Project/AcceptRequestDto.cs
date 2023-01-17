@@ -6,7 +6,7 @@ namespace Backend.Dtos.Craftsman
     public class AcceptRequestDto
     {
       
-        public int projectId { get; set; }
+        public int RequestId { get; set; }
 
     }
 }

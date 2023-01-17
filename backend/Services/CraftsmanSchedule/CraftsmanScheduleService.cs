@@ -1,5 +1,6 @@
 ﻿using Backend.Dtos.Craftsman;
 using Backend.Repositories;
+using WebApplication1.Models.Craftsman;
 
 namespace Backend.Services
 {
@@ -30,13 +31,29 @@ namespace Backend.Services
               return await _craftsmanScheduleRepository.AddNewRequest(addNewRequestDto);
 
         }
-        public async Task<bool> RejectRequest(int projectId)
+        public async Task<bool> RejectRequest(int RequestId)
         {
-              return await _craftsmanScheduleRepository.RejectRequest(projectId);
+              return await _craftsmanScheduleRepository.RejectRequest(RequestId);
         }
-        public async Task<bool> AcceptRequest(int projectId)
+        public async Task<bool> AcceptRequest(int RequestId)
         {
-             return await _craftsmanScheduleRepository.AcceptRequest(projectId);
+             return await _craftsmanScheduleRepository.AcceptRequest(RequestId);
+        }
+        public async Task<bool> CancelRequest(int RequestId)
+        {
+            return await _craftsmanScheduleRepository.CancelRequest(RequestId);
+        }
+        public async Task<List<CraftsmanSchedule>> GetGuestRequestList()
+        {
+            var userId = _authenticationService.GetCurrentUserId();
+            return await _craftsmanScheduleRepository.GetGuestRequestList(userId.GetValueOrDefault());
+
+        }
+
+        public async Task<List<CraftsmanSchedule>> GetCraftsmanRequestList()
+        {
+            var userId = _authenticationService.GetCurrentUserId();
+            return await _craftsmanScheduleRepository.GetGuestRequestList(userId.GetValueOrDefault());
         }
 
     }   

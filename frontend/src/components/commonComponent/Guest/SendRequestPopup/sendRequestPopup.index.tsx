@@ -17,8 +17,8 @@ const SendRequestPopup: React.FC<ISendRequestPopup> = ({
   onClose,
 }) => {
   //const container = window !== undefined ? () => window().document.body : undefined;
-  const [fromDate, setFrom] = React.useState("");
-  const [toDate, setTo] = React.useState("");
+  const [fromDate, setFrom] = React.useState(moment().format('YYYY-MM-DD'));
+  const [toDate, setTo] = React.useState(moment().format('YYYY-MM-DD'));
 
   const onHandleSubmit = (values) => {
     values.from = fromDate;

@@ -4,6 +4,7 @@ using Backend.Services;
 using Backend.Dtos.Craftsman;
 using WebApplication1.Models.Craftsman;
 using Backend.Enums;
+using Microsoft.Identity.Client;
 
 namespace Backend.Controllers
 {
@@ -27,13 +28,29 @@ namespace Backend.Controllers
         {
              return await _craftsmanScheduleService.SendRequest(request);
         }
+        [HttpPost]
         public async Task<bool> AcceptRequest ([FromBody] AcceptRequestDto request)
         {
-            return await _craftsmanScheduleService.AcceptRequest(request.projectId);
+            return await _craftsmanScheduleService.AcceptRequest(request.RequestId);
         }
+        [HttpPost]
         public async Task<bool> RejectRequest([FromBody] RejectRequestDto request)
         {
-            return await _craftsmanScheduleService.RejectRequest(request.projectId);
+            return await _craftsmanScheduleService.RejectRequest(request.RequestId);
+        }
+        [HttpPost]
+        public async Task<bool> CancelRequest([FromBody] RejectRequestDto request)
+        {
+            return await _craftsmanScheduleService.RejectRequest(request.RequestId);
+        }
+        [HttpGet]
+        public async Task<List<CraftsmanSchedule>> GetGuestRequestList( )
+        {
+            return await _craftsmanScheduleService.GetGuestRequestList();
+        } 
+        public async Task<List<CraftsmanSchedule>> GetCraftsmanRequestList()
+        {
+            return await _craftsmanScheduleService.GetCraftsmanRequestList();
         }
 
     }
