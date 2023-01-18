@@ -2,6 +2,7 @@
 
 import * as Yup from "yup";
 import { Exceptions } from "../../../enums/exceptions";
+import { userTypeEnum } from "../../../enums/userTypeEnum";
 
 export const signUpSchema = Yup.object().shape({
     password:
@@ -36,5 +37,5 @@ export const signUpInitialValues = {
     fullName: "",
     password: "",
     repeatPassword: "",
-    userType: "",
+    userType: userTypeEnum.CONSTRUCTOR,
   };

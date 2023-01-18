@@ -6,7 +6,7 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 const CustomDataGrid: React.FC<ICustomDataGridProps> = ({ columns,rows}) => {
 
   
- 
+ console.log(rows,"rows")
   
   
   

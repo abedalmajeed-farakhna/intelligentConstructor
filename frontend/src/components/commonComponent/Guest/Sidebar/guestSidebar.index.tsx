@@ -32,6 +32,12 @@ const GuestSidebar = () => {
               path={PATH_NAMES.CRAFTSMAN}
               text={"craftsman"}
             />
+             <CustomeListItem
+              icon={<InfoIcon />}
+              path={PATH_NAMES.REQuEST}
+              text={"request"}
+            />
+            
           </List>
         </div>
       </Drawer>

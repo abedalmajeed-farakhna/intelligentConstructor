@@ -23,6 +23,7 @@ namespace WebApplication1.Data
         public virtual DbSet<CraftsmanSchedule> craftsmanSchedule { get; set; }
 
         public virtual DbSet<CraftsmanSchedule> craftsmanProject { get; set; }
+        public virtual DbSet<GetGuestRequestListResponseDto> GuestRequestList { get; set; }
 
 
 
@@ -34,6 +35,8 @@ namespace WebApplication1.Data
             modelBuilder.ApplyConfiguration(new CraftsmanScheduleConfigration());
             modelBuilder.Entity<CraftsmanUserInformationSP>().HasNoKey().ToView("__notExist");
             modelBuilder.Entity<CraftsmanInformationSP>().HasNoKey().ToView("__notExist2");
+            modelBuilder.Entity<GetGuestRequestListResponseDto>().HasNoKey().ToView("__notExist3");
+
         }
     }
 }

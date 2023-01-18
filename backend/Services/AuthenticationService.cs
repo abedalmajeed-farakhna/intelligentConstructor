@@ -51,7 +51,7 @@ namespace Backend.Services
                     return new LoginResponse
                     {
                         isAuthontecated = true,
-                        FullName = "Abed Test",
+                        FullName = user.FullName,
                         UserType = user.UserType,
                         ProfileImage = user.ProfileImage
                     };

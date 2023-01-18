@@ -15,6 +15,7 @@ import SignUp from "./pages/Authentication/SignUp/SignUp";
 import Main from "./pages/Main/Main";
 import CraftsmanBySector from "./pages/CraftsmanBySector/craftsmanBySector.index";
 import CraftsmanProfile from "./pages/Guest/CraftsmanProfile/craftsmanProfile.index";
+import RequestList from "./pages/Guest/RequestList/requestList.index";
 //import CraftsmanProfile from "./pages/Guest/craftsmanProfile.index";
 
 
@@ -68,6 +69,16 @@ const App = () => {
               <RedirectToLogin>
                 <MainDashboard>
                   <CraftsmanList />
+                </MainDashboard>
+              </RedirectToLogin>
+            }
+          />
+           <Route
+            path={PATH_NAMES.REQuEST}
+            element={
+              <RedirectToLogin>
+                <MainDashboard>
+                <RequestList />
                 </MainDashboard>
               </RedirectToLogin>
             }

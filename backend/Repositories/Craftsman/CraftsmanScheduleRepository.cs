@@ -9,6 +9,7 @@ using Backend.Enums;
 using WebApplication1.Data.Migrations;
 using Azure.Core;
 using System.Collections.Generic;
+using Microsoft.Data.SqlClient;
 
 namespace Backend.Repositories
 {
@@ -30,7 +31,7 @@ namespace Backend.Repositories
             {
                 return false;
             }
-            item.Status = ProjectStatusEnum.Aproved;
+            item.RequestStatus = ProjectStatusEnum.Aproved;
             _context.SaveChanges();
             return true;
         }
@@ -42,7 +43,7 @@ namespace Backend.Repositories
             {
                 return false;
             }
-            item.Status = ProjectStatusEnum.Rejected;
+            item.RequestStatus = ProjectStatusEnum.Rejected;
             _context.SaveChanges();
             return true;
         }
@@ -52,12 +53,12 @@ namespace Backend.Repositories
 
             var item = new CraftsmanSchedule
             {
-                Status = ProjectStatusEnum.Pending,
-                Frome = request.From,
-                To = request.To,
+                RequestStatus = ProjectStatusEnum.Pending,
+                FromeDate = request.From,
+                ToDate = request.To,
                 FromUserId = request.FromUserId,
                 ToUserId = request.ToUserId,
-                Description = request.Description
+                RequestDescription = request.Description
 
             };
             await _context.craftsmanSchedule.AddAsync(item);
@@ -72,13 +73,20 @@ namespace Backend.Repositories
             {
                 return false;
             }
-            item.Status = ProjectStatusEnum.Cancel;
+            item.RequestStatus = ProjectStatusEnum.Cancel;
             _context.SaveChanges();
             return true;
         }
-        public async Task<List<CraftsmanSchedule>> GetGuestRequestList(Guid userId)
+        public async Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList(Guid userId)
         {
-            return await _context.craftsmanSchedule.Where(t => t.FromUserId == userId).ToListAsync();
+
+
+            var userIdParameter = new SqlParameter("@userId", userId);
+
+            string sql = "EXECUTE [dbo].[GetGuestRequestList_SP]  @userId={0}";
+            return (await _context.GuestRequestList.FromSqlRaw(sql, userIdParameter).ToListAsync());
+
+         
         }
         public async Task<List<CraftsmanSchedule>> GetCraftsmanRequestList(Guid userId)
         {

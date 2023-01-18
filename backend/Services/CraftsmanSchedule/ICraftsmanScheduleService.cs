@@ -12,7 +12,7 @@ namespace Backend.Services
 
         Task<bool> CancelRequest(int RequestId);
 
-        Task<List<CraftsmanSchedule>> GetGuestRequestList();
+        Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList();
         Task<List<CraftsmanSchedule>> GetCraftsmanRequestList();
 
     }

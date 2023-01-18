@@ -11,7 +11,7 @@ import GuestDashboard from "../../Guest/Dashboard/guestDashboard.index";
 
 const DashboardContainer: React.FC<any> = ({ children }) => {
   const user: IUser = useSelector((state: IApplicationState) => state.user);
-  
+  console.log(user.type,"user.type")
   switch (user.type) {
     case userTypeEnum.ADMIN:
       return <AdminDashboard>{children}</AdminDashboard>;

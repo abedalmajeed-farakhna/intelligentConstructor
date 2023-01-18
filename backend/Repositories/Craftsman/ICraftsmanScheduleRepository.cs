@@ -12,7 +12,7 @@ namespace Backend.Repositories
         Task<bool> AddNewRequest(AddNewRequestDto request);
         Task<bool> CancelRequest(int RequestId);
 
-        Task<List<CraftsmanSchedule>> GetGuestRequestList(Guid userId);
+        Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList(Guid userId);
         Task<List<CraftsmanSchedule>> GetCraftsmanRequestList(Guid userId);
         
 

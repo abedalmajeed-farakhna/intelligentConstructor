@@ -109,7 +109,7 @@ const SignUp: React.FC<any> = ({}) => {
                 <SelectInput
                   name="userType"
                   options={[
-                    { name: "Conractor", value: userTypeEnum.CONSTRUCTOR },
+                    { name: "Constructor", value: userTypeEnum.CONSTRUCTOR },
                     { name: "Craftman", value: userTypeEnum.CRAFTSMAN },
                     { name: "Guest", value: userTypeEnum.GUEST },
                   ]}

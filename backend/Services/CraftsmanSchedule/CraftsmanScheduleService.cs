@@ -43,7 +43,7 @@ namespace Backend.Services
         {
             return await _craftsmanScheduleRepository.CancelRequest(RequestId);
         }
-        public async Task<List<CraftsmanSchedule>> GetGuestRequestList()
+        public async Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList()
         {
             var userId = _authenticationService.GetCurrentUserId();
             return await _craftsmanScheduleRepository.GetGuestRequestList(userId.GetValueOrDefault());
@@ -53,7 +53,7 @@ namespace Backend.Services
         public async Task<List<CraftsmanSchedule>> GetCraftsmanRequestList()
         {
             var userId = _authenticationService.GetCurrentUserId();
-            return await _craftsmanScheduleRepository.GetGuestRequestList(userId.GetValueOrDefault());
+            return await _craftsmanScheduleRepository.GetCraftsmanRequestList(userId.GetValueOrDefault());
         }
 
     }   
