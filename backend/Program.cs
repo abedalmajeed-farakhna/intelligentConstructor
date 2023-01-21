@@ -40,6 +40,10 @@ builder.Services.AddScoped<IGuestService, GuestService>();
 builder.Services.AddScoped<ICraftsmanScheduleRepository, CraftsmanScheduleRepository>();
 builder.Services.AddScoped<ICraftsmanScheduleService, CraftsmanScheduleService>();
 
+// Constructor
+builder.Services.AddScoped<IConstructorService, ConstructorService>();
+builder.Services.AddScoped<IConstructorRepository, ConstructorRepository>();
+
 
 /*builder.Services.AddScoped<IFileUploaderServices, FileUploaderServices>();*/
 

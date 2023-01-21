@@ -13,6 +13,7 @@ declare module "@mui/material/styles" {
       blue1?: React.CSSProperties["color"];
       gray1?: React.CSSProperties["color"];
       gray2?: React.CSSProperties["color"];
+      gray3?: React.CSSProperties["color"];
     };
     fontSize: {
       large: number;
@@ -29,6 +30,7 @@ declare module "@mui/material/styles" {
       blue1?: React.CSSProperties["color"];
       gray1?: React.CSSProperties["color"];
       gray2?: React.CSSProperties["color"];
+      gray3?: React.CSSProperties["color"];
     };
     fontSize: {
       large: number;
@@ -51,6 +53,7 @@ export const theme = createTheme({
     blue1:"#e6f7ff",
     gray1: "#fafafb",
     gray2: "#f0f0f0",
+    gray3: "grayP",
 
   },
   fontSize: {

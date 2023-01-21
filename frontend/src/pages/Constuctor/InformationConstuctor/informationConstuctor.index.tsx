@@ -10,11 +10,11 @@ import { IUser } from "../../../types/types";
 import { IApplicationState } from "../../../redux/ApplicationState";
 import FileUploader from "../../../components/CoreComponents/FileUploader/fileUploader.index";
 import { sectorEnum } from "../../../enums/sectorEnum";
-import { validationSchema } from "./craftsmanInformation.utils";
-import useStyles from "./craftsmanInformation.style";
+import useStyles from "./informationConstuctor.style";
 import ProfileImageUpload from "../../../components/CoreComponents/ProfileImageUpload/profileImageUpload.index";
+import { validationSchema } from "./informationConstuctor.utils";
 
-const CraftsmanInformation: React.FC<any> = ({}) => {
+const InformationConstuctor: React.FC<any> = ({}) => {
   const classes = useStyles();
 
   const user: IUser = useSelector((state: IApplicationState) => state.user);
@@ -22,14 +22,14 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
     fullName: "",
     note: "",
     sector: "",
-    speed: "",
+    capacity: "",
     userName: "",
   });
 
   const [imagePath, setImagePath] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    axios.get(`/Craftsman/GetUserInformation`).then((res) => {
+    axios.get(`/Constructor/GetConstructorInformation`).then((res) => {
       if (res.data) {
         const data = res.data;
         setInitialValues({
@@ -37,7 +37,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
           userName: data.userName,
           note: data.note,
           sector: data.sector,
-          speed: data.speed,
+          capacity: data.capacity,
         });
         if (data.profileImage) {
           setImagePath(`/Upload/${data.profileImage}`);
@@ -50,10 +50,10 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
     let data = {
       fullName: values.fullName,
       note: values.note,
-      speed: values.speed,
+      capacity: values.capacity,
       sector: parseInt(values.sector),
     };
-    axios.post(`/Craftsman/updateInformation`, data).then((res) => {
+    axios.post(`/Constuctor/updateInformation`, data).then((res) => {
       if (res.data) {
       }
       const persons = res.data;
@@ -102,11 +102,11 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
               />
 
               <TextInput
-                name="speed"
-                placeholder="speed"
+                name="capacity"
+                placeholder="capacity"
                 type="number"
-                label="speed"
-                error={touched.speed && errors.speed}
+                label="capacity"
+                error={touched.capacity && errors.capacity}
               />
 
               <SelectInput
@@ -145,4 +145,4 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
   );
 };
 
-export default CraftsmanInformation;
+export default InformationConstuctor;

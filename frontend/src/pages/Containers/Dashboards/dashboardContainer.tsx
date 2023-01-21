@@ -5,7 +5,7 @@ import { IApplicationState } from "../../../redux/ApplicationState";
 import { IUser } from "../../../types/types";
 import { userTypeEnum } from "../../../enums/userTypeEnum";
 import AdminDashboard from "../../Admin/adminDashboard";
-import ConstuctorDashboard from "../../Constuctor/constuctorDashboard";
+import ConstuctorDashboard from "../../Constuctor/constuctorDashboard.index";
 import CraftsmanDashboard from "../../Craftsman/MainDashboard/craftsmanDashboard.index";
 import GuestDashboard from "../../Guest/Dashboard/guestDashboard.index";
 

@@ -39,9 +39,9 @@ namespace Backend.Controllers
             return await _craftsmanScheduleService.RejectRequest(request.RequestId);
         }
         [HttpPost]
-        public async Task<bool> CancelRequest([FromBody] RejectRequestDto request)
+        public async Task<bool> CancelRequest([FromBody] CancelRequestDto request)
         {
-            return await _craftsmanScheduleService.RejectRequest(request.RequestId);
+            return await _craftsmanScheduleService.CancelRequest(request.RequestId);
         }
         [HttpGet]
         public async Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList( )

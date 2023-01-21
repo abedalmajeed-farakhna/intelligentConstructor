@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  List,
-  Drawer,
-} from "@mui/material";
+import { List,Drawer,} from "@mui/material";
 import { Box } from "@mui/system";
 import InfoIcon from "@mui/icons-material/Info";
-
 import { PATH_NAMES } from "../../../../constants/route";
 import CustomeListItem from "../../../CoreComponents/CustomeListItem/customeListItem.index";
-
 import useStyles from "./guestSidebar.style";
 const GuestSidebar = () => {
   const drawerWidth = 250;
