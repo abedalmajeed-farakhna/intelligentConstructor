@@ -1,7 +1,7 @@
 ﻿using Backend.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Dtos.Craftsman
+namespace Backend.Dtos.Constructor
 {
     public class GetConstructorInformationResponse
     {

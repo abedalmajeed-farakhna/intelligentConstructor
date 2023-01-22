@@ -1,11 +1,8 @@
-﻿using Backend.Dtos;
-using Backend.Dtos.Craftsman;
+﻿using Backend.Dtos.Constructor;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
-using WebApplication1.Data.Migrations;
-using WebApplication1.Dtos.Settings;
-using WebApplication1.Models;
+using WebApplication1.Models.Constructor;
 
 namespace Backend.Repositories
 {
@@ -28,6 +25,33 @@ namespace Backend.Repositories
             var asd = await _context.GetConstructorInformationSP.FromSqlRaw(sql, userIdParameter).ToListAsync();
             return (await _context.GetConstructorInformationSP.FromSqlRaw(sql, userIdParameter).ToListAsync()).FirstOrDefault();
         }
+
+
+        public async Task<bool> AddOrUpdateConstructorInformation(UpdateConstructorInformationRequest request, Guid userID)
+        {
+
+            var userInformation = await _context.ConstructorInformation.FirstOrDefaultAsync(t=>t.UserId == userID);
+            if (userInformation == null)
+            {
+                userInformation = new ConstructorInformation
+                {
+                    UserId = userID,
+                    Note = request.Note,
+                    Capacity = request.Capacity,
+
+                };
+                await _context.ConstructorInformation.AddAsync(userInformation);
+            }
+            else
+            {
+                userInformation.Note = request.Note;
+                userInformation.Capacity = request.Capacity;
+            }
+
+            _context.SaveChanges();
+
+            return true;
+        }
         /*
 
           public async Task<bool> UpdateConstructorInformation (Guid userId, UpdateUserInformationRequest request)
@@ -43,24 +67,7 @@ namespace Backend.Repositories
               return _context.userProfile.FirstOrDefault(t=> t.Id == userId.ToString());
           }
 
-       /*   public async Task<bool> SignUpAsync(SignUpRequest request)
-          {
-              var user = new User // use mapper
-              {
-                  UserId =Guid.NewGuid(),
-                  UserName = request.Username,
-                  Password = request.Password,
-                  FullName = request.FullName,
-                  UserType = (int)request.UserType
-              };
-
-
-              var test =  await _context.Users.FirstOrDefaultAsync();
-              await _context.Users.AddAsync(user);
-              _context.SaveChanges();
-              return true;
-          }*/
-
+       
 
 
         /* public async Task<bool> UpdateUserInformation(User user)

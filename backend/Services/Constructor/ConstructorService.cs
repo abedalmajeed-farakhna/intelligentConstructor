@@ -1,24 +1,25 @@
-﻿using Backend.Dtos.Craftsman;
+﻿using Backend.Dtos.Constructor;
 using Backend.Enums;
 using Backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Dtos.Settings;
-using WebApplication1.Models.Craftsman;
 
 namespace Backend.Services
 {
     public class ConstructorService : IConstructorService
     {
+        private readonly IUserRepository _userRepository;
         private readonly IConstructorRepository _constructorRepository;
         private readonly IAuthenticationService _authenticationService;
-        public ConstructorService(IConstructorRepository constructorRepository, IAuthenticationService authenticationService)
+        public ConstructorService(IConstructorRepository constructorRepository, IAuthenticationService authenticationService  ,IUserRepository userRepository)
         {
+            _userRepository = userRepository;
             _constructorRepository = constructorRepository;
             _authenticationService = authenticationService;
 
         }
 
-        /*   public async Task<bool> UpdateInformationAsync(UpdateInformationRequest request)
+           public async Task<bool> UpdateInformationAsync(UpdateInformationRequest request)
            {
 
                var userId = _authenticationService.GetCurrentUserId();
@@ -32,11 +33,21 @@ namespace Backend.Services
                    FullName = request.FullName,
                };
                await _userRepository.updateUserInformation(userId.GetValueOrDefault(), updateUserInformationRequest);
-               await _craftsmanInformationRepository.AddOrUpdateUserInformation( request, userId.GetValueOrDefault());
+
+
+            var constructorRequest = new UpdateConstructorInformationRequest
+            {
+                Capacity = request.Capacity,
+                Note = request.Note
+            };
+
+               await _constructorRepository.AddOrUpdateConstructorInformation( constructorRequest, userId.GetValueOrDefault());
 
                return true;
-           }
-           */
+        }
+        
+
+
 
         public async Task<GetConstructorInformationResponse> GetConstructorInformation()
         {

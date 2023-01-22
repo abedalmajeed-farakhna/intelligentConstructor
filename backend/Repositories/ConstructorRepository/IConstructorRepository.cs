@@ -1,7 +1,4 @@
-﻿using Backend.Dtos;
-using Backend.Dtos.Craftsman;
-using WebApplication1.Dtos.Settings;
-using WebApplication1.Models;
+﻿using Backend.Dtos.Constructor;
 
 namespace Backend.Repositories
 {
@@ -9,6 +6,7 @@ namespace Backend.Repositories
     {
 
         Task<GetConstructorInformationResponse?> ConstructorInformation(Guid userId);
+        Task<bool> AddOrUpdateConstructorInformation(UpdateConstructorInformationRequest request, Guid userID);
         /*
         Task<User?> Login(LoginRequest request);
         

@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Backend.Dtos;
 using Backend.Services;
-using Backend.Dtos.Craftsman;
-using WebApplication1.Models.Craftsman;
-using Backend.Enums;
+using Backend.Dtos.Constructor;
 
 namespace Backend.Controllers
 {
@@ -29,13 +26,13 @@ namespace Backend.Controllers
         }
         
       
-     /*   
+     
 
         // [Authorize]
         [HttpPost]
         public async Task<bool> updateInformation([FromBody]UpdateInformationRequest request)
         {
             return await _constructorService.UpdateInformationAsync(request);
-        }*/
+        }
     }
 }
