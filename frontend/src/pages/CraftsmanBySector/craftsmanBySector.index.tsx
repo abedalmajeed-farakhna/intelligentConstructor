@@ -46,18 +46,6 @@ const columns2: GridColDef[] = [
       field: 'speed',
       headerName: 'speed',
       width: 150,
-      renderCell:(params) => (
-          <Button
-            variant="contained"
-            size="small"
-            style={{ marginLeft: 16 }}
-            tabIndex={params.hasFocus ? 0 : -1}
-          >
-            {params.row.speed}
-          </Button>
-      ),
-     
-
     },
  
 

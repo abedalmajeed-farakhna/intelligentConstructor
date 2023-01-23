@@ -1,5 +1,9 @@
-﻿using Backend.Dtos.Craftsman;
+﻿using Backend.Dtos.Constructor;
+using Backend.Dtos.Craftsman;
+using Backend.Dtos.Project;
+using Backend.Enums;
 using Backend.Repositories;
+using WebApplication1.Dtos.Constructor;
 using WebApplication1.Models.Craftsman;
 
 namespace Backend.Services
@@ -55,6 +59,37 @@ namespace Backend.Services
             var userId = _authenticationService.GetCurrentUserId();
             return await _craftsmanScheduleRepository.GetCraftsmanRequestList(userId.GetValueOrDefault());
         }
+        public async Task<GetTopAvailableCraftsmanInSpecificIntervalResponse> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request)
+        {
+            var topAvailableRequest = new GetTopAvailableCraftsmanInSpecificIntervalSpRequest
+            {
+                fromDate = request.FromDate,
+                toDate = request.ToDate,
+                Sector = SectorEnum.Builder
+
+            };
+
+            var topBuilders = await _craftsmanScheduleRepository.GetTopAvailableCraftsmanInSpecificInterval(topAvailableRequest);
+
+
+            topAvailableRequest.Sector = SectorEnum.HousePainter;
+
+           
+            var topHousePainters = await _craftsmanScheduleRepository.GetTopAvailableCraftsmanInSpecificInterval(topAvailableRequest);
+            
+            
+            topAvailableRequest.Sector = SectorEnum.Tiler;
+
+            var topTiler = await _craftsmanScheduleRepository.GetTopAvailableCraftsmanInSpecificInterval(topAvailableRequest);
+
+            
+            return new GetTopAvailableCraftsmanInSpecificIntervalResponse
+            {
+                TopBuilders = topBuilders,
+                 TopHousePainter= topHousePainters
+            };
+        }
+
 
     }   
 }

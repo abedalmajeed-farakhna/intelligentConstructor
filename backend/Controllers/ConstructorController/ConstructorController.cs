@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Backend.Services;
 using Backend.Dtos.Constructor;
+using WebApplication1.Dtos.Constructor;
+//using Backend.Dtos.Craftsman;
 
 namespace Backend.Controllers
 {
@@ -11,12 +13,13 @@ namespace Backend.Controllers
 
 
         private readonly IConstructorService _constructorService;
+        private readonly ICraftsmanScheduleService _craftsmanScheduleService;
 
 
-        public ConstructorController(IConstructorService constructorService)
+        public ConstructorController(IConstructorService constructorService, ICraftsmanScheduleService craftsmanScheduleService)
         {
             _constructorService = constructorService;
-
+            _craftsmanScheduleService = craftsmanScheduleService;
         }
 
         [HttpGet]
@@ -24,9 +27,15 @@ namespace Backend.Controllers
         {
             return await _constructorService.GetConstructorInformation();
         }
-        
-      
-     
+
+        [HttpGet]
+        public async Task<GetTopAvailableCraftsmanInSpecificIntervalResponse> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request)
+        {
+            return await _craftsmanScheduleService.GetTopAvailableCraftsmanInSpecificInterval(request);
+        }
+
+
+
 
         // [Authorize]
         [HttpPost]

@@ -1,15 +1,11 @@
 ﻿//using Backend.Dtos;
-using Backend.Dtos.Craftsman;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
-using WebApplication1.Models;
 using WebApplication1.Models.Craftsman;
 using Backend.Enums;
-using WebApplication1.Data.Migrations;
-using Azure.Core;
-using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
+using Backend.Dtos.Constructor;
+using Backend.Dtos.Project;
 
 namespace Backend.Repositories
 {
@@ -92,7 +88,21 @@ namespace Backend.Repositories
         {
             return await _context.craftsmanSchedule.Where(t => t.ToUserId == userId).ToListAsync();
         }
-        
+
+        public async Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalSpRequest request)
+        {
+           
+
+            var sectorParameter = new SqlParameter("@sector", request.Sector) ;
+            var fromDateParameter = new SqlParameter("@fromDate", request.fromDate);
+            var ToDateParameter = new SqlParameter("@toDate", request.toDate);
+
+            string sql = "EXECUTE [dbo].[GetGuestRequestList_SP]  @sector={0} , @toDate={1}, @fromDate={2}";
+            return (await _context.GetTopAvailableCraftsmanInSpecificInterval.FromSqlRaw(sql, sectorParameter , fromDateParameter, ToDateParameter).ToListAsync());
+
+
+        }
+
 
 
     }

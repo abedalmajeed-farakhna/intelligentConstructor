@@ -9,7 +9,7 @@ const ProjectStatus: React.FC<IProjectStatusProps> = ({projectStatus  }) => {
         case ProjectStatusEnum.Cancel:
 
         return (<div> Cancel</div>)
-    }
+}
 
     switch(projectStatus){
         case ProjectStatusEnum.Pending:

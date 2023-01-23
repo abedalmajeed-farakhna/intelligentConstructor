@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-
 import RedirectToLogin from "./utils/Redirections/redirectToLogin";
 import RedirectToHome from "./utils/Redirections/redirectToHome";
 import { PATH_NAMES } from "./constants/route";
@@ -16,6 +15,8 @@ import Main from "./pages/Main/Main";
 import CraftsmanBySector from "./pages/CraftsmanBySector/craftsmanBySector.index";
 import CraftsmanProfile from "./pages/Guest/CraftsmanProfile/craftsmanProfile.index";
 import RequestList from "./pages/Guest/RequestList/requestList.index";
+import ConstuctorRequestList from "./pages/Constuctor/ReuestList/constuctorRequestList.index";
+import ProjectDashboard from "./pages/Constuctor/ProjectDashboard/projectDashboard.index";
 //import CraftsmanProfile from "./pages/Guest/craftsmanProfile.index";
 
 
@@ -74,7 +75,7 @@ const App = () => {
             }
           />
            <Route
-            path={PATH_NAMES.REQuEST}
+            path={PATH_NAMES.REQUEST}
             element={
               <RedirectToLogin>
                 <MainDashboard>
@@ -114,9 +115,40 @@ const App = () => {
               </Logout>
             }
           />
+            <Route
+            path={PATH_NAMES.CONSTUCTOR_REQUEST}
+            element={
+              <RedirectToLogin>
+              <MainDashboard>
+             <ConstuctorRequestList/>
+             </MainDashboard>
+             </RedirectToLogin>
+            }
+          />
+
+
+            <Route
+            path={PATH_NAMES.PROJECT}
+            element={
+              <RedirectToLogin>
+              <MainDashboard>
+             <ProjectDashboard/>
+             </MainDashboard>
+             </RedirectToLogin>
+            }
+          />
+
+
         </Routes>
+
+
+      
+            
       </BrowserRouter>
     </ThemeProvider>
+
+
+        
   );
 };
 

@@ -8,5 +8,9 @@ export const PATH_NAMES = {
   CRAFTSMAN:"/craftsman", 
   CRAFTSMAN_BY_SECTOR:"/craftsman/:id",
   CRAFTSMAN_INFORMATION:"/craftsmanInformation/:id", 
-  REQuEST:"/request", 
+  REQUEST:"/request", 
+  CONSTUCTOR_REQUEST:"/constuctorRequestList", 
+  PROJECT: "/project",
+  
+  
 };

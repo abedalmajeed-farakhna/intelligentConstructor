@@ -1,5 +1,6 @@
 ﻿using Backend.Dtos.Constructor;
 using Backend.Dtos.Craftsman;
+using Backend.Dtos.Project;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.FluentApi.Constructor;
@@ -23,8 +24,9 @@ namespace WebApplication1.Data
         public virtual DbSet<ConstructorInformation> ConstructorInformation { get; set; }
         public virtual DbSet<CraftsmanInformationSP> GetUserInformationById { get; set; }
         public virtual DbSet<GetConstructorInformationResponse> GetConstructorInformationSP { get; set; }
+        public virtual DbSet<GetTopAvailableCraftsmanInSpecificInterval> GetTopAvailableCraftsmanInSpecificInterval { get; set; }
 
-        public virtual DbSet<CraftsmanInformation> craftsmanInformation { get; set; }
+    public virtual DbSet<CraftsmanInformation> craftsmanInformation { get; set; }
         public virtual DbSet<CraftsmanSchedule> craftsmanSchedule { get; set; }
 
         public virtual DbSet<CraftsmanSchedule> craftsmanProject { get; set; }
@@ -43,6 +45,7 @@ namespace WebApplication1.Data
             modelBuilder.Entity<CraftsmanInformationSP>().HasNoKey().ToView("__notExist2");
             modelBuilder.Entity<GetGuestRequestListResponseDto>().HasNoKey().ToView("__notExist3");
             modelBuilder.Entity<GetConstructorInformationResponse>().HasNoKey().ToView("__notExist4");
+            modelBuilder.Entity<GetTopAvailableCraftsmanInSpecificInterval> ().HasNoKey().ToView("__notExist5");
 
         }
     }

@@ -53,7 +53,7 @@ const InformationConstuctor: React.FC<any> = ({}) => {
       capacity: values.capacity,
       sector: parseInt(values.sector),
     };
-    axios.post(`/Constuctor/updateInformation`, data).then((res) => {
+    axios.post(`/Constructor/updateInformation`, data).then((res) => {
       if (res.data) {
       }
       const persons = res.data;
@@ -109,19 +109,7 @@ const InformationConstuctor: React.FC<any> = ({}) => {
                 error={touched.capacity && errors.capacity}
               />
 
-              <SelectInput
-                label="sector"
-                name="sector"
-                options={[
-                  { name: "NONE", value: sectorEnum.NONE },
-                  { name: "Builder", value: sectorEnum.Builder },
-                  { name: "Tiler", value: sectorEnum.Tiler },
-                  { name: "HousePainter", value: sectorEnum.HousePainter },
-                  { name: "Plumber", value: sectorEnum.Plumber },
-                  { name: "Electrician", value: sectorEnum.Electrician },
-                  { name: "Carpenter", value: sectorEnum.Carpenter },
-                ]}
-              />
+            
               <TextInput
                 as="textarea"
                 name="note"

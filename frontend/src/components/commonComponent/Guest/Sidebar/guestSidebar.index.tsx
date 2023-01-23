@@ -29,7 +29,7 @@ const GuestSidebar = () => {
             />
              <CustomeListItem
               icon={<InfoIcon />}
-              path={PATH_NAMES.REQuEST}
+              path={PATH_NAMES.REQUEST}
               text={"request"}
             />
             

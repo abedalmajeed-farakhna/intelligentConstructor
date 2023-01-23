@@ -22,7 +22,7 @@ namespace Backend.Repositories
             var userIdParameter = new SqlParameter("@userId", userId);
 
             string sql = "EXECUTE [dbo].[GetConstructorInformationByUserId_SP]  @userId={0}";
-            var asd = await _context.GetConstructorInformationSP.FromSqlRaw(sql, userIdParameter).ToListAsync();
+           var asd = await _context.GetConstructorInformationSP.FromSqlRaw(sql, userIdParameter).ToListAsync();
             return (await _context.GetConstructorInformationSP.FromSqlRaw(sql, userIdParameter).ToListAsync()).FirstOrDefault();
         }
 

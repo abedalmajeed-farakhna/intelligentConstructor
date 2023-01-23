@@ -27,8 +27,14 @@ const ConstuctorSidebar = () => {
               />
                <CustomeListItem
                 icon={<InfoIcon />}
-                path={PATH_NAMES.REQuEST}
+                path={PATH_NAMES.CONSTUCTOR_REQUEST}
                 text={"request"}
+              />
+
+               <CustomeListItem
+                icon={<InfoIcon />}
+                path={PATH_NAMES.PROJECT}
+                text={"project"}
               />
               
             </List>
