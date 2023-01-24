@@ -1,6 +1,9 @@
 import React from "react";
 import BuilderStep from "../BuilderStep/builderStep.index";
+import CarpenterStep from "../CarpenterStep/carpenterStep.index";
+import HousePainterStep from "../HousePainterStep/housePainterStep.index";
 import StepOne from "../StepOne/stepOne.index";
+import TilerStep from "../TilerStep/tilerStep.index";
 import { IStepContainerProps } from "./stepContainer.type";
 
 
@@ -14,10 +17,14 @@ const StepContainer: React.FC<IStepContainerProps> = ({step,errors,touched,onToC
         return (<BuilderStep fullName={""} username={""} id={0} values={values}/>)
 
         case 2:
-        return (<div>  HousePainter 1</div>)
+        return (<TilerStep fullName={""} username={""} id={1} values={values}/>)
         
         case 3:
-        return (<div>  Tiler 1</div>)
+        return (<HousePainterStep fullName={""} username={""} id={2} values={values}/>)
+
+        case 4:
+        return (<CarpenterStep fullName={""} username={""} id={3} values={values}/>)
+
         default : return<></>
   }
 

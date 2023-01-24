@@ -15,9 +15,9 @@ export const validationSchema = Yup.object().shape({
     .max(200, 'Too Long!')
     .required('Required'),
 
-    capacity: Yup.number()
-    .min(0, 'the capacity shouldnot bee less than 1')
-    .max(1500, 'the capacity shouldnot bee mor than 1500')
+    speed: Yup.number()
+    .min(0, 'the speed shouldnot bee less than 1')
+    .max(1500, 'the speed shouldnot bee mor than 1500')
     .required('Required'),
 
 

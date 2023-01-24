@@ -47,6 +47,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
   }, []);
 
   const onHandleSubmit = (values) => {
+    debugger;
     let data = {
       fullName: values.fullName,
       note: values.note,
@@ -132,10 +133,6 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
               />
 
               <CustomButton text={"save"} />
-
-              <Box>
-                <Typography></Typography>
-              </Box>
             </Box>
             <FileUploader />
           </Form>
