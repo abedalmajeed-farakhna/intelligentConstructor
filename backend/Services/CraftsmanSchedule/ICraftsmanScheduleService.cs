@@ -1,4 +1,5 @@
-﻿using Backend.Dtos.Project;
+﻿using Backend.Dtos.Constructor;
+using Backend.Dtos.Project;
 using WebApplication1.Dtos.Constructor;
 using WebApplication1.Models.Craftsman;
 
@@ -15,7 +16,7 @@ namespace Backend.Services
 
         Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList();
         Task<List<CraftsmanSchedule>> GetCraftsmanRequestList();
-        Task<GetTopAvailableCraftsmanInSpecificIntervalResponse> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request);
+        Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request);
 
     }
 }

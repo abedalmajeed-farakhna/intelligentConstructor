@@ -1,4 +1,6 @@
-export interface IFormStepperProps {
+export interface IStepOneProps {
     errors:any, 
-    touched:any
+    touched:any,
+    onFromChange:any,
+    onToChange:any
 }

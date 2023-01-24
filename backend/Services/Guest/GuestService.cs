@@ -1,4 +1,5 @@
 ﻿using Backend.Dtos.Craftsman;
+using Backend.Dtos.Guest;
 using Backend.Repositories;
 using Backend.Services;
 using Microsoft.AspNetCore.Authentication;

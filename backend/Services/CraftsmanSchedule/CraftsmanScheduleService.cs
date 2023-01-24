@@ -59,20 +59,13 @@ namespace Backend.Services
             var userId = _authenticationService.GetCurrentUserId();
             return await _craftsmanScheduleRepository.GetCraftsmanRequestList(userId.GetValueOrDefault());
         }
-        public async Task<GetTopAvailableCraftsmanInSpecificIntervalResponse> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request)
+        public async Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request)
         {
-            var topAvailableRequest = new GetTopAvailableCraftsmanInSpecificIntervalSpRequest
-            {
-                fromDate = request.FromDate,
-                toDate = request.ToDate,
-                Sector = SectorEnum.Builder
 
-            };
-
-            var topBuilders = await _craftsmanScheduleRepository.GetTopAvailableCraftsmanInSpecificInterval(topAvailableRequest);
+            return await _craftsmanScheduleRepository.GetTopAvailableCraftsmanInSpecificInterval(request);
 
 
-            topAvailableRequest.Sector = SectorEnum.HousePainter;
+           /* topAvailableRequest.Sector = SectorEnum.HousePainter;
 
            
             var topHousePainters = await _craftsmanScheduleRepository.GetTopAvailableCraftsmanInSpecificInterval(topAvailableRequest);
@@ -87,7 +80,7 @@ namespace Backend.Services
             {
                 TopBuilders = topBuilders,
                  TopHousePainter= topHousePainters
-            };
+            };*/
         }
 
 

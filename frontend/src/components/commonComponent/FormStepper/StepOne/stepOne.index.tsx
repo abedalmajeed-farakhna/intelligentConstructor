@@ -1,10 +1,14 @@
 import React from "react";
-import { IFormStepperProps } from "./stepOne.type";
 
 import TextInput from "../../../CoreComponents/TextInput/textInput.index";
+import moment from "moment";
+import DateInput from "../../../CoreComponents/DateInput/dateInput.index";
+import { IStepOneProps } from "./stepOne.type";
 
 
-const StepOne: React.FC<IFormStepperProps> = ({ errors, touched }) => {
+const StepOne: React.FC<IStepOneProps> = ({ errors, touched,onFromChange,onToChange }) => {
+
+ 
   return (
     <>
       <TextInput
@@ -22,6 +26,21 @@ const StepOne: React.FC<IFormStepperProps> = ({ errors, touched }) => {
         label="space"
         error={touched.space && errors.space}
       />
+
+     <DateInput
+       defaultValue={moment().format('YYYY-MM-DD')}
+       label={"from"}
+       name={"from"}
+      onChange={(val) => onFromChange(val)}
+      />
+
+     <DateInput
+      defaultValue={moment().format('YYYY-MM-DD')}
+      label={"to"}
+      name={"to"}
+      onChange={(val) => onToChange(val)}
+      />
+
     </>
   );
 };
