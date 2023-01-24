@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
 using Backend.Services;
 using Backend.Dtos.Constructor;
 using WebApplication1.Dtos.Constructor;
-//using Backend.Dtos.Craftsman;
 
 namespace Backend.Controllers
 {
@@ -29,8 +29,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<GetTopAvailableCraftsmanInSpecificIntervalResponse> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request)
+        public async Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request)
         {
+           
             return await _craftsmanScheduleService.GetTopAvailableCraftsmanInSpecificInterval(request);
         }
 
