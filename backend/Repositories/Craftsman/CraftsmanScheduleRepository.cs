@@ -96,11 +96,10 @@ namespace Backend.Repositories
 
             var sectorParameter = new SqlParameter("@sector", request.Sector) ;
             var fromDateParameter = new SqlParameter("@fromDate", request.FromDate);
-            var ToDateParameter = new SqlParameter("@toDate", request.ToDate);
             var SpaceParameter = new SqlParameter("@totalspace", request.Space);
 
-            string sql = "EXECUTE [dbo].[GetTopAvailableCraftsmanInSpecificInterval]  @sector={0} , @toDate={1}, @fromDate={2}, @totalspace ={3}";
-            return (await _context.GetTopAvailableCraftsmanInSpecificInterval.FromSqlRaw(sql, sectorParameter , fromDateParameter, ToDateParameter, SpaceParameter).ToListAsync());
+            string sql = "EXECUTE [dbo].[GetTopAvailableCraftsmanInSpecificInterval]  @sector={0} , @fromDate={1}, @totalspace ={2}";
+            return (await _context.GetTopAvailableCraftsmanInSpecificInterval.FromSqlRaw(sql, sectorParameter , fromDateParameter, SpaceParameter).ToListAsync());
 
 
         }

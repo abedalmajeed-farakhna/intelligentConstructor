@@ -10,7 +10,7 @@ const TilerStep: React.FC<ITilerStepProps> = ({ values }) => {
   
   
         <>
-        <TopAvailableCraftsman values={values} sector={sectorEnum.Tiler} />
+        <TopAvailableCraftsman values={values} sector={sectorEnum.Tiler} checkBoxName={"Tiler"} />
         
           <div>
           TilerStep

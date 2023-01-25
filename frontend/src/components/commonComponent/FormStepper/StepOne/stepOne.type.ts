@@ -1,6 +1,5 @@
 export interface IStepOneProps {
-    errors:any, 
-    touched:any,
-    onFromChange:any,
-    onToChange:any
+  errors: any;
+  touched: any;
+  onFromChange: any;
 }

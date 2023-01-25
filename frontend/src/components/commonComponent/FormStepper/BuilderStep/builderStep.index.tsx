@@ -11,8 +11,8 @@ const BuilderStep: React.FC<IBuilderStepProps> = ({ values }) => {
   
   
   <>
-  <TopAvailableCraftsman values={values} sector={sectorEnum.Builder} />
-  
+  <TopAvailableCraftsman values={values} sector={sectorEnum.Builder} checkBoxName={"Builder"} />
+
     <div>
     builderStep
    </div>

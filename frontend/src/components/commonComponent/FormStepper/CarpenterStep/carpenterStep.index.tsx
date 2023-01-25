@@ -10,7 +10,7 @@ const CarpenterStep: React.FC<ICarpenterStepProps> = ({ values }) => {
   
   
         <>
-        <TopAvailableCraftsman values={values} sector={sectorEnum.Carpenter} />
+        <TopAvailableCraftsman values={values} sector={sectorEnum.Carpenter} checkBoxName={"carpenter"} />
         
           <div>
           CarpenterStep

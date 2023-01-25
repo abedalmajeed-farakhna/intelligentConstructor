@@ -6,7 +6,7 @@ import DateInput from "../../../CoreComponents/DateInput/dateInput.index";
 import { IStepOneProps } from "./stepOne.type";
 
 
-const StepOne: React.FC<IStepOneProps> = ({ errors, touched,onFromChange,onToChange }) => {
+const StepOne: React.FC<IStepOneProps> = ({ errors, touched,onFromChange }) => {
 
  
   return (
@@ -32,13 +32,6 @@ const StepOne: React.FC<IStepOneProps> = ({ errors, touched,onFromChange,onToCha
        label={"from"}
        name={"from"}
       onChange={(val) => onFromChange(val)}
-      />
-
-     <DateInput
-      defaultValue={moment().format('YYYY-MM-DD')}
-      label={"to"}
-      name={"to"}
-      onChange={(val) => onToChange(val)}
       />
 
     </>

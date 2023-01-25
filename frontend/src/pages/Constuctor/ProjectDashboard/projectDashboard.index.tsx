@@ -12,19 +12,14 @@ const ProjectDashboard: React.FC<any> = ({}) => {
   const classes = useStyles();
 
   const [fromDate, setFrom] = useState(moment().format("YYYY-MM-DD"));
-  const [toDate, setTo] = useState(moment().format("YYYY-MM-DD"));
 
   const onFromChange = (value) => {
     setFrom(value);
   };
 
-  const onToChange = (value) => {
-    setTo(value);
-  };
 
   const onHandleSubmit = (values) => {
     values.fromDate = fromDate;
-    values.toDate = toDate;
 
     axios.post(`/Craftsman/updateInformation`, values).then((res) => {
       if (res.data) {
@@ -49,9 +44,8 @@ const ProjectDashboard: React.FC<any> = ({}) => {
               <FormStepper
                 errors={errors}
                 touched={touched}
-                onToChange={onToChange}
                 onFromChange={onFromChange}
-                values={{ ...values, fromDate: fromDate, toDate: toDate }}
+                values={{ ...values, fromDate: fromDate }}
               />
             </Box>
           </Form>

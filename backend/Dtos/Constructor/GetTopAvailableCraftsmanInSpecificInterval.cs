@@ -1,5 +1,4 @@
 ﻿using Backend.Enums;
-
 namespace Backend.Dtos.Constructor
 {
     public class GetTopAvailableCraftsmanInSpecificInterval
@@ -13,8 +12,5 @@ namespace Backend.Dtos.Constructor
         public string Username { get; set; }
         public string FullName { get; set; }
         public int ExpectedTime { get; set; }
-
-
     }
 }
-

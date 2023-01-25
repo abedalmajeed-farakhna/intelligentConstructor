@@ -7,12 +7,12 @@ import TilerStep from "../TilerStep/tilerStep.index";
 import { IStepContainerProps } from "./stepContainer.type";
 
 
-const StepContainer: React.FC<IStepContainerProps> = ({step,errors,touched,onToChange,onFromChange,values  }) => {
+const StepContainer: React.FC<IStepContainerProps> = ({step,errors,touched,onFromChange,values  }) => {
 
 
   switch(step){
     case 0:
-      return (<StepOne errors={errors} touched={touched} onFromChange={onFromChange} onToChange={onToChange}/>)
+      return (<StepOne errors={errors} touched={touched} onFromChange={onFromChange} />)
       case 1:
         return (<BuilderStep fullName={""} username={""} id={0} values={values}/>)
 

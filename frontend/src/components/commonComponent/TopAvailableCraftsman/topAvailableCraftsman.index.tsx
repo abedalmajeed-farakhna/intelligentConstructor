@@ -10,8 +10,9 @@ import CustomLink from "../../CoreComponents/CustomLink/customLink.index";
 
 import { ITopAvailableCraftsmanProps } from "./topAvailableCraftsman.type";
 
-const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({values, sector}) => {
+const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({values, sector,checkBoxName}) => {
   
+  console.log(values,"values")
   const classes = useStyles();
   const [rowsData, setRows] = useState([]);
 
@@ -22,12 +23,12 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({values, s
         <label
           className={classNames(
             classes.radioLabel,
-            values.picked == params.row.id && classes.checked
+            values[checkBoxName] == params.row.id && classes.checked
           )}
         >
           <Field
             type="radio"
-            name="picked"
+            name={checkBoxName}
             value={params.row.id}
             className={classes.radioButton}
           />
@@ -81,7 +82,7 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({values, s
   useEffect(() => {
     axios
       .get(
-        `/Constructor/GetTopAvailableCraftsmanInSpecificInterval?space=${values.space}&sector=${sector}&FromDate=${values.fromDate}&ToDate=${values.toDate}`
+        `/Constructor/GetTopAvailableCraftsmanInSpecificInterval?space=${values.space}&sector=${sector}&FromDate=${values.fromDate}`
       )
       .then((result) => {
         setRows(result.data);

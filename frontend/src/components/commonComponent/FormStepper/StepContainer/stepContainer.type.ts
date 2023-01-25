@@ -3,6 +3,5 @@ export interface IStepContainerProps {
   errors:any,
   touched:any,
   onFromChange:any,
-  onToChange:any,
   values:any,
 }

@@ -11,7 +11,7 @@ import StepContainer from "./StepContainer/stepContainer.index";
 import { IFormStepperProps } from "./formStopper.type";
 import { Steps } from "./formStopper.utils";
 
-const FormStepper: React.FC<IFormStepperProps> = ({errors, touched, onToChange, onFromChange, values}) => {
+const FormStepper: React.FC<IFormStepperProps> = ({errors, touched, onFromChange, values}) => {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -65,7 +65,6 @@ const FormStepper: React.FC<IFormStepperProps> = ({errors, touched, onToChange, 
             errors={errors}
             touched={touched}
             onFromChange={onFromChange}
-            onToChange={onToChange}
             values={values}
           />
           
