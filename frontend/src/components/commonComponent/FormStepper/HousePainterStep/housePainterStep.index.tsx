@@ -5,12 +5,13 @@ import TopAvailableCraftsman from "../../TopAvailableCraftsman/topAvailableCraft
 
 import { IHousePainterStepProps } from "./housePainterStep.type";
 
-const HousePainterStep: React.FC<IHousePainterStepProps> = ({ values }) => {
+const HousePainterStep: React.FC<IHousePainterStepProps> = ({ values,timeLine,handleUpdateTimeLine }) => {
     return( 
   
   
         <>
-        <TopAvailableCraftsman values={values} sector={sectorEnum.HousePainter} checkBoxName={"HousePainter"} />
+        <TopAvailableCraftsman values={values} sector={sectorEnum.HousePainter} checkBoxName={"HousePainter"} timeLine={timeLine}
+  handleUpdateTimeLine ={handleUpdateTimeLine} />
         
           <div>
           HousePainterStep

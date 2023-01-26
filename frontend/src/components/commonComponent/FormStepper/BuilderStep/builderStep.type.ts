@@ -1,8 +1,6 @@
 export interface IBuilderStepProps {
-    fullName: string;
-  username: string;
-    id:number,
-  profileImage?:string,
-  values:any,
-  
+  profileImage?: string;
+  values: any;
+  timeLine:any,
+  handleUpdateTimeLine:any,
 }

@@ -10,7 +10,7 @@ import { InitialValues, validationSchema } from "./projectDashboard.utils";
 
 const ProjectDashboard: React.FC<any> = ({}) => {
   const classes = useStyles();
-
+  
   const [fromDate, setFrom] = useState(moment().format("YYYY-MM-DD"));
 
   const onFromChange = (value) => {

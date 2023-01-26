@@ -5,12 +5,13 @@ import TopAvailableCraftsman from "../../TopAvailableCraftsman/topAvailableCraft
 
 import { ITilerStepProps } from "./tilerStep.type";
 
-const TilerStep: React.FC<ITilerStepProps> = ({ values }) => {
+const TilerStep: React.FC<ITilerStepProps> = ({ values,timeLine,handleUpdateTimeLine }) => {
     return( 
   
   
         <>
-        <TopAvailableCraftsman values={values} sector={sectorEnum.Tiler} checkBoxName={"Tiler"} />
+        <TopAvailableCraftsman values={values} sector={sectorEnum.Tiler} checkBoxName={"Tiler"} timeLine={timeLine}
+  handleUpdateTimeLine ={handleUpdateTimeLine}/>
         
           <div>
           TilerStep

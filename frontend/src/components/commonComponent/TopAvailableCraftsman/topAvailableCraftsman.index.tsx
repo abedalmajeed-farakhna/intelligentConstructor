@@ -8,14 +8,37 @@ import useStyles from "./topAvailableCraftsman.style";
 import CustomDataGrid from "../../CoreComponents/CustomDataGrid/customDataGrid.index";
 import CustomLink from "../../CoreComponents/CustomLink/customLink.index";
 
-import { ITopAvailableCraftsmanProps } from "./topAvailableCraftsman.type";
+import {
+  ITopAvailableCraftsman,
+  ITopAvailableCraftsmanProps,
+} from "./topAvailableCraftsman.type";
+import { GetFromDateValue } from "./topAvailableCraftsman.utils";
 
-const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({values, sector,checkBoxName}) => {
-  
-  console.log(values,"values")
+const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
+  values,
+  sector,
+  checkBoxName,
+  timeLine,
+  handleUpdateTimeLine,
+}) => {
+  console.log(values, "values");
   const classes = useStyles();
-  const [rowsData, setRows] = useState([]);
+  const [rowsData, setRows] = useState<ITopAvailableCraftsman[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (!values[checkBoxName]) return;
+    console.log(values[checkBoxName], "values[checkBoxName]]");
+    handleUpdateTimeLine({
+      ...timeLine,
+      [checkBoxName]:
+        rowsData.find((t) => t.id == values[checkBoxName])?.expectedTime ?? 0,
+    });
+  }, [values[checkBoxName]]);
+
+  const handleOnCahnage = (e) => {
+    console.log(e, "handleOnCahnage");
+  };
   const columns: GridColDef[] = [
     {
       field: "",
@@ -27,6 +50,12 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({values, s
           )}
         >
           <Field
+            /*checked={
+              values[checkBoxName]
+                ? values[checkBoxName] == params.row.id
+                : rowsData[0].id == params.row.id
+            }*/
+            onFromChange={handleOnCahnage}
             type="radio"
             name={checkBoxName}
             value={params.row.id}
@@ -75,22 +104,30 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({values, s
       headerName: "speed",
       width: 150,
     },
-    {field:"expectedTime",
-  headerName :"expected time"}
+    { field: "expectedTime", headerName: "expected time" },
   ];
 
   useEffect(() => {
-    axios
-      .get(
-        `/Constructor/GetTopAvailableCraftsmanInSpecificInterval?space=${values.space}&sector=${sector}&FromDate=${values.fromDate}`
-      )
-      .then((result) => {
-        setRows(result.data);
-        console.log(result.data);
-      });
+    setLoading(true);
+    if (!isLoading) {
+      axios
+        .get(
+          `/Constructor/GetTopAvailableCraftsmanInSpecificInterval?space=${
+            values.space
+          }&sector=${sector}&FromDate=${GetFromDateValue(
+            sector,
+            timeLine,
+            values.fromDate
+          )}`
+        )
+        .then((result) => {
+          setRows(result.data);
+          console.log(result.data);
+          setLoading(false);
+        });
+    }
   }, []);
 
-  
   return (
     <div role="group" aria-labelledby="my-radio-group02">
       <CustomDataGrid columns={columns} rows={rowsData} />

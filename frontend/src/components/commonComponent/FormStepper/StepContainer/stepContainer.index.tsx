@@ -7,23 +7,23 @@ import TilerStep from "../TilerStep/tilerStep.index";
 import { IStepContainerProps } from "./stepContainer.type";
 
 
-const StepContainer: React.FC<IStepContainerProps> = ({step,errors,touched,onFromChange,values  }) => {
+const StepContainer: React.FC<IStepContainerProps> = ({step,errors,touched,onFromChange,values , timeLine, handleUpdateTimeLine }) => {
 
 
   switch(step){
     case 0:
       return (<StepOne errors={errors} touched={touched} onFromChange={onFromChange} />)
       case 1:
-        return (<BuilderStep fullName={""} username={""} id={0} values={values}/>)
+        return (<BuilderStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
 
         case 2:
-        return (<TilerStep fullName={""} username={""} id={1} values={values}/>)
+        return (<TilerStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
         
         case 3:
-        return (<HousePainterStep fullName={""} username={""} id={2} values={values}/>)
+        return (<HousePainterStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
 
         case 4:
-        return (<CarpenterStep fullName={""} username={""} id={3} values={values}/>)
+        return (<CarpenterStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
 
         default : return<></>
   }

@@ -5,13 +5,15 @@ import TopAvailableCraftsman from "../../TopAvailableCraftsman/topAvailableCraft
 
 import { IBuilderStepProps } from "./builderStep.type";
 
-const BuilderStep: React.FC<IBuilderStepProps> = ({ values }) => {
+const BuilderStep: React.FC<IBuilderStepProps> = ({ values ,timeLine,handleUpdateTimeLine}) => {
 
+  console.log(timeLine,"timeLine");
   return( 
   
   
   <>
-  <TopAvailableCraftsman values={values} sector={sectorEnum.Builder} checkBoxName={"Builder"} />
+  <TopAvailableCraftsman values={values} sector={sectorEnum.Builder} checkBoxName={"Builder"} timeLine={timeLine}
+  handleUpdateTimeLine ={handleUpdateTimeLine}/>
 
     <div>
     builderStep

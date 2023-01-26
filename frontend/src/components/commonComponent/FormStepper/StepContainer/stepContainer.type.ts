@@ -4,4 +4,6 @@ export interface IStepContainerProps {
   touched:any,
   onFromChange:any,
   values:any,
+  timeLine:any,
+  handleUpdateTimeLine:any
 }

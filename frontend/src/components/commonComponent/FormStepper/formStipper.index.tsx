@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -12,8 +12,18 @@ import { IFormStepperProps } from "./formStopper.type";
 import { Steps } from "./formStopper.utils";
 
 const FormStepper: React.FC<IFormStepperProps> = ({errors, touched, onFromChange, values}) => {
-  const [activeStep, setActiveStep] = React.useState(0);
 
+
+
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [timeLine, setTimeLine] = React.useState({
+    Builder:0
+  });
+
+  const handleUpdateTimeLine = (newVal) => {
+    setTimeLine( newVal );
+  };
+  
   const handleNext = () => {
     if (activeStep == 0) {
       console.log(errors, "errors");
@@ -30,6 +40,7 @@ const FormStepper: React.FC<IFormStepperProps> = ({errors, touched, onFromChange
     setActiveStep(0);
   };
 
+  const total = (Object.values(timeLine)).reduce((sum, previousValue) => sum + previousValue, 0);
   return (
     <Box sx={{ width: "100%" }}>
      
@@ -59,14 +70,23 @@ const FormStepper: React.FC<IFormStepperProps> = ({errors, touched, onFromChange
         </React.Fragment>
       ) : (
         <React.Fragment>
-          
+ 
+ <>
+ 
+number of Days : {total}
+
+
           <StepContainer
             step={activeStep}
             errors={errors}
             touched={touched}
             onFromChange={onFromChange}
             values={values}
+            timeLine ={timeLine}
+            handleUpdateTimeLine={(t)=>handleUpdateTimeLine(t)}
           />
+          
+</>
           
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
