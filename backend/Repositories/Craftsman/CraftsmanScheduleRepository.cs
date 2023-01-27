@@ -55,7 +55,8 @@ namespace Backend.Repositories
                 ToDate = request.To,
                 FromUserId = request.FromUserId,
                 ToUserId = request.ToUserId,
-                RequestDescription = request.Description
+                RequestDescription = request.Description,
+                ProjectId = request.ProjectId,
 
             };
             await _context.craftsmanSchedule.AddAsync(item);

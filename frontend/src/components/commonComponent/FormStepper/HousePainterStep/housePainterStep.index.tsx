@@ -10,7 +10,7 @@ const HousePainterStep: React.FC<IHousePainterStepProps> = ({ values,timeLine,ha
   
   
         <>
-        <TopAvailableCraftsman values={values} sector={sectorEnum.HousePainter} checkBoxName={"HousePainter"} timeLine={timeLine}
+        <TopAvailableCraftsman values={values} sector={sectorEnum.HousePainter} checkBoxName={"housePainter"} timeLine={timeLine}
   handleUpdateTimeLine ={handleUpdateTimeLine} />
         
           <div>

@@ -10,19 +10,13 @@ import Typography from "@mui/material/Typography";
 import StepContainer from "./StepContainer/stepContainer.index";
 import { IFormStepperProps } from "./formStopper.type";
 import { Steps } from "./formStopper.utils";
+import CustomButton from "../../CoreComponents/CustomButton/customButton.index";
 
-const FormStepper: React.FC<IFormStepperProps> = ({errors, touched, onFromChange, values}) => {
+const FormStepper: React.FC<IFormStepperProps> = ({errors, touched,  values,timeLine,onFromChange, handleUpdateTimeLine}) => {
 
 
 
   const [activeStep, setActiveStep] = React.useState(0);
-  const [timeLine, setTimeLine] = React.useState({
-    Builder:0
-  });
-
-  const handleUpdateTimeLine = (newVal) => {
-    setTimeLine( newVal );
-  };
   
   const handleNext = () => {
     if (activeStep == 0) {
@@ -40,10 +34,9 @@ const FormStepper: React.FC<IFormStepperProps> = ({errors, touched, onFromChange
     setActiveStep(0);
   };
 
-  const total = (Object.values(timeLine)).reduce((sum, previousValue) => sum + previousValue, 0);
+  const total = (Object.values(timeLine)).reduce((sum, previousValue) => sum + previousValue.numberOfDays, 0);
   return (
     <Box sx={{ width: "100%" }}>
-     
       <Stepper activeStep={activeStep}>
         {Steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
@@ -70,24 +63,19 @@ const FormStepper: React.FC<IFormStepperProps> = ({errors, touched, onFromChange
         </React.Fragment>
       ) : (
         <React.Fragment>
- 
- <>
- 
-number of Days : {total}
+          <>
+            number of Days : {total}
+            <StepContainer
+              step={activeStep}
+              errors={errors}
+              touched={touched}
+              onFromChange={onFromChange}
+              values={values}
+              timeLine={timeLine}
+              handleUpdateTimeLine={(t) => handleUpdateTimeLine(t)}
+            />
+          </>
 
-
-          <StepContainer
-            step={activeStep}
-            errors={errors}
-            touched={touched}
-            onFromChange={onFromChange}
-            values={values}
-            timeLine ={timeLine}
-            handleUpdateTimeLine={(t)=>handleUpdateTimeLine(t)}
-          />
-          
-</>
-          
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="inherit"
@@ -98,12 +86,16 @@ number of Days : {total}
               Back
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleNext}>
-              {activeStep === Steps.length - 1 ? "Finish" : "Next"}
-            </Button>
+
+            {activeStep === Steps.length - 1 ? (
+              <CustomButton text={"Finish"} />
+            ) : (
+              <Button onClick={handleNext}>Next </Button>
+            )}
           </Box>
-        
-        </React.Fragment>
+         
+      </React.Fragment>
+
       )}
     </Box>
   );

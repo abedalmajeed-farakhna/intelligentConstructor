@@ -4,8 +4,7 @@ import * as Yup from "yup";
 export const InitialValues = {
   projectName: "",
   space: 0,
-  fromDate: moment(),
-  toDate: moment(),
+  fromDate: moment()
 };
 
 export const validationSchema = Yup.object().shape({

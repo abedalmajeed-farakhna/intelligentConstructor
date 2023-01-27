@@ -27,7 +27,8 @@ namespace Backend.Repositories
             {
                 Space = request.Space,
                 StartDate = request.StartDate,
-                ProjectName = request.ProjectName
+                ProjectName = request.ProjectName,
+                UserId = UserId
 
             };
             await _context.Project.AddAsync(data);

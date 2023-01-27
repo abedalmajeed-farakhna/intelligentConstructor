@@ -22,6 +22,12 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
   handleUpdateTimeLine,
 }) => {
   console.log(values, "values");
+  // we will read it from the backend
+  const startDate = GetFromDateValue(
+    sector,
+    timeLine,
+    values.fromDate
+  );
   const classes = useStyles();
   const [rowsData, setRows] = useState<ITopAvailableCraftsman[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -31,8 +37,11 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
     console.log(values[checkBoxName], "values[checkBoxName]]");
     handleUpdateTimeLine({
       ...timeLine,
-      [checkBoxName]:
-        rowsData.find((t) => t.id == values[checkBoxName])?.expectedTime ?? 0,
+      [checkBoxName]:{
+        startDate:startDate,
+        numberOfDays: rowsData.find((t) => t.id == values[checkBoxName])?.expectedTime ?? 0,
+      }
+      
     });
   }, [values[checkBoxName]]);
 

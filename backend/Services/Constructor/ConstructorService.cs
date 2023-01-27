@@ -84,16 +84,18 @@ namespace Backend.Services
 
             var projectId = await _projectRepository.AddNewProject(request, userId.GetValueOrDefault());
 
-
+            
 
             //Builder 
             var builderInfo = new AddNewRequestDto
             {
+                ProjectId= projectId,
                 Description = "",
                 From = request.Builder.StratDate,
                 FromUserId = userId.GetValueOrDefault(),
                 ToUserId = request.Builder.UserId,
                 To = request.Builder.EndDate
+
 
             };
 
@@ -103,6 +105,7 @@ namespace Backend.Services
             //Tiler 
             var tilerInfo = new AddNewRequestDto
             {
+                ProjectId = projectId,
                 Description = "",
                 From = request.Tiler.StratDate,
                 FromUserId = userId.GetValueOrDefault(),
@@ -116,6 +119,7 @@ namespace Backend.Services
             //HousePainter 
             var housePainterInfo = new AddNewRequestDto
             {
+                ProjectId = projectId,
                 Description = "",
                 From = request.HousePainter.StratDate,
                 FromUserId = userId.GetValueOrDefault(),
@@ -128,7 +132,7 @@ namespace Backend.Services
 
             //Carpenter 
             var carpenterInfo = new AddNewRequestDto
-            {
+            {ProjectId = projectId,
                 Description = "",
                 From = request.Carpenter.StratDate,
                 FromUserId = userId.GetValueOrDefault(),
@@ -136,10 +140,9 @@ namespace Backend.Services
                 To = request.Carpenter.EndDate
 
             };
-
+         
             await _craftsmanScheduleRepository.AddNewRequest(carpenterInfo);
-
-
+   
             return true;
         }
 

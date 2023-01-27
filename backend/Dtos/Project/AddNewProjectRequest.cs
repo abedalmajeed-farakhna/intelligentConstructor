@@ -10,12 +10,11 @@ namespace Backend.Dtos.Project
         public string ProjectName { get; set; }
         public int Space { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime To { get; set; }
         public CraftsmanDataDto Builder { get; set; }
-        public CraftsmanDataDto Tiler { get; set; }
+       public CraftsmanDataDto Tiler { get; set; }
         public CraftsmanDataDto HousePainter { get; set; }
         public CraftsmanDataDto Carpenter { get; set; }
-
+       
 
 
 
