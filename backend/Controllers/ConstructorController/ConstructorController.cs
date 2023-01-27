@@ -3,6 +3,7 @@
 using Backend.Services;
 using Backend.Dtos.Constructor;
 using WebApplication1.Dtos.Constructor;
+using Backend.Dtos.Project;
 
 namespace Backend.Controllers
 {
@@ -14,6 +15,7 @@ namespace Backend.Controllers
 
         private readonly IConstructorService _constructorService;
         private readonly ICraftsmanScheduleService _craftsmanScheduleService;
+
 
 
         public ConstructorController(IConstructorService constructorService, ICraftsmanScheduleService craftsmanScheduleService)
@@ -44,5 +46,12 @@ namespace Backend.Controllers
         {
             return await _constructorService.UpdateInformationAsync(request);
         }
+
+        [HttpPost]
+        public async Task<bool> AddNewProject([FromBody] AddNewProjectRequest request)
+        {
+            return await _constructorService.AddNewProject(request);
+        }
+
     }
 }

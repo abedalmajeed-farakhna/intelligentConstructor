@@ -1,6 +1,6 @@
 ﻿using Backend.Dtos.Constructor;
+using Backend.Dtos.Project;
 
-using Backend.Enums;
 
 namespace Backend.Services
 {
@@ -8,7 +8,10 @@ namespace Backend.Services
     {
 
         Task<bool> UpdateInformationAsync(UpdateInformationRequest request);
+
         Task<GetConstructorInformationResponse> GetConstructorInformation();
+        Task<bool> AddNewProject(AddNewProjectRequest request);
+
 
 
 

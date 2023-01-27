@@ -43,6 +43,9 @@ builder.Services.AddScoped<ICraftsmanScheduleService, CraftsmanScheduleService>(
 // Constructor
 builder.Services.AddScoped<IConstructorService, ConstructorService>();
 builder.Services.AddScoped<IConstructorRepository, ConstructorRepository>();
+// Project
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
 
 
 /*builder.Services.AddScoped<IFileUploaderServices, FileUploaderServices>();*/

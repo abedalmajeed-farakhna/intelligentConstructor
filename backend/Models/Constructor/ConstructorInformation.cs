@@ -14,5 +14,7 @@ namespace WebApplication1.Models.Constructor
 
         public string Note { get; set; }
 
+
+
     }
 }
