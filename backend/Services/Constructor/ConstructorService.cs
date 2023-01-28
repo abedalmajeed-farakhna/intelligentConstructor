@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication1.Dtos.Settings;
 using WebApplication1.Models;
 using WebApplication1.Models.Constructor;
+using WebApplication1.Models.Craftsman;
 
 namespace Backend.Services
 {
@@ -146,11 +147,52 @@ namespace Backend.Services
             return true;
         }
 
+        public async Task<List<GetProjectListDetails>> getProjectList()
+        {
+            var userId = _authenticationService.GetCurrentUserId();
+            var list = await _projectRepository.GetProjectListByUserId(userId.GetValueOrDefault());
+
+            var result = new List<GetProjectListDetails>();
+            foreach (var project in list)
+            {
+                var craftsmanRequestList = await _craftsmanScheduleRepository.GetCraftsmanRequestListByProjectId(project.ProjectId);
+
+                result.Add(new GetProjectListDetails
+                {
+                    Id = project.ProjectId,
+                    ProjectName = project.ProjectName,
+                    ProjectDetails = new ProjectDetailsDto
+                    {
+                        BuilderStage = new StageDetailsDto
+                        {
+                            projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Builder).RequestStatus,
+                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Builder).FromeDate,
+                        },
+                        TilerStage = new StageDetailsDto
+                        {
+                            projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Tiler).RequestStatus,
+                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Tiler).FromeDate,
+                        },
+                        HousePainterStage = new StageDetailsDto
+                        {
+                            projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.HousePainter).RequestStatus,
+                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.HousePainter).FromeDate,
+                        },
+                        CarpenterStage = new StageDetailsDto
+                        {
+                            projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Carpenter).RequestStatus,
+                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Carpenter).FromeDate,
+                        },
+
+                    }
 
 
+                });
 
+            }
 
-
+            return result ;
+        }
 
 
     }

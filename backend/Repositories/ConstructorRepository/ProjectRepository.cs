@@ -1,10 +1,12 @@
 ﻿using Backend.Dtos.Constructor;
 using Backend.Dtos.Project;
+using Backend.Enums;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 using WebApplication1.Models;
 using WebApplication1.Models.Constructor;
+using WebApplication1.Models.Craftsman;
 
 namespace Backend.Repositories
 {
@@ -37,6 +39,14 @@ namespace Backend.Repositories
 
             return data.ProjectId;
         }
+
+        public async Task<List<Project>> GetProjectListByUserId(Guid userId)
+        {
+
+          return await  _context.Project.Where(t=>t.UserId == userId).ToListAsync();
+
+        }
+
 
     }
 }

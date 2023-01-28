@@ -4,6 +4,8 @@ using Backend.Services;
 using Backend.Dtos.Constructor;
 using WebApplication1.Dtos.Constructor;
 using Backend.Dtos.Project;
+using Backend.Dtos.Craftsman;
+using WebApplication1.Models.Constructor;
 
 namespace Backend.Controllers
 {
@@ -42,7 +44,7 @@ namespace Backend.Controllers
 
         // [Authorize]
         [HttpPost]
-        public async Task<bool> updateInformation([FromBody]UpdateInformationRequest request)
+        public async Task<bool> updateInformation([FromBody] Dtos.Constructor.UpdateInformationRequest request)
         {
             return await _constructorService.UpdateInformationAsync(request);
         }
@@ -51,6 +53,13 @@ namespace Backend.Controllers
         public async Task<bool> AddNewProject([FromBody] AddNewProjectRequest request)
         {
             return await _constructorService.AddNewProject(request);
+        }
+
+        
+         [HttpGet]
+        public async Task <List<GetProjectListDetails>> GetProjectList()
+        {
+            return await _constructorService.getProjectList();
         }
 
     }

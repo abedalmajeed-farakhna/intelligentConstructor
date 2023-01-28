@@ -1,6 +1,6 @@
 ﻿using Backend.Dtos.Constructor;
 using Backend.Dtos.Project;
-
+using WebApplication1.Models.Constructor;
 
 namespace Backend.Services
 {
@@ -11,10 +11,7 @@ namespace Backend.Services
 
         Task<GetConstructorInformationResponse> GetConstructorInformation();
         Task<bool> AddNewProject(AddNewProjectRequest request);
-
-
-
-
+        Task<List<GetProjectListDetails>> getProjectList();
 
     }
  

@@ -1,5 +1,6 @@
 ﻿using Backend.Dtos.Constructor;
 using Backend.Dtos.Project;
+using WebApplication1.Models.Constructor;
 
 namespace Backend.Repositories
 {
@@ -7,6 +8,7 @@ namespace Backend.Repositories
     {
 
         Task<int> AddNewProject(AddNewProjectRequest request, Guid UserId);
+        Task<List<Project>> GetProjectListByUserId(Guid userId);
 
     }
 

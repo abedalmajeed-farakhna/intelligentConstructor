@@ -14,6 +14,9 @@ namespace Backend.Repositories
         Task<bool> AddNewRequest(AddNewRequestDto request);
         Task<bool> CancelRequest(int RequestId);
 
+
+        Task<List<CraftsmanScheduleWithUserDetailsSP>> GetCraftsmanRequestListByProjectId(int projectid);
+
         Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList(Guid userId);
         Task<List<CraftsmanSchedule>> GetCraftsmanRequestList(Guid userId);
         Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request);

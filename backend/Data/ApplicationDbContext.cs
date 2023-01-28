@@ -23,10 +23,11 @@ namespace WebApplication1.Data
         public virtual DbSet<CraftsmanUserInformationSP> CraftsmanUserInformation { get; set; }
         public virtual DbSet<ConstructorInformation> ConstructorInformation { get; set; }
         public virtual DbSet<CraftsmanInformationSP> GetUserInformationById { get; set; }
+        public virtual DbSet<CraftsmanScheduleWithUserDetailsSP> CraftsmanScheduleWithUserDetailsSP { get; set; }
         public virtual DbSet<GetConstructorInformationResponse> GetConstructorInformationSP { get; set; }
         public virtual DbSet<GetTopAvailableCraftsmanInSpecificInterval> GetTopAvailableCraftsmanInSpecificInterval { get; set; }
 
-    public virtual DbSet<CraftsmanInformation> craftsmanInformation { get; set; }
+        public virtual DbSet<CraftsmanInformation> craftsmanInformation { get; set; }
         public virtual DbSet<CraftsmanSchedule> craftsmanSchedule { get; set; }
 
         public virtual DbSet<CraftsmanSchedule> craftsmanProject { get; set; }
@@ -48,6 +49,7 @@ namespace WebApplication1.Data
             modelBuilder.Entity<GetGuestRequestListResponseDto>().HasNoKey().ToView("__notExist3");
             modelBuilder.Entity<GetConstructorInformationResponse>().HasNoKey().ToView("__notExist4");
             modelBuilder.Entity<GetTopAvailableCraftsmanInSpecificInterval> ().HasNoKey().ToView("__notExist5");
+            modelBuilder.Entity<CraftsmanScheduleWithUserDetailsSP> ().HasNoKey().ToView("__notExist6");
 
         }
     }

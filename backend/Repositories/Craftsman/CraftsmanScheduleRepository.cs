@@ -7,6 +7,7 @@ using Microsoft.Data.SqlClient;
 using Backend.Dtos.Constructor;
 using Backend.Dtos.Project;
 using WebApplication1.Dtos.Constructor;
+using WebApplication1.Models;
 
 namespace Backend.Repositories
 {
@@ -85,6 +86,14 @@ namespace Backend.Repositories
             return (await _context.GuestRequestList.FromSqlRaw(sql, userIdParameter).ToListAsync());
 
          
+        }
+
+        public async Task<List<CraftsmanScheduleWithUserDetailsSP>> GetCraftsmanRequestListByProjectId(int projectid)
+        {
+
+            string sql = "EXECUTE [dbo].[CraftsmanScheduleWithUserDetailsSP] ";
+            var list = await _context.CraftsmanScheduleWithUserDetailsSP.FromSqlRaw(sql).ToListAsync();
+            return list.Where(t=>t.ProjectId== projectid).ToList(); 
         }
         public async Task<List<CraftsmanSchedule>> GetCraftsmanRequestList(Guid userId)
         {

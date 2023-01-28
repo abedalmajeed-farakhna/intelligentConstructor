@@ -36,6 +36,12 @@ const ConstuctorSidebar = () => {
                 path={PATH_NAMES.PROJECT}
                 text={"project"}
               />
+
+               <CustomeListItem
+                icon={<InfoIcon />}
+                path={PATH_NAMES.PROJECT_LIST}
+                text={"projectList"}
+              />
               
             </List>
           </div>
