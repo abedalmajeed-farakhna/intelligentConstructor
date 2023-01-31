@@ -8,6 +8,7 @@ using Backend.Dtos.Constructor;
 using Backend.Dtos.Project;
 using WebApplication1.Dtos.Constructor;
 using WebApplication1.Models;
+using Backend.Dtos.Craftsman;
 
 namespace Backend.Repositories
 {
@@ -45,15 +46,15 @@ namespace Backend.Repositories
             _context.SaveChanges();
             return true;
         }
-        public async Task<bool> AddNewRequest(AddNewRequestDto request)
+        public async Task<bool> AddNewRequest(AddNewRequestDto request, ProjectStatusEnum RequestStatus = ProjectStatusEnum.Pending)
         {
 
 
             var item = new CraftsmanSchedule
             {
-                RequestStatus = ProjectStatusEnum.Pending,
-                FromeDate = request.From,
-                ToDate = request.To,
+                RequestStatus = RequestStatus,
+                StartDate = request.StartDate,
+                EndDate = request.EndDate,
                 FromUserId = request.FromUserId,
                 ToUserId = request.ToUserId,
                 RequestDescription = request.Description,
@@ -100,6 +101,24 @@ namespace Backend.Repositories
             return await _context.craftsmanSchedule.Where(t => t.ToUserId == userId).ToListAsync();
         }
 
+
+        public async Task<DateTime?> GetFirstAvailableDate(Guid userId, DateTime projectStartDate)
+        {
+
+
+            var userIdParameter = new SqlParameter("@userId", userId);
+            var projectStartDateParameter = new SqlParameter("@projectStartDate", projectStartDate);
+
+            string sql = "EXECUTE [dbo].[GetFirstAvailableDate_SP]  @userId={0} , @projectStartDate={1}";
+            var list = await _context.GetFirstAvailableDateSP.FromSqlRaw(sql, userIdParameter, projectStartDateParameter).ToListAsync();
+            if(list.Count == 0)
+            {
+                return projectStartDate;
+            }
+            return (list).First().FirstAvailableDate;
+
+
+        }
         public async Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request)
         {
            
@@ -111,6 +130,12 @@ namespace Backend.Repositories
             string sql = "EXECUTE [dbo].[GetTopAvailableCraftsmanInSpecificInterval]  @sector={0} , @fromDate={1}, @totalspace ={2}";
             return (await _context.GetTopAvailableCraftsmanInSpecificInterval.FromSqlRaw(sql, sectorParameter , fromDateParameter, SpaceParameter).ToListAsync());
 
+
+        }
+        public async Task <List<CraftsmanSchedule>> GetProjectDetailsById(int ProjectId)
+        {
+
+            return await _context.craftsmanSchedule.Where(t => t.ProjectId == ProjectId).ToListAsync();
 
         }
 

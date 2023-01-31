@@ -1,13 +1,9 @@
 ﻿using Backend.Dtos.Constructor;
+
 using Backend.Dtos.Project;
 using Backend.Enums;
 using Backend.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApplication1.Dtos.Settings;
-using WebApplication1.Models;
-using WebApplication1.Models.Constructor;
-using WebApplication1.Models.Craftsman;
 
 namespace Backend.Services
 {
@@ -18,17 +14,20 @@ namespace Backend.Services
         private readonly IProjectRepository _projectRepository;
         private readonly IAuthenticationService _authenticationService;
         private readonly ICraftsmanScheduleRepository _craftsmanScheduleRepository;
-        public ConstructorService(IConstructorRepository constructorRepository, IAuthenticationService authenticationService  ,IUserRepository userRepository ,IProjectRepository projectRepository, ICraftsmanScheduleRepository craftsmanScheduleRepository)
+        private readonly ICraftsmanService _craftsmanService;
+        public ConstructorService(IConstructorRepository constructorRepository, IAuthenticationService authenticationService  ,IUserRepository userRepository ,IProjectRepository projectRepository, ICraftsmanScheduleRepository craftsmanScheduleRepository , ICraftsmanService craftsmanService)
         {
             _userRepository = userRepository;
             _constructorRepository = constructorRepository;
             _authenticationService = authenticationService;
             _projectRepository = projectRepository;
             _craftsmanScheduleRepository = craftsmanScheduleRepository;
+            _craftsmanService = craftsmanService;
+
 
         }
 
-           public async Task<bool> UpdateInformationAsync(UpdateInformationRequest request)
+           public async Task<bool> UpdateInformationAsync(Dtos.Constructor.UpdateInformationRequest request)
            {
 
                var userId = _authenticationService.GetCurrentUserId();
@@ -92,15 +91,15 @@ namespace Backend.Services
             {
                 ProjectId= projectId,
                 Description = "",
-                From = request.Builder.StratDate,
+                StartDate = request.Builder.StratDate,
                 FromUserId = userId.GetValueOrDefault(),
                 ToUserId = request.Builder.UserId,
-                To = request.Builder.EndDate
+                EndDate = request.Builder.EndDate
 
 
             };
 
-            await _craftsmanScheduleRepository.AddNewRequest(builderInfo);
+            await _craftsmanScheduleRepository.AddNewRequest(builderInfo, ProjectStatusEnum.Aproved);
 
 
             //Tiler 
@@ -108,41 +107,41 @@ namespace Backend.Services
             {
                 ProjectId = projectId,
                 Description = "",
-                From = request.Tiler.StratDate,
+                StartDate = request.Tiler.StratDate,
                 FromUserId = userId.GetValueOrDefault(),
                 ToUserId = request.Tiler.UserId,
-                To = request.Tiler.EndDate
+                EndDate = request.Tiler.EndDate
 
             };
 
-            await _craftsmanScheduleRepository.AddNewRequest(tilerInfo);
+            await _craftsmanScheduleRepository.AddNewRequest(tilerInfo, ProjectStatusEnum.Aproved);
 
             //HousePainter 
             var housePainterInfo = new AddNewRequestDto
             {
                 ProjectId = projectId,
                 Description = "",
-                From = request.HousePainter.StratDate,
+                StartDate = request.HousePainter.StratDate,
                 FromUserId = userId.GetValueOrDefault(),
                 ToUserId = request.HousePainter.UserId,
-                To = request.HousePainter.EndDate
+                EndDate = request.HousePainter.EndDate
 
             };
 
-            await _craftsmanScheduleRepository.AddNewRequest(housePainterInfo);
+            await _craftsmanScheduleRepository.AddNewRequest(housePainterInfo, ProjectStatusEnum.Aproved);
 
             //Carpenter 
             var carpenterInfo = new AddNewRequestDto
             {ProjectId = projectId,
                 Description = "",
-                From = request.Carpenter.StratDate,
+                StartDate = request.Carpenter.StratDate,
                 FromUserId = userId.GetValueOrDefault(),
                 ToUserId = request.Carpenter.UserId,
-                To = request.Carpenter.EndDate
+                EndDate = request.Carpenter.EndDate
 
             };
          
-            await _craftsmanScheduleRepository.AddNewRequest(carpenterInfo);
+            await _craftsmanScheduleRepository.AddNewRequest(carpenterInfo, ProjectStatusEnum.Aproved);
    
             return true;
         }
@@ -166,22 +165,22 @@ namespace Backend.Services
                         BuilderStage = new StageDetailsDto
                         {
                             projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Builder).RequestStatus,
-                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Builder).FromeDate,
+                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Builder).StartDate,
                         },
                         TilerStage = new StageDetailsDto
                         {
                             projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Tiler).RequestStatus,
-                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Tiler).FromeDate,
+                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Tiler).StartDate,
                         },
                         HousePainterStage = new StageDetailsDto
                         {
                             projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.HousePainter).RequestStatus,
-                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.HousePainter).FromeDate,
+                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.HousePainter).StartDate,
                         },
                         CarpenterStage = new StageDetailsDto
                         {
                             projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Carpenter).RequestStatus,
-                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Carpenter).FromeDate,
+                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Carpenter).StartDate,
                         },
 
                     }
@@ -192,6 +191,46 @@ namespace Backend.Services
             }
 
             return result ;
+        }
+
+        public async Task<GetProjectDetailsById> GetProjectDetailsById(int ProjectId)
+        {
+
+            // scahdulTbale
+            var craftsmans = await _craftsmanScheduleRepository.GetProjectDetailsById(ProjectId);
+            var list = new List<CraftsmanInformationDto>();
+
+            craftsmans.ForEach(async t =>
+            {
+                var user = await _craftsmanService.getCraftsmanInformation(t.ToUserId);
+            
+                list.Add(new CraftsmanInformationDto
+                { ExpectedEndDate= t.EndDate,
+                 ExpectedStartDate= t.StartDate, 
+                 projectStatus =t.RequestStatus,
+                 FullName=user.FullName,
+                 UserName=user.UserName,
+                     
+                 
+                      
+                });
+                
+            }); 
+            
+
+            var project= await _projectRepository.GetProjectByProjectId(ProjectId);
+            return new GetProjectDetailsById
+            {
+                craftsmans = list,
+                ProjectName = project.ProjectName,
+                Space = project.Space,
+                StartDate = project.StartDate,
+                
+            };
+
+            
+
+
         }
 
 

@@ -61,6 +61,10 @@ namespace Backend.Controllers
         {
             return await _constructorService.getProjectList();
         }
+        public async Task<GetProjectDetailsById> GetProjectDetailsById(int ProjectId)
+        {
+            return await _constructorService.GetProjectDetailsById(ProjectId);
+        }
 
     }
 }

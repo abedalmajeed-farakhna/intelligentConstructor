@@ -12,6 +12,7 @@ const TextInput: React.FC<ITextInputProps> = ({
   error,
   label,
   as = "input",
+  validate
 }) => {
   const classes = useStyles();
 
@@ -24,6 +25,7 @@ const TextInput: React.FC<ITextInputProps> = ({
         name={name}
         placeholder={placeholder}
         type={type}
+        validate={validate}
       />
       <ErrorMessage error={error} />
     </div>

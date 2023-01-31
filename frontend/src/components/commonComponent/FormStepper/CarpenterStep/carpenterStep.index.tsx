@@ -13,9 +13,7 @@ const CarpenterStep: React.FC<ICarpenterStepProps> = ({ values,timeLine,handleUp
         <TopAvailableCraftsman values={values} sector={sectorEnum.Carpenter} checkBoxName={"carpenter"} timeLine={timeLine}
   handleUpdateTimeLine ={handleUpdateTimeLine}/>
         
-          <div>
-          CarpenterStep
-         </div>
+         
         </>
         );
       };

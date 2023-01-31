@@ -46,6 +46,12 @@ namespace Backend.Repositories
           return await  _context.Project.Where(t=>t.UserId == userId).ToListAsync();
 
         }
+        public async Task<Project> GetProjectByProjectId(int ProjectId)
+        {
+
+            return await _context.Project.Where(t => t.ProjectId == ProjectId).FirstOrDefaultAsync();
+
+        }
 
 
     }

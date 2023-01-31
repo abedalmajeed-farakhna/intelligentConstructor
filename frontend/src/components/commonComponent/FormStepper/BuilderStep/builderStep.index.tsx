@@ -15,9 +15,6 @@ const BuilderStep: React.FC<IBuilderStepProps> = ({ values ,timeLine,handleUpdat
   <TopAvailableCraftsman values={values} sector={sectorEnum.Builder} checkBoxName={"builder"} timeLine={timeLine}
   handleUpdateTimeLine ={handleUpdateTimeLine}/>
 
-    <div>
-    builderStep
-   </div>
   </>
   );
 };

@@ -9,9 +9,12 @@ import FormStepper from "../../../components/commonComponent/FormStepper/formSti
 import { InitialValues, validationSchema } from "./projectDashboard.utils";
 import { ITimeLineProps } from "../../../components/commonComponent/FormStepper/formStopper.type";
 import { addNumberOfDays } from "../../../utils/DateUtils";
+import { useNavigate } from "react-router-dom";
+import { PATH_NAMES } from "../../../constants/route";
 
 const ProjectDashboard: React.FC<any> = ({}) => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const [fromDate, setFrom] = useState(moment().format("YYYY-MM-DD"));
 
@@ -42,14 +45,14 @@ const ProjectDashboard: React.FC<any> = ({}) => {
     console.log("Test,", values);
     console.log("timeLine Test,", timeLine);
     values.startDate = fromDate;
-    
+
     values.builder = {
       userId: values.builder,
       stratDate: timeLine.builder.startDate,
       endDate: addNumberOfDays(
         timeLine.builder.startDate,
         timeLine.builder.numberOfDays
-      )
+      ),
     };
     values.tiler = {
       userId: values.tiler,
@@ -57,7 +60,7 @@ const ProjectDashboard: React.FC<any> = ({}) => {
       endDate: addNumberOfDays(
         timeLine.tiler.startDate,
         timeLine.tiler.numberOfDays
-      )
+      ),
     };
     values.housePainter = {
       userId: values.housePainter,
@@ -65,7 +68,7 @@ const ProjectDashboard: React.FC<any> = ({}) => {
       endDate: addNumberOfDays(
         timeLine.housePainter.startDate,
         timeLine.housePainter.numberOfDays
-      )
+      ),
     };
     values.carpenter = {
       userId: values.carpenter,
@@ -73,15 +76,14 @@ const ProjectDashboard: React.FC<any> = ({}) => {
       endDate: addNumberOfDays(
         timeLine.carpenter.startDate,
         timeLine.carpenter.numberOfDays
-      )
-      
+      ),
     };
-console.log(values,"values");
+    console.log(values, "values");
 
     axios.post(`/Constructor/AddNewProject`, values).then((result) => {
-      console.log(result,"result")
-      alert(result)
-      //setdata(result.data)
+      if (result.status == 200) {
+        navigate(PATH_NAMES.PROJECT_LIST);
+      }
     });
   };
 
@@ -89,7 +91,7 @@ console.log(values,"values");
     <div>
       <Formik
         initialValues={InitialValues}
-        validationSchema={validationSchema}
+        //  validationSchema={validationSchema}
         onSubmit={(values) => {
           // same shape as initial values
           onHandleSubmit(values);

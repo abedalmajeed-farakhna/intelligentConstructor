@@ -1,25 +1,41 @@
 import { GridColDef } from "@mui/x-data-grid";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import BasicTimeline from "../../../components/CoreComponents/BasicTimeline/basicTimeline.index";
 import CustomDataGrid from "../../../components/CoreComponents/CustomDataGrid/customDataGrid.index";
 import CustomLink from "../../../components/CoreComponents/CustomLink/customLink.index";
+import { PATH_NAMES } from "../../../constants/route";
 import { IProjectListProps } from "./projectList.type";
+import useStyles from "./projectList.style";
 
 const ProjectList: React.FC<IProjectListProps> = ({}) => {
   const [data, setData] = useState([]);
+  const classes = useStyles();
+
+
   const columns: GridColDef[] = [
     {
       field: "projectName",
-      headerName: "User name",
-      description: "Username ",
+      headerName: "Project name",
+      description: "Project Name ",
       sortable: false,
-      width: 160
+      width: 160,
+      
+      renderCell: (params) => (
+
+        <CustomLink path={`${PATH_NAMES.PROJECT_DETAILSLink}/${params.row.id}`} text={params.row.projectName}
+
+        /> 
+      ),
     },
 
     {
-      field: "fullName",
-      headerName: "full name",
+      field: "",
+      headerName: "Progress",
       width: 150,
+      renderCell: (params) => (
+        <BasicTimeline data={params.row.projectDetails}/>
+      ),
     },
     {
       field: "speed",
@@ -33,10 +49,15 @@ const ProjectList: React.FC<IProjectListProps> = ({}) => {
       console.log(result.data);
     });
   }, []);
+
   console.log(data, "rowsData");
   return (
     <div>
+<CustomLink path={PATH_NAMES.PROJECT} text={"add new project"} /> 
+    <div>
       <CustomDataGrid rows={data} columns={columns} />
+    </div>
+ 
     </div>
   );
 };

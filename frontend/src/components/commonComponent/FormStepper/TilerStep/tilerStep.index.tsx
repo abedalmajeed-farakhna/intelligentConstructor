@@ -13,9 +13,6 @@ const TilerStep: React.FC<ITilerStepProps> = ({ values,timeLine,handleUpdateTime
         <TopAvailableCraftsman values={values} sector={sectorEnum.Tiler} checkBoxName={"tiler"} timeLine={timeLine}
   handleUpdateTimeLine ={handleUpdateTimeLine}/>
         
-          <div>
-          TilerStep
-         </div>
         </>
         );
       };

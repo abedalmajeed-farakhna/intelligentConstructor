@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -11,18 +11,58 @@ import StepContainer from "./StepContainer/stepContainer.index";
 import { IFormStepperProps } from "./formStopper.type";
 import { Steps } from "./formStopper.utils";
 import CustomButton from "../../CoreComponents/CustomButton/customButton.index";
+import { Exceptions } from "../../../enums/exceptions";
 
-const FormStepper: React.FC<IFormStepperProps> = ({errors, touched,  values,timeLine,onFromChange, handleUpdateTimeLine}) => {
+const FormStepper: React.FC<IFormStepperProps> = ({
+  errors,
+  touched,
+  values,
+  timeLine,
+  onFromChange,
+  handleUpdateTimeLine,
+}) => {
+  const customeErrors = useRef(errors);
+  //const [flag, setFlag] = useState(false); // dont remove it 
 
 
+  const checkStepOneValidation = () => {
+   validateProjectName(values.projectName);
+  validateSpace(values.space);
+    console.log(customeErrors,"checkStepOneValidation")
 
-  const [activeStep, setActiveStep] = React.useState(0);
-  
-  const handleNext = () => {
-    if (activeStep == 0) {
-      console.log(errors, "errors");
-      console.log(touched, "touched");
+  };
+
+  const validateSpace = (value) => {
+    let error;
+    if (!value) {
+      error = Exceptions.REQUIRED;
     }
+    console.log(error);
+    (customeErrors.current as any).space = error;
+
+    return error;
+  };
+  const validateProjectName = (value) => {
+    let error;
+    if (!value) {
+      error = Exceptions.REQUIRED;
+    }
+    //setFlag(!flag);
+   (customeErrors.current as any).projectName = error;
+
+   console.log(customeErrors,"customeErrors validateProjectName")
+    return error;
+  };
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+   /* if (activeStep == 0) {
+      checkStepOneValidation();
+      const  validationErrors = (customeErrors.current as any)
+      if( validationErrors.projectName  || validationErrors.space){
+        return;
+      }
+    }*/
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -34,7 +74,10 @@ const FormStepper: React.FC<IFormStepperProps> = ({errors, touched,  values,time
     setActiveStep(0);
   };
 
-  const total = (Object.values(timeLine)).reduce((sum, previousValue) => sum + previousValue.numberOfDays, 0);
+  const total = Object.values(timeLine).reduce(
+    (sum, previousValue) => sum + previousValue.numberOfDays,
+    0
+  );
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
@@ -66,9 +109,12 @@ const FormStepper: React.FC<IFormStepperProps> = ({errors, touched,  values,time
           <>
             number of Days : {total}
             <StepContainer
+              validateSpace={validateSpace}
+              validateProjectName={validateProjectName}
               step={activeStep}
               errors={errors}
               touched={touched}
+              customeErrors={null}
               onFromChange={onFromChange}
               values={values}
               timeLine={timeLine}
@@ -89,13 +135,12 @@ const FormStepper: React.FC<IFormStepperProps> = ({errors, touched,  values,time
 
             {activeStep === Steps.length - 1 ? (
               <CustomButton text={"Finish"} />
+              
             ) : (
               <Button onClick={handleNext}>Next </Button>
             )}
           </Box>
-         
-      </React.Fragment>
-
+        </React.Fragment>
       )}
     </Box>
   );

@@ -12,6 +12,10 @@ export const PATH_NAMES = {
   CONSTUCTOR_REQUEST:"/constuctorRequestList", 
   PROJECT: "/project",
   PROJECT_LIST:"/PROJECTLIST",
+  PROJECT_DETAILS:"/PROJECTDETAILS/:id",
+  PROJECT_DETAILSLink:"/PROJECTDETAILS",
+
+
   
   
 };

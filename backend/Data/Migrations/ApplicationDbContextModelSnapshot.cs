@@ -48,7 +48,10 @@ namespace WebApplication1.Data.Migrations
 
             modelBuilder.Entity("Backend.Dtos.Constructor.GetTopAvailableCraftsmanInSpecificInterval", b =>
                 {
-                    b.Property<int>("ExpectedTime")
+                    b.Property<int>("ExpectedEndDate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExpectedStartDate")
                         .HasColumnType("int");
 
                     b.Property<string>("FullName")
@@ -108,6 +111,41 @@ namespace WebApplication1.Data.Migrations
                     b.ToTable((string)null);
 
                     b.ToView("__notExist2", (string)null);
+                });
+
+            modelBuilder.Entity("Backend.Dtos.Project.CraftsmanScheduleWithUserDetailsSP", b =>
+                {
+                    b.Property<Guid>("FromUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("FromeDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RequestDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RequestStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sector")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ToUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("__notExist6", (string)null);
                 });
 
             modelBuilder.Entity("Backend.Dtos.Project.GetGuestRequestListResponseDto", b =>
@@ -406,11 +444,11 @@ namespace WebApplication1.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("FromUserId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("FromeDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int?>("ProjectId")
                         .HasColumnType("int");
@@ -422,7 +460,7 @@ namespace WebApplication1.Data.Migrations
                     b.Property<int>("RequestStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ToDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("ToUserId")

@@ -42,7 +42,7 @@ const SignUp: React.FC<any> = ({}) => {
       >
         <Formik
           initialValues={signUpInitialValues}
-          validationSchema={signUpSchema}
+          //validationSchema={signUpSchema}
           onSubmit={(values) => {
             // same shape as initial values
             onHandleSubmit(values);

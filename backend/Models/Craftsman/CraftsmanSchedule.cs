@@ -9,8 +9,8 @@ namespace WebApplication1.Models.Craftsman
         public Guid ToUserId { get; set; }
         public int? ProjectId { get; set; }
         public string RequestDescription { get; set; }
-        public DateTime FromeDate { get; set; }
-        public DateTime ToDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public ProjectStatusEnum RequestStatus { get; set; }
     }
 }

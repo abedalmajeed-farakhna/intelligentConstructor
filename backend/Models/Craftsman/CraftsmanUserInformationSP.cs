@@ -15,5 +15,10 @@ namespace WebApplication1.Models.Craftsman
         public int? Speed { get; set; }
 
         public string? Note { get; set; }
+
+        public static implicit operator string(CraftsmanUserInformationSP v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

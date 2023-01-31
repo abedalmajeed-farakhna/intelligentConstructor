@@ -12,7 +12,7 @@ namespace Backend.Services
         Task<GetConstructorInformationResponse> GetConstructorInformation();
         Task<bool> AddNewProject(AddNewProjectRequest request);
         Task<List<GetProjectListDetails>> getProjectList();
-
+        Task<GetProjectDetailsById> GetProjectDetailsById(int ProjectId);
     }
  
 }

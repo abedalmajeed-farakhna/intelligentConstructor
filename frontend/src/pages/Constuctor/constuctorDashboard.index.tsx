@@ -11,10 +11,10 @@ const ConstuctorDashboard: React.FC<any> = ({ children }) => {
   //console.log(queryString.parse(location.search),"location")
   const classes = useStyles();
   return (
-    <Box className={classes.root}>
+    <Box  className={classes.root}>
       <ConstuctorSidebar />
 
-      <Box className={classes.main}>{children} </Box>
+      <Box   className={classes.main}>{children} </Box>
     </Box>
   );
 };

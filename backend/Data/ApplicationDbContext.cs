@@ -24,6 +24,7 @@ namespace WebApplication1.Data
         public virtual DbSet<ConstructorInformation> ConstructorInformation { get; set; }
         public virtual DbSet<CraftsmanInformationSP> GetUserInformationById { get; set; }
         public virtual DbSet<CraftsmanScheduleWithUserDetailsSP> CraftsmanScheduleWithUserDetailsSP { get; set; }
+        public virtual DbSet<GetFirstAvailableDateSP> GetFirstAvailableDateSP { get; set; }
         public virtual DbSet<GetConstructorInformationResponse> GetConstructorInformationSP { get; set; }
         public virtual DbSet<GetTopAvailableCraftsmanInSpecificInterval> GetTopAvailableCraftsmanInSpecificInterval { get; set; }
 
@@ -50,6 +51,7 @@ namespace WebApplication1.Data
             modelBuilder.Entity<GetConstructorInformationResponse>().HasNoKey().ToView("__notExist4");
             modelBuilder.Entity<GetTopAvailableCraftsmanInSpecificInterval> ().HasNoKey().ToView("__notExist5");
             modelBuilder.Entity<CraftsmanScheduleWithUserDetailsSP> ().HasNoKey().ToView("__notExist6");
+            modelBuilder.Entity<GetFirstAvailableDateSP> ().HasNoKey().ToView("__notExist7");
 
         }
     }

@@ -11,6 +11,8 @@ namespace Backend.Dtos.Constructor
         public string? ProfileImage { get; set; }
         public string Username { get; set; }
         public string FullName { get; set; }
+        public DateTime ExpectedStartDate { get; set; }
+        public DateTime ExpectedEndDate { get; set; }
         public int ExpectedTime { get; set; }
     }
 }

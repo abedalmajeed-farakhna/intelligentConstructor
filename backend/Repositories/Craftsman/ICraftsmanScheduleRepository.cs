@@ -1,5 +1,6 @@
 ﻿using Backend.Dtos.Constructor;
 using Backend.Dtos.Project;
+using Backend.Enums;
 using WebApplication1.Dtos.Constructor;
 using WebApplication1.Models.Craftsman;
 
@@ -11,7 +12,7 @@ namespace Backend.Repositories
         Task<bool> AcceptRequest(int RequestId);
         Task<bool> RejectRequest(int RequestId);
 
-        Task<bool> AddNewRequest(AddNewRequestDto request);
+        Task<bool> AddNewRequest(AddNewRequestDto request, ProjectStatusEnum RequestStatus = ProjectStatusEnum.Pending);
         Task<bool> CancelRequest(int RequestId);
 
 
@@ -20,6 +21,8 @@ namespace Backend.Repositories
         Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList(Guid userId);
         Task<List<CraftsmanSchedule>> GetCraftsmanRequestList(Guid userId);
         Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request);
+        Task<DateTime?> GetFirstAvailableDate(Guid userId, DateTime projectStartDate);
+        Task<List<CraftsmanSchedule>> GetProjectDetailsById(int ProjectId);
 
     }
 }

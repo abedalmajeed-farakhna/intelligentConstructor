@@ -9,6 +9,7 @@ namespace Backend.Repositories
 
         Task<int> AddNewProject(AddNewProjectRequest request, Guid UserId);
         Task<List<Project>> GetProjectListByUserId(Guid userId);
+        Task<Project> GetProjectByProjectId(int ProjectId);
 
     }
 

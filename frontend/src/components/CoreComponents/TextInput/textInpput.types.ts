@@ -5,4 +5,5 @@ export interface ITextInputProps {
   error?: string;
   label?: string;
   as?: "input" | "textarea";
+  validate?:any
 }

@@ -6,7 +6,8 @@ display:"flex",
   },
   main:{
     width:  `calc(100% - ${200}px)` ,
-    flexGrow:1
+    flexGrow:1,
+    margin:20
 
   }
 }));
