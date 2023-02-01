@@ -160,31 +160,7 @@ namespace Backend.Services
                 {
                     Id = project.ProjectId,
                     ProjectName = project.ProjectName,
-                    ProjectDetails = new ProjectDetailsDto
-                    {
-                        BuilderStage = new StageDetailsDto
-                        {
-                            projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Builder).RequestStatus,
-                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Builder).StartDate,
-                        },
-                        TilerStage = new StageDetailsDto
-                        {
-                            projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Tiler).RequestStatus,
-                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Tiler).StartDate,
-                        },
-                        HousePainterStage = new StageDetailsDto
-                        {
-                            projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.HousePainter).RequestStatus,
-                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.HousePainter).StartDate,
-                        },
-                        CarpenterStage = new StageDetailsDto
-                        {
-                            projectStatus = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Carpenter).RequestStatus,
-                            StartDate = craftsmanRequestList.FirstOrDefault(t => t.Sector == SectorEnum.Carpenter).StartDate,
-                        },
-
-                    }
-
+                    ProjectDetails = craftsmanRequestList
 
                 });
 
@@ -199,20 +175,20 @@ namespace Backend.Services
             // scahdulTbale
             var craftsmans = await _craftsmanScheduleRepository.GetProjectDetailsById(ProjectId);
             var list = new List<CraftsmanInformationDto>();
+            var craftsmansInformation = await _craftsmanService.getAllCraftsmanInformation();
 
             craftsmans.ForEach(async t =>
             {
-                var user = await _craftsmanService.getCraftsmanInformation(t.ToUserId);
-            
+                var user = craftsmansInformation.FirstOrDefault(u => u.Id == t.ToUserId.ToString());
                 list.Add(new CraftsmanInformationDto
-                { ExpectedEndDate= t.EndDate,
-                 ExpectedStartDate= t.StartDate, 
-                 projectStatus =t.RequestStatus,
-                 FullName=user.FullName,
-                 UserName=user.UserName,
-                     
-                 
-                      
+                {
+                    ExpectedEndDate = t.EndDate,
+                    ExpectedStartDate = t.StartDate,
+                    projectStatus = t.RequestStatus,
+                    FullName = user.FullName,
+                    UserName = user.UserName,
+                    Sector = user.Sector
+
                 });
                 
             }); 

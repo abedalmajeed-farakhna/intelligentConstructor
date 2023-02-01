@@ -13,9 +13,10 @@ const bull = (
     </Box>
   );
 const BasicCard: React.FC<IBasicCardProps> = ({title,name,status,expectedStart,expectedEnd  }) => {
-
+console.log(expectedStart,"expectedStart");
+console.log(expectedEnd,"expectedEnd");
   return (
-<Card sx={{ minWidth: 275 }}>
+<Card sx={{ Width: 50 }}>
       <CardContent>
         <Typography  variant="h5" component="div">
         {title}
@@ -27,7 +28,7 @@ const BasicCard: React.FC<IBasicCardProps> = ({title,name,status,expectedStart,e
         {status}
         </Typography>
         <Typography variant="body2">
-        { format(expectedStart, "yyyy-MM-dd")} - { format(expectedEnd, "yyyy-MM-dd")} 
+        { format(new Date(expectedStart), "yyyy-MM-dd")} - { format(new Date(expectedEnd), "yyyy-MM-dd")} 
         </Typography>
 
       </CardContent>

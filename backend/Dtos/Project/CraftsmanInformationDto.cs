@@ -6,9 +6,10 @@ namespace Backend.Dtos.Project
     {
        
         public string UserName { get; set; }
-        public string FullName { get; set; }
-        public DateTime ExpectedStartDate { get; set; }
-        public DateTime ExpectedEndDate { get; set; }
+        public string? FullName { get; set; }
+        public DateTime? ExpectedStartDate { get; set; }
+        public DateTime? ExpectedEndDate { get; set; }
         public ProjectStatusEnum? projectStatus { get; set; }
+        public SectorEnum? Sector { get; set; }
     }
 }

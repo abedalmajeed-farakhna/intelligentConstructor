@@ -8,7 +8,7 @@ namespace Backend.Dtos.Project
       
         public int Id { get; set; }
         public string ProjectName { get; set; }
-        public ProjectDetailsDto ProjectDetails { get; set; }
+        public List<CraftsmanScheduleWithUserDetailsSP> ProjectDetails { get; set; }
 
     }
 }
