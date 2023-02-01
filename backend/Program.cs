@@ -45,6 +45,9 @@ builder.Services.AddScoped<IConstructorService, ConstructorService>();
 builder.Services.AddScoped<IConstructorRepository, ConstructorRepository>();
 // Project
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+// rating 
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 
 
 
