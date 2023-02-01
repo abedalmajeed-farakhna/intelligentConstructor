@@ -51,10 +51,10 @@ namespace Backend.Services
         {
             return await _craftsmanScheduleRepository.CancelRequest(RequestId);
         }
-        public async Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList()
+        public async Task<List<GetSentRequestListResponseDto>> GetSentRequestList()
         {
             var userId = _authenticationService.GetCurrentUserId();
-            return await _craftsmanScheduleRepository.GetGuestRequestList(userId.GetValueOrDefault());
+            return await _craftsmanScheduleRepository.GetSentRequestList(userId.GetValueOrDefault());
 
         }
 

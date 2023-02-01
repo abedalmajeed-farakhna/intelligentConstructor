@@ -3,6 +3,7 @@ using Backend.Dtos.Craftsman;
 using Backend.Dtos.Project;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.FluentApi;
 using WebApplication1.FluentApi.Constructor;
 using WebApplication1.FluentApi.Craftsman;
 using WebApplication1.Models;
@@ -32,8 +33,9 @@ namespace WebApplication1.Data
         public virtual DbSet<CraftsmanSchedule> craftsmanSchedule { get; set; }
 
         public virtual DbSet<CraftsmanSchedule> craftsmanProject { get; set; }
-        public virtual DbSet<GetGuestRequestListResponseDto> GuestRequestList { get; set; }
+        public virtual DbSet<GetSentRequestListResponseDto> GuestRequestList { get; set; }
         public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<Rating> Rating { get; set; }
 
 
 
@@ -41,13 +43,15 @@ namespace WebApplication1.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration( new CraftsmanInformationConfigration());
+            modelBuilder.ApplyConfiguration(new CraftsmanInformationConfigration());
+            modelBuilder.ApplyConfiguration( new RatingConfigration());
+            modelBuilder.ApplyConfiguration(new CraftsmanScheduleConfigration());
             modelBuilder.ApplyConfiguration(new CraftsmanScheduleConfigration());
             modelBuilder.ApplyConfiguration(new ConstructorInformationConfigration());
             modelBuilder.ApplyConfiguration(new ProjectConfigration());
             modelBuilder.Entity<CraftsmanUserInformationSP>().HasNoKey().ToView("__notExist");
             modelBuilder.Entity<CraftsmanInformationSP>().HasNoKey().ToView("__notExist2");
-            modelBuilder.Entity<GetGuestRequestListResponseDto>().HasNoKey().ToView("__notExist3");
+            modelBuilder.Entity<GetSentRequestListResponseDto>().HasNoKey().ToView("__notExist3");
             modelBuilder.Entity<GetConstructorInformationResponse>().HasNoKey().ToView("__notExist4");
             modelBuilder.Entity<GetTopAvailableCraftsmanInSpecificInterval> ().HasNoKey().ToView("__notExist5");
             modelBuilder.Entity<CraftsmanScheduleWithUserDetailsSP> ().HasNoKey().ToView("__notExist6");

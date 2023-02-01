@@ -18,7 +18,7 @@ namespace Backend.Repositories
 
         Task<List<CraftsmanScheduleWithUserDetailsSP>> GetCraftsmanRequestListByProjectId(int projectid);
 
-        Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList(Guid userId);
+        Task<List<GetSentRequestListResponseDto>> GetSentRequestList(Guid userId);
         Task<List<CraftsmanSchedule>> GetCraftsmanRequestList(Guid userId);
         Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request);
         Task<DateTime?> GetFirstAvailableDate(Guid userId, DateTime projectStartDate);

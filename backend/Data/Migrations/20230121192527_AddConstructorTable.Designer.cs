@@ -56,7 +56,7 @@ namespace WebApplication1.Data.Migrations
                     b.ToView("__notExist2", (string)null);
                 });
 
-            modelBuilder.Entity("Backend.Dtos.Craftsman.GetGuestRequestListResponseDto", b =>
+            modelBuilder.Entity("Backend.Dtos.Craftsman.GetSentRequestListResponseDto", b =>
                 {
                     b.Property<DateTime>("FromeDate")
                         .HasColumnType("datetime2");

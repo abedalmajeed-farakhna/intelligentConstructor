@@ -49,9 +49,9 @@ namespace Backend.Controllers
             return await _craftsmanScheduleService.CancelRequest(request.RequestId);
         }
         [HttpGet]
-        public async Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList( )
+        public async Task<List<GetSentRequestListResponseDto>> GetSentRequestList( )
         {
-            return await _craftsmanScheduleService.GetGuestRequestList();
+            return await _craftsmanScheduleService.GetSentRequestList();
         } 
         public async Task<List<CraftsmanSchedule>> GetCraftsmanRequestList()
         {

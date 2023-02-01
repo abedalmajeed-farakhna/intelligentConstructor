@@ -113,7 +113,7 @@ namespace WebApplication1.Data.Migrations
                     b.ToView("__notExist2", (string)null);
                 });
 
-            modelBuilder.Entity("Backend.Dtos.Project.GetGuestRequestListResponseDto", b =>
+            modelBuilder.Entity("Backend.Dtos.Project.GetSentRequestListResponseDto", b =>
                 {
                     b.Property<DateTime>("FromeDate")
                         .HasColumnType("datetime2");

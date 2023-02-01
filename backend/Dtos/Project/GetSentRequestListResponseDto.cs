@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Dtos.Project
 {
-    public class GetGuestRequestListResponseDto
+    public class GetSentRequestListResponseDto
     {
 
         public int Id { get; set; }
@@ -11,8 +11,8 @@ namespace Backend.Dtos.Project
         public string ToFullName { get; set; }
         public string ToProfileImage { get; set; }
         public string RequestDescription { get; set; }
-        public DateTime FromeDate { get; set; }
-        public DateTime ToDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public ProjectStatusEnum RequestStatus { get; set; }
 
     }

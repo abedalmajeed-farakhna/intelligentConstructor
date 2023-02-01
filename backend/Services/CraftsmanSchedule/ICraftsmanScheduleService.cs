@@ -14,7 +14,7 @@ namespace Backend.Services
 
         Task<bool> CancelRequest(int RequestId);
 
-        Task<List<GetGuestRequestListResponseDto>> GetGuestRequestList();
+        Task<List<GetSentRequestListResponseDto>> GetSentRequestList();
         Task<List<CraftsmanSchedule>> GetCraftsmanRequestList();
         Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request);
 

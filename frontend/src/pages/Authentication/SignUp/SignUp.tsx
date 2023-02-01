@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Formik, Form } from "formik";
 import { Person } from "@mui/icons-material";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 
 import { userTypeEnum } from "../../../enums/userTypeEnum";
 import TextInput from "../../../components/CoreComponents/TextInput/textInput.index";
@@ -11,16 +11,16 @@ import CustomLink from "../../../components/CoreComponents/CustomLink/customLink
 import { PATH_NAMES } from "../../../constants/route";
 import Navbar from "../../../components/CoreComponents/Navbar/navbar.index";
 
-import { signUpInitialValues, signUpSchema } from "./signUp.utils";
+import { signUpInitialValues } from "./signUp.utils";
+import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
 
 const SignUp: React.FC<any> = ({}) => {
   const onHandleSubmit = (values) => {
-    console.log(values,"values");
     let data = {
       username: values.username,
       password: values.password,
       fullName: values.fullName,
-      userType:parseInt(values.userType),
+      userType: parseInt(values.userType),
     };
     axios.post(`/Account/SignUp`, data).then((res) => {
       if (res.data) {
@@ -114,10 +114,7 @@ const SignUp: React.FC<any> = ({}) => {
                     { name: "Guest", value: userTypeEnum.GUEST },
                   ]}
                 />
-
-                <Button fullWidth variant="outlined" type="submit">
-                  Sign up
-                </Button>
+                <CustomButton text={"Sign up"} />
                 <Box>
                   <Typography>
                     Already have an account

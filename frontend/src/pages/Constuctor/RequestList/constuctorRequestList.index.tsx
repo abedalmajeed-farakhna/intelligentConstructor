@@ -42,19 +42,19 @@ const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
     
     { field: "toFullName", headerName: "Full Name", width: 190   },
     {
-      field: "fromeDate",
-      headerName: "Frome",
+      field: "startDate",
+      headerName: "start Date",
       type: "date",
       width: 190,
       renderCell: (params) =>
-        format(new Date(params.row.fromeDate), "yyyy-MM-dd"),
+        format(new Date(params.row.startDate), "yyyy-MM-dd"),
     },
     {
-      field: "toDate",
-      headerName: "To",
+      field: "endDate",
+      headerName: "End Date",
       type: "date",
       width: 190,
-      renderCell: (params) => format(new Date(params.row.toDate), "yyyy-MM-dd"),
+      renderCell: (params) => format(new Date(params.row.endDate), "yyyy-MM-dd"),
     },
     { field: "requestDescription", headerName: "Description", width: 130 },
     {
@@ -74,7 +74,7 @@ const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
   ];
 
   useEffect(() => {
-    axios.get(`/Project/GetCostuctorRequestList?`).then((result) => {
+    axios.get(`/Project/GetSentRequestList`).then((result) => {
       setdata(result.data);
     });
   }, []);
