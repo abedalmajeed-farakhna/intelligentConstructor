@@ -1,5 +1,5 @@
 export interface ISendRequestPopup {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (showAlertPopup?:boolean) => void;
   userId:string
 }

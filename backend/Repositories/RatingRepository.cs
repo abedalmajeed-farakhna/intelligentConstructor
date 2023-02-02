@@ -18,19 +18,19 @@ namespace Backend.Repositories
         public async Task<bool> AddOrUpdateRatingDetails(RatingDetailsRequest request)
         {
 
-            var item = await _context.Rating.FirstOrDefaultAsync(t => t.RequestId == request.RequestID);
+            var item = await _context.Rating.FirstOrDefaultAsync(t => t.RequestId == request.RequestId);
             if (item == null)
             {
                 item = new Rating
                 {
-                    RequestId = request.RequestID,
-                    RateValue = request.RateVslue
+                    RequestId = request.RequestId,
+                    RateValue = request.RateValue
                 };
                 await _context.Rating.AddAsync(item);
             }
             else
             {
-                item.RateValue = request.RateVslue;
+                item.RateValue = request.RateValue;
             }
 
             _context.SaveChanges();

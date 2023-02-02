@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStyle = makeStyles((theme: ThemeOptions) => ({
   root: {
+    minWidt:"500",
 
   }
 }));

@@ -10,6 +10,7 @@ import CustomButton from "../../../CoreComponents/CustomButton/customButton.inde
 import { InitialValues } from "./sendRequestPopup.utils";
 import FormDialog from "../../../CoreComponents/FormDialog/formDialog.index";
 import { ISendRequestPopup } from "./sendRequestPopup.type";
+import AlertDialog from "../../../CoreComponents/AlertDialog/alertDialog.index";
 
 const SendRequestPopup: React.FC<ISendRequestPopup> = ({
   isOpen,
@@ -20,13 +21,17 @@ const SendRequestPopup: React.FC<ISendRequestPopup> = ({
   const [fromDate, setFrom] = React.useState(moment().format('YYYY-MM-DD'));
   const [toDate, setTo] = React.useState(moment().format('YYYY-MM-DD'));
 
+  
+
   const onHandleSubmit = (values) => {
+  
     values.from = fromDate;
     values.to = toDate;
     values.toUserId = userId;
 
     axios.post(`/Project/SendRequest`, values).then(() => {
       console.log(values);
+      onClose(true);
     });
   };
 
@@ -34,53 +39,51 @@ const SendRequestPopup: React.FC<ISendRequestPopup> = ({
     setFrom(value);
   };
 
-  const onToChanger = (value) => {
-    setTo(value);
-  };
+
 
   return (
-    <FormDialog title="Send request" isOpen={isOpen} onClose={onClose}>
-      <Formik
-        initialValues={InitialValues}
-        //validationSchema={loginSchema}
-        onSubmit={(values) => {
-          // same shape as initial values
-          onHandleSubmit(values);
-        }}
-      >
-        {({ errors, touched }) => (
-          <Form>
-            <DialogContent>
-              <DateInput
-                defaultValue={moment().format('YYYY-MM-DD')}
-                label={"from"}
-                name={"from"}
-                onChange={(val) => onFromChanger(val)}
-              />
-              <DateInput
-                defaultValue={moment().format('YYYY-MM-DD')}
-                label={"to"}
-                name={"to"}
-                onChange={(val) => onToChanger(val)}
-              />
+    <>
+   
 
-              <TextInput
-                as="textarea"
-                name={"description"}
-                placeholder={"description"}
-                type={"textarea"}
-                error={touched.description && errors.description}
-                label="description"
-              />
-            </DialogContent>
+      <FormDialog title="Send request" isOpen={isOpen} onClose={onClose}>
+        <Formik
+          initialValues={InitialValues}
+          //validationSchema={loginSchema}
+          onSubmit={(values) => {
+            // same shape as initial values
+            onHandleSubmit(values);
+          }}
+        >
+          {({ errors, touched }) => (
+            <Form>
+              <DialogContent>
+                <DateInput
+                  defaultValue={moment().format("YYYY-MM-DD")}
+                  label={"from"}
+                  name={"from"}
+                  onChange={(val) => onFromChanger(val)}
+                />
+                <TextInput
+                  as="textarea"
+                  name={"description"}
+                  placeholder={"description"}
+                  type={"textarea"}
+                  error={touched.description && errors.description}
+                  label="description"
+                />
+              </DialogContent>
 
-            <DialogActions>
-              <CustomButton text={"Send request"} />
-            </DialogActions>
-          </Form>
-        )}
-      </Formik>
-    </FormDialog>
+              <DialogActions>
+                <CustomButton text={"Send request"} />
+              </DialogActions>
+            </Form>
+          )}
+          
+
+        </Formik>
+      </FormDialog>
+    
+       </>
   );
 };
 

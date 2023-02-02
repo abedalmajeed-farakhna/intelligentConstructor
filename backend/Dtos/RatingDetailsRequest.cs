@@ -6,9 +6,9 @@ namespace Backend.Dtos
     {
         
         [Required]
-        public int RequestID   { get; set; }
+        public int RequestId   { get; set; }
         [Required]
-        public int RateVslue { get; set; }
+        public int RateValue { get; set; }
 
         
 

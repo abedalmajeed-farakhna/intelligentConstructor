@@ -8,14 +8,12 @@ const FormDialog: React.FC<IFormDialogProps> = ({isOpen, title, children, onClos
   const classes = useStyles();
 
   return (
-    <div>
-      <Dialog open={isOpen}>
+      <Dialog open={isOpen} className={classes.rootasd}>
         <DialogTitle>
           {title} <span onClick={onClose}> x</span>
         </DialogTitle>
         {children}
       </Dialog>
-    </div>
   );
 };
 export default FormDialog;

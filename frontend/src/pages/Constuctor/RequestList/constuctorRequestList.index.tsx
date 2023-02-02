@@ -7,16 +7,9 @@ import useStyles from "./constuctorRequestList.style";
 import { format } from "date-fns";
 import ProjectStatus from "../../../components/CoreComponents/ProjectStatus/projectStatus.index";
 import ClearIcon from "@mui/icons-material/Clear";
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from "@mui/material";
 import AlertDialog from "../../../components/CoreComponents/AlertDialog/alertDialog.index";
 import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
+import CustomRating from "../../../components/CoreComponents/CustomRating/customRating.index";
 
 const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
   const classes = useStyles();
@@ -26,26 +19,28 @@ const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
   const [showAlertDialog, setShowAlertDialog] = useState<boolean>(false);
 
   const columns: GridColDef[] = [
-    { field: "toProfileImage", headerName: "", width: 70,
-    filterable:false,
-    sortable:false,
-    renderCell: (params) => 
-    <div className={classes.imageContainer}><img  className={classes.image} src={`/Upload/${params.row.toProfileImage}`}/></div>, 
-  
-  
-  
-  },
-    
-    
-    
-    
-    
-    { field: "toFullName", headerName: "Full Name", width: 190   },
+    {
+      field: "toProfileImage",
+      headerName: "",
+      width: 70,
+      filterable: false,
+      sortable: false,
+      renderCell: (params) => (
+        <div className={classes.imageContainer}>
+          <img
+            className={classes.image}
+            src={`/Upload/${params.row.toProfileImage}`}
+          />
+        </div>
+      ),
+    },
+
+    { field: "toFullName", headerName: "Full Name", width: 190 },
     {
       field: "startDate",
       headerName: "start Date",
       type: "date",
-      width: 190,
+      width: 180,
       renderCell: (params) =>
         format(new Date(params.row.startDate), "yyyy-MM-dd"),
     },
@@ -53,24 +48,51 @@ const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
       field: "endDate",
       headerName: "End Date",
       type: "date",
-      width: 190,
-      renderCell: (params) => format(new Date(params.row.endDate), "yyyy-MM-dd"),
+      width: 150,
+      renderCell: (params) =>
+        format(new Date(params.row.endDate), "yyyy-MM-dd"),
     },
     { field: "requestDescription", headerName: "Description", width: 130 },
-    {
-      field: "requestStatus",
+    
+    {field: "requestStatus",
       headerName: "Status ",
-      width: 190,
+      width: 150,
       renderCell: (params) => (
         <ProjectStatus projectStatus={params.row.requestStatus} />
       ),
     },
-    {
-      field: "",
+
+    { field: "",
       headerName: "Action ",
-      width: 190,
-      renderCell: (params) =><div className={(params.row.requestStatus !=ProjectStatusEnum.Pending ) ? classes.disabled:classes.actionColumn} title ="cancel request"> <ClearIcon   onClick={()=>onShowAlertDialog(params.row.id, params.row.requestStatus)}   /></div>,
+      width: 90,
+      renderCell: (params) => (
+        <div
+          className={
+            params.row.requestStatus != ProjectStatusEnum.Pending
+              ? classes.disabled
+              : classes.actionColumn
+          }
+          title="cancel request"
+        >
+          {" "}
+          <ClearIcon
+            onClick={() =>
+              onShowAlertDialog(params.row.id, params.row.requestStatus)
+            }
+          />
+        </div>
+      ),
     },
+
+    {field: "Rating",
+    headerName: "Rating ",
+    width: 150,
+    renderCell: (params) => ((params.row.id),
+      <CustomRating id= {params.row.id}/>
+      
+   
+    ),
+  },
   ];
 
   useEffect(() => {
@@ -81,24 +103,20 @@ const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
   const onHideAlertDialog = () => {
     setShowAlertDialog(false);
   };
-  const onShowAlertDialog = (id:number,status :any) => {
-    setCurentRequestId(id)
-    if (status==ProjectStatusEnum.Pending){
-    setShowAlertDialog(true);
+  const onShowAlertDialog = (id: number, status: any) => {
+    setCurentRequestId(id);
+    if (status == ProjectStatusEnum.Pending) {
+      setShowAlertDialog(true);
     }
-
-
-
   };
-const onDeleteRequest=()=>{
-  const requestData ={
-    requestId:CurentRequestId
-  }
-axios.post(`/Project/CancelRequest`,requestData ).then(() => {
-  setdata(data?.filter(t=>t.id != CurentRequestId))
-});
-
-}
+  const onDeleteRequest = () => {
+    const requestData = {
+      requestId: CurentRequestId,
+    };
+    axios.post(`/Project/CancelRequest`, requestData).then(() => {
+      setdata(data?.filter((t) => t.id != CurentRequestId));
+    });
+  };
   return (
     <div className={classes.root}>
       {showAlertDialog && (
