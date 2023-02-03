@@ -10,6 +10,8 @@ namespace Backend.Dtos.Craftsman
         public string? ProfileImage { get; set; }
         public string? Id { get; set; }
         public string? PhoneNumber { get; set; }
+        public int? Region { get; set; }
+
 
 
 

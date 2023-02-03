@@ -18,5 +18,11 @@ namespace WebApplication1.Models
         [Required]
         public string Note { get; set; }
 
+        [Required]
+        public int Region { get; set; }
+
+
+
+
     }
 }

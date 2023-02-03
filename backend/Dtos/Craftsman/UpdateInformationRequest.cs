@@ -14,5 +14,9 @@ namespace Backend.Dtos.Craftsman
         [Required]
         public SectorEnum Sector { get; set; }
 
+        [Required]
+        public int Region { get; set; }
+
+
     }
 }

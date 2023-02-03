@@ -33,9 +33,9 @@ namespace Backend.Controllers
             return await _craftsmanService.GetCraftsmanInformationById(id);
         }
         [HttpGet]
-        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySector(SectorEnum sector)
+        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySector(SectorEnum sector, int region)
         {
-            return await _craftsmanService.GetCraftsmanbYSector(sector);
+            return await _craftsmanService.GetCraftsmanBySectorAndRegion(sector, region);
         }
 
         // [Authorize]

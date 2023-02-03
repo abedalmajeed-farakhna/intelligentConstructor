@@ -67,7 +67,7 @@ namespace Backend.Services
         public async Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request)
         {
 
-            var craftsmanList = await _craftsmanInformationRepository.GetCraftsmanbYSector(request.Sector);
+            var craftsmanList = await _craftsmanInformationRepository.GetCraftsmanBySectorAndRegion(request.Sector, request.Region);
 
 
             var result = new List<GetTopAvailableCraftsmanInSpecificInterval>();

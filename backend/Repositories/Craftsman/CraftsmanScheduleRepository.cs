@@ -84,6 +84,7 @@ namespace Backend.Repositories
             var userIdParameter = new SqlParameter("@userId", userId);
 
             string sql = "EXECUTE [dbo].[GetSentRequestList_SP]  @userId={0}";
+            var asd = await _context.GuestRequestList.FromSqlRaw(sql, userIdParameter).ToListAsync();
             return (await _context.GuestRequestList.FromSqlRaw(sql, userIdParameter).ToListAsync());
 
          

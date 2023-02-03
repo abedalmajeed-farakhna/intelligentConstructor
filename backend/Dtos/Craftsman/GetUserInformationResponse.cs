@@ -12,5 +12,8 @@ namespace Backend.Dtos.Craftsman
         public SectorEnum? Sector { get; set; }
         public string? ProfileImage { get; set; }
 
+        public int? Region { get; set; }
+
+
     }
 }

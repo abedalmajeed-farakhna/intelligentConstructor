@@ -14,6 +14,8 @@ namespace Backend.Dtos.Project
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public ProjectStatusEnum RequestStatus { get; set; }
+        public int? Rating { get; set; }
+
 
     }
 }

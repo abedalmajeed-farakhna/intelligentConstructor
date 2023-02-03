@@ -47,6 +47,7 @@ namespace Backend.Repositories
             string sql = "exec [dbo].[CraftsmanUserInformation_sp]";
             return await _context.CraftsmanUserInformation.FromSqlRaw(sql)?.FirstOrDefaultAsync(t=>t.Id == id.ToString());
 
+
         }
 
         public async Task<bool> AddOrUpdateUserInformation(UpdateInformationRequest request, Guid userID)
@@ -59,8 +60,9 @@ namespace Backend.Repositories
                 {
                     UserId = userID,
                     Sector = request.Sector,
-                     Note= request.Note,
-                      Speed= request.Speed
+                    Note = request.Note,
+                    Speed = request.Speed,
+                    Region = request.Region
                 };
                 await _context.craftsmanInformation.AddAsync(userInformation);
             }
@@ -76,12 +78,12 @@ namespace Backend.Repositories
             return true;
         }
 
-        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanbYSector(SectorEnum sector)
+        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySectorAndRegion(SectorEnum sector, int region)
         {
 
             string sql = "exec [dbo].[CraftsmanUserInformation_sp]";
             var list = await _context.CraftsmanUserInformation.FromSqlRaw(sql).ToListAsync();
-            return list.Where(t => t.Sector == sector).ToList();
+            return list.Where(t => t.Sector == sector && t.Region == region).ToList();
 
         }
 

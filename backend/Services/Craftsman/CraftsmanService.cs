@@ -65,17 +65,19 @@ namespace Backend.Services
                 ProfileImage = user.ProfileImage,
                 Sector = craftmanInformation?.Sector,
                 Speed = craftmanInformation?.Speed,
-                Note = craftmanInformation?.Note
+                Note = craftmanInformation?.Note,
+                Region = craftmanInformation?.Region
+
             };
         }
         public async Task<CraftsmanInformationSP> GetCraftsmanInformationById(Guid id)
         {
            return await _craftsmanInformationRepository.GetCraftsmanInformationById(id);
         }
-        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanbYSector(SectorEnum sector)
+        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySectorAndRegion(SectorEnum sector, int region)
         {
 
-            return await _craftsmanInformationRepository.GetCraftsmanbYSector(sector);
+            return await _craftsmanInformationRepository.GetCraftsmanBySectorAndRegion(sector, region);
         }
 
 
