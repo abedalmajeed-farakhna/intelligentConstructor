@@ -7,8 +7,7 @@ export const setUser = createAction<IUser>("set IUser");
 export const userInitialSate: IUser = {
   fullName: "",
   type: userTypeEnum.NONE,
-  username: "",
-  id:0
+  username: ""
 };
 
 const UserReducer = createReducer<IUser>({}, userInitialSate);

@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SendRequestPopup from "../../../components/commonComponent/Guest/SendRequestPopup/sendRequestPopup.index";
-import AlertDialog from "../../../components/CoreComponents/AlertDialog/alertDialog.index";
 import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
 import useStyles from "./craftsmanProfile.style";
-import Swal from 'sweetalert2'
+import CustomRating from "../../../components/CoreComponents/CustomRating/customRating.index";
+import Loading from "../../../components/CoreComponents/Loading/loading.index";
+import { showSuccessPopup } from "../../../utils/projectUtils";
 
 const CraftsmanProfile: React.FC<any> = ({ children }) => {
   const location = window.location;
@@ -14,7 +15,6 @@ const CraftsmanProfile: React.FC<any> = ({ children }) => {
 
   const [data, setdata] = useState<any>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
 
   useEffect(() => {
     console.log(location);
@@ -27,14 +27,8 @@ const CraftsmanProfile: React.FC<any> = ({ children }) => {
 
   const handleOnClose = (showAlertPopup) => {
     setIsOpen(false);
-    showAlertPopup &&  Swal.fire({
-      title: "Done",
-      icon: 'success',
-      timerProgressBar:true,
-      confirmButtonColor:"red"
-    });
+    showAlertPopup && showSuccessPopup();
   };
-
 
   const handleClick = () => {
     setIsOpen(true);
@@ -48,7 +42,7 @@ const CraftsmanProfile: React.FC<any> = ({ children }) => {
 */
   };
 
-  if (!data?.fullName) return <> loading</>;
+  if (!data?.fullName) return <Loading/>;
   return (
     <>
       {isOpen && (
@@ -67,6 +61,10 @@ const CraftsmanProfile: React.FC<any> = ({ children }) => {
               alt="ProfileImage"
             />
           }
+        </div>
+        <div>
+          {" "}
+          <CustomRating value={data.ratingValue} readOnly={true} />
         </div>
         <div className={classes.fullName}> {data.fullName}</div>
         <div className={classes.userName}> {data.userName}</div>

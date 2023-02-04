@@ -74,7 +74,6 @@ const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
           }
           title="cancel request"
         >
-          {" "}
           <ClearIcon
             onClick={() =>
               onShowAlertDialog(params.row.id, params.row.requestStatus)
@@ -88,7 +87,7 @@ const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
     headerName: "Rating ",
     width: 150,
     renderCell: (params) => ((params.row.id),
-      <CustomRating id= {params.row.id}/>
+      <CustomRating id= {params.row.id} disabled={params.row.requestStatus != ProjectStatusEnum.Done} value={params.row.rating}/>
       
    
     ),

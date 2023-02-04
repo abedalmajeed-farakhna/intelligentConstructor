@@ -13,9 +13,12 @@ namespace Backend.Services
         Task<bool> AcceptRequest(int RequestId);
 
         Task<bool> CancelRequest(int RequestId);
+        Task<bool> StartWorking(int RequestId);
+        Task<bool> DoneWorking(int RequestId);
 
         Task<List<GetSentRequestListResponseDto>> GetSentRequestList();
         Task<List<CraftsmanSchedule>> GetCraftsmanRequestList();
+        Task<List<GetReceivedRequestListSP>> GetReceivedRequestList();
         Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request);
 
     }

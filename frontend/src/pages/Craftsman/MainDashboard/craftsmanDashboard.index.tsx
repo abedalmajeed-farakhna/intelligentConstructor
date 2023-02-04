@@ -12,14 +12,10 @@ const CraftsmanDashboard: React.FC<any> = ({ children }) => {
     <Box className={classes.root}>
       <CraftsmanSidebar />
       
-      <Box
+      <Box  className={classes.main}
         component="main"
       
       >
-
-
-
-        crafts man
        {children}
       </Box>
     </Box>

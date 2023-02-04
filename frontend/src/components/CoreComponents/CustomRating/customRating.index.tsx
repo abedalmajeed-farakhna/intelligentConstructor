@@ -6,8 +6,12 @@ import { customIcons } from "./customRating.constants";
 import { StyledRating } from "./customRating.style";
 import axios from "axios";
 
-const CustomRating: React.FC<ICustomRatingProps> = ({id}) => {
- 
+const CustomRating: React.FC<ICustomRatingProps> = ({
+  id,
+  value,
+  readOnly,
+  disabled,
+}) => {
   function IconContainer(props) {
     const { value, ...other } = props;
     return <span {...other}>{customIcons[value].icon}</span>;
@@ -15,30 +19,29 @@ const CustomRating: React.FC<ICustomRatingProps> = ({id}) => {
 
   IconContainer.propTypes = {
     value: PropTypes.number.isRequired,
-   
   };
 
-
-  const handleChange =(event, newValue)=>{
-    alert(newValue);
-
-   const  data ={
-    requestId: id,
-    rateValue: newValue
-    }
+  const handleChange = (event, newValue) => {
+    const data = {
+      requestId: id,
+      rateValue: newValue,
+    };
     axios.post(`/Rating/AddOrUpdateRatingDetails`, data).then(() => {
       console.log(data);
     });
-  } 
-  
+  };
+
   return (
     <StyledRating
       onChange={handleChange}
       name="highlight-selected-only"
-      defaultValue={2}
+      defaultValue={value}
+      //value={value}
       IconContainerComponent={IconContainer}
-      getLabelText={(value) => customIcons[value].label}
+      getLabelText={(value) => value && customIcons[value]?.label}
       highlightSelectedOnly
+      readOnly={readOnly}
+      disabled={disabled}
     />
   );
 };

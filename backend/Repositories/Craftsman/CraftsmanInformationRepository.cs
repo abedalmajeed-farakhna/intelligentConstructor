@@ -71,6 +71,8 @@ namespace Backend.Repositories
                 userInformation.Sector = request.Sector;
                 userInformation.Note = request.Note;
                 userInformation.Speed = request.Speed;
+                userInformation.Region = request.Region;
+
             }
 
             _context.SaveChanges();
@@ -78,15 +80,22 @@ namespace Backend.Repositories
             return true;
         }
 
-        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySectorAndRegion(SectorEnum sector, int region)
+        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySector(SectorEnum sector)
         {
 
             string sql = "exec [dbo].[CraftsmanUserInformation_sp]";
             var list = await _context.CraftsmanUserInformation.FromSqlRaw(sql).ToListAsync();
-            return list.Where(t => t.Sector == sector && t.Region == region).ToList();
+            return list.Where(t => t.Sector == sector ).ToList();
+
+        }
+        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySectorAndRegion(SectorEnum sector, int regionId)
+        {
+
+            string sql = "exec [dbo].[CraftsmanUserInformation_sp]";
+            var list = await _context.CraftsmanUserInformation.FromSqlRaw(sql).ToListAsync();
+            return list.Where(t => t.Sector == sector && t.RegionId == regionId).ToList();
 
         }
 
-       
     }
 }

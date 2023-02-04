@@ -26,35 +26,38 @@ const RequestList: React.FC<IRequestListProps> = ({}) => {
   const [showAlertDialog, setShowAlertDialog] = useState<boolean>(false);
 
   const columns: GridColDef[] = [
-    { field: "toProfileImage", headerName: "", width: 70,
-    filterable:false,
-    sortable:false,
-    renderCell: (params) => 
-    <div className={classes.imageContainer}><img  className={classes.image} src={`/Upload/${params.row.toProfileImage}`}/></div>, 
-  
-  
-  
-  },
-    
-    
-    
-    
-    
-    { field: "toFullName", headerName: "Full Name", width: 190   },
     {
-      field: "fromeDate",
-      headerName: "Frome",
+      field: "toProfileImage",
+      headerName: "",
+      width: 70,
+      filterable: false,
+      sortable: false,
+      renderCell: (params) => (
+        <div className={classes.imageContainer}>
+          <img
+            className={classes.image}
+            src={`/Upload/${params.row.toProfileImage}`}
+          />
+        </div>
+      ),
+    },
+
+    { field: "toFullName", headerName: "Full Name", width: 190 },
+    {
+      field: "startDate",
+      headerName: "Start Date",
       type: "date",
       width: 190,
       renderCell: (params) =>
-        format(new Date(params.row.fromeDate), "yyyy-MM-dd"),
+        format(new Date(params.row.startDate), "yyyy-MM-dd"),
     },
     {
-      field: "toDate",
-      headerName: "To",
+      field: "endDate",
+      headerName: "End Date",
       type: "date",
       width: 190,
-      renderCell: (params) => format(new Date(params.row.toDate), "yyyy-MM-dd"),
+      renderCell: (params) =>
+        format(new Date(params.row.endDate), "yyyy-MM-dd"),
     },
     { field: "requestDescription", headerName: "Description", width: 130 },
     {
@@ -69,36 +72,48 @@ const RequestList: React.FC<IRequestListProps> = ({}) => {
       field: "",
       headerName: "Action ",
       width: 190,
-      renderCell: (params) =><div className={(params.row.requestStatus !=ProjectStatusEnum.Pending ) ? classes.disabled:classes.actionColumn} title ="cancel request"> <ClearIcon   onClick={()=>onShowAlertDialog(params.row.id, params.row.requestStatus)}   /></div>,
+      renderCell: (params) => (
+        <div
+          className={
+            params.row.requestStatus != ProjectStatusEnum.Pending
+              ? classes.disabled
+              : classes.actionColumn
+          }
+          title="cancel request"
+        >
+          {" "}
+          <ClearIcon
+            onClick={() =>
+              onShowAlertDialog(params.row.id, params.row.requestStatus)
+            }
+          />
+        </div>
+      ),
     },
   ];
 
   useEffect(() => {
-    axios.get(`/Project/GetGuestRequestList?`).then((result) => {
+    axios.get(`/Project/GetSentRequestList`).then((result) => {
       setdata(result.data);
     });
   }, []);
   const onHideAlertDialog = () => {
     setShowAlertDialog(false);
   };
-  const onShowAlertDialog = (id:number,status :any) => {
-    setCurentRequestId(id)
-    if (status==ProjectStatusEnum.Pending){
-    setShowAlertDialog(true);
+  const onShowAlertDialog = (id: number, status: any) => {
+    setCurentRequestId(id);
+    if (status == ProjectStatusEnum.Pending) {
+      setShowAlertDialog(true);
     }
-
-
-
   };
-const onDeleteRequest=()=>{
-  const requestData ={
-    requestId:CurentRequestId
-  }
-axios.post(`/Project/CancelRequest`,requestData ).then(() => {
-  setdata(data?.filter(t=>t.id != CurentRequestId))
-});
-
-}
+  const onDeleteRequest = () => {
+    const requestData = {
+      requestId: CurentRequestId,
+    };
+    axios.post(`/Project/CancelRequest`, requestData).then(() => {
+      setdata(data?.filter((t) => t.id != CurentRequestId));
+    });
+  };
   return (
     <div className={classes.root}>
       {showAlertDialog && (

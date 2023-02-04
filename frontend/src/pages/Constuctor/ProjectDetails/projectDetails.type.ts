@@ -21,5 +21,5 @@ export interface ICraftsmansProps {
      expectedEndDate :  Date;
      projectStatus :ProjectStatusEnum;
      sector:sectorEnum;
-
+     ratingValue:number;
 }

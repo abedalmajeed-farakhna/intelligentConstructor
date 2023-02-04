@@ -21,7 +21,9 @@ namespace WebApplication1.Data
         }
 
         public virtual DbSet<UserProfile> userProfile { get; set; }
+        public virtual DbSet<Region> region { get; set; }
         public virtual DbSet<CraftsmanUserInformationSP> CraftsmanUserInformation { get; set; }
+        public virtual DbSet<GetReceivedRequestListSP> ReceivedRequestList { get; set; }
         public virtual DbSet<ConstructorInformation> ConstructorInformation { get; set; }
         public virtual DbSet<CraftsmanInformationSP> GetUserInformationById { get; set; }
         public virtual DbSet<CraftsmanScheduleWithUserDetailsSP> CraftsmanScheduleWithUserDetailsSP { get; set; }
@@ -45,6 +47,7 @@ namespace WebApplication1.Data
 
             modelBuilder.ApplyConfiguration(new CraftsmanInformationConfigration());
             modelBuilder.ApplyConfiguration( new RatingConfigration());
+            modelBuilder.ApplyConfiguration( new RegionConfigration());
             modelBuilder.ApplyConfiguration(new CraftsmanScheduleConfigration());
             modelBuilder.ApplyConfiguration(new CraftsmanScheduleConfigration());
             modelBuilder.ApplyConfiguration(new ConstructorInformationConfigration());
@@ -56,6 +59,7 @@ namespace WebApplication1.Data
             modelBuilder.Entity<GetTopAvailableCraftsmanInSpecificInterval> ().HasNoKey().ToView("__notExist5");
             modelBuilder.Entity<CraftsmanScheduleWithUserDetailsSP> ().HasNoKey().ToView("__notExist6");
             modelBuilder.Entity<GetFirstAvailableDateSP> ().HasNoKey().ToView("__notExist7");
+            modelBuilder.Entity<GetReceivedRequestListSP> ().HasNoKey().ToView("__notExist8");
 
         }
     }

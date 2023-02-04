@@ -19,6 +19,7 @@ import ConstuctorRequestList from "./pages/Constuctor/RequestList/constuctorRequ
 import ProjectDashboard from "./pages/Constuctor/ProjectDashboard/projectDashboard.index";
 import ProjectList from "./pages/Constuctor/ProjectList/projectList.index";
 import ProjectDetails from "./pages/Constuctor/ProjectDetails/projectDetails.index";
+import CraftsmanRequestList from "./pages/Craftsman/CraftsmanRequestList/craftsmanRequestList.index";
 //import CraftsmanProfile from "./pages/Guest/craftsmanProfile.index";
 
 
@@ -160,6 +161,18 @@ const App = () => {
               <RedirectToLogin>
               <MainDashboard>
              <ProjectDetails/>
+             </MainDashboard>
+             </RedirectToLogin>
+            }
+          />
+          
+
+          <Route
+            path={PATH_NAMES.CRAFTSMAN_REQUEST_LISt}
+            element={
+              <RedirectToLogin>
+              <MainDashboard>
+             <CraftsmanRequestList/>
              </MainDashboard>
              </RedirectToLogin>
             }

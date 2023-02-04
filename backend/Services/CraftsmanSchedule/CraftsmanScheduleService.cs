@@ -31,13 +31,20 @@ namespace Backend.Services
             var addNewRequestDto = new AddNewRequestDto
             {
                 StartDate = request.From,
-                EndDate = request.To,
                 FromUserId = userId.GetValueOrDefault(),
                 ToUserId = request.ToUserId,
                 Description = request.Description,
             };
             return await _craftsmanScheduleRepository.AddNewRequest(addNewRequestDto);
 
+        }
+        public async Task<bool> DoneWorking(int RequestId)
+        {
+            return await _craftsmanScheduleRepository.DoneWorking(RequestId);
+        }
+        public async Task<bool> StartWorking(int RequestId)
+        {
+            return await _craftsmanScheduleRepository.StartWorking(RequestId);
         }
         public async Task<bool> RejectRequest(int RequestId)
         {
@@ -64,6 +71,12 @@ namespace Backend.Services
             return await _craftsmanScheduleRepository.GetCraftsmanRequestList(userId.GetValueOrDefault());
         }
 
+
+        public async Task<List<GetReceivedRequestListSP>> GetReceivedRequestList()
+        {
+            var userId = _authenticationService.GetCurrentUserId();
+            return await _craftsmanScheduleRepository.GetReceivedRequestList(userId.GetValueOrDefault());
+        }
         public async Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request)
         {
 
@@ -76,7 +89,7 @@ namespace Backend.Services
                 var expectedStartDate = await _craftsmanScheduleRepository.GetFirstAvailableDate(new Guid(item.Id), request.FromDate);
                 var speed = item.Speed ?? 1;
                 var expectedTime = Math.Ceiling(((double)request.Space / speed));
-               
+
                 result.Add(new GetTopAvailableCraftsmanInSpecificInterval
                 {
                     Username = item.UserName,
@@ -88,11 +101,14 @@ namespace Backend.Services
                     Sector = item.Sector.GetValueOrDefault(),
                     ExpectedStartDate = expectedStartDate.GetValueOrDefault(),
                     ExpectedEndDate = expectedStartDate.GetValueOrDefault().AddDays(expectedTime),
-                    ExpectedTime = (int)expectedTime
+                    ExpectedTime = (int)expectedTime,
+                    RatingValue = item.RatingValue,
+                    RegionId = item.RegionId,
+                    RegionName = item.RegionName
                 });
             }
 
-            return result.OrderBy(t => t.ExpectedEndDate).ToList();
+            return result.OrderBy(t => t.ExpectedEndDate).OrderBy(t=>t.RatingValue).ToList();
 
         }
     }

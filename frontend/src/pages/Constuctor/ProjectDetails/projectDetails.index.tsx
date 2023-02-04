@@ -13,6 +13,7 @@ import { getProjectStatus } from "../../../utils/projectUtils";
 
 const ProjectDetails: React.FC<IProjectDetailsProps> = ({}) => {
   const [data, setData] = useState<IDataProps>();
+
   const location = window.location;
   const locationQiery = location?.href.split("/");
   const [rowsData, setRows] = useState([]);
@@ -28,6 +29,7 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({}) => {
       });
   }, []);
 
+ 
   if (!data) return <Loading />;
 
   console.log(data?.craftsmans, "data?.craftsmans");
@@ -40,22 +42,21 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({}) => {
     <div>
       <div>
         <div>Project name : {data.projectName}</div>
-
+       
         <div>Space : {data.space}</div>
 
         <div>Start date: {format(new Date(data.startDate), "yyyy-MM-dd")}</div>
-        <div>
-          project Status :{getProjectStatusDescription(projectStatus)}
-        </div>
+        <div>project Status :{getProjectStatusDescription(projectStatus)}</div>
       </div>
 
       <Grid container spacing={2}>
         {data?.craftsmans?.map((element) => (
           <Grid item xs={6}>
             <BasicCard
+              ratingValue={element.ratingValue}
               title={getSectorEnumDescriptions(element.sector)}
               name={element.fullName}
-              status={getProjectStatusDescription(element.projectStatus)}
+              status={element.projectStatus}
               expectedStart={element.expectedStartDate}
               expectedEnd={element.expectedEndDate}
             />

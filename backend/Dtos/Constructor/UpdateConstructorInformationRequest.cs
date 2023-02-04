@@ -5,8 +5,5 @@
         
         public int Capacity { get; set; }
         public string? Note { get; set; }
-       
-
-
     }
 }

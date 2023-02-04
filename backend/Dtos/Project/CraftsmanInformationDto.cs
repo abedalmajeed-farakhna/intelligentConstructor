@@ -11,5 +11,6 @@ namespace Backend.Dtos.Project
         public DateTime? ExpectedEndDate { get; set; }
         public ProjectStatusEnum? projectStatus { get; set; }
         public SectorEnum? Sector { get; set; }
+        public int? RatingValue { get; set; }
     }
 }

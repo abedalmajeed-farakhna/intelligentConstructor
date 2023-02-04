@@ -15,6 +15,7 @@ import {
 import { GetFromDateValue } from "./topAvailableCraftsman.utils";
 import { format } from "date-fns";
 import { addNumberOfDays } from "../../../utils/DateUtils";
+import CustomRating from "../../CoreComponents/CustomRating/customRating.index";
 
 const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
   values,
@@ -111,17 +112,30 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
       width: 150,
     },
     {
+      field: "ratingValue",
+      headerName: "Rating Value",
+      width: 150,
+      renderCell: (params) => (
+        <CustomRating value={params.row.ratingValue} readOnly={true} />
+      ),
+    },
+    {
       field: "speed",
       headerName: "speed",
       width: 150,
     },
     { field: "expectedTime", headerName: "expected time" },
-    { field: "ExpectedStartDate", headerName: "ExpectedStartDate" ,  
-         renderCell: (params) => format(new Date(params.row.expectedStartDate), "yyyy-MM-dd"),
-  },
-    { field: "ExpectedEndDate", headerName: "ExpectedEndDate",
-    renderCell: (params) => addNumberOfDays (params.row.expectedEndDate,-1) },
-    
+    {
+      field: "ExpectedStartDate",
+      headerName: "ExpectedStartDate",
+      renderCell: (params) =>
+        format(new Date(params.row.expectedStartDate), "yyyy-MM-dd"),
+    },
+    {
+      field: "ExpectedEndDate",
+      headerName: "ExpectedEndDate",
+      renderCell: (params) => addNumberOfDays(params.row.expectedEndDate, -1),
+    },
   ];
 
   useEffect(() => {
@@ -135,7 +149,7 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
             sector,
             timeLine,
             values.fromDate
-          )}`
+          )}&region=${Number(values.region)}`
         )
         .then((result) => {
           setRows(result.data);

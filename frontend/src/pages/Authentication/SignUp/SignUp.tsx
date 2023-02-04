@@ -1,6 +1,8 @@
-import React from "react";
-import axios from "axios";
+import React, { Dispatch } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
+import axios from "axios";
 import { Person } from "@mui/icons-material";
 import { Box, Container, Typography } from "@mui/material";
 
@@ -10,22 +12,43 @@ import SelectInput from "../../../components/CoreComponents/SelectInput/selectIn
 import CustomLink from "../../../components/CoreComponents/CustomLink/customLink.index";
 import { PATH_NAMES } from "../../../constants/route";
 import Navbar from "../../../components/CoreComponents/Navbar/navbar.index";
-
-import { signUpInitialValues } from "./signUp.utils";
 import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
+import { IUser } from "../../../types/types";
+import { setUser } from "../../../reducers/reducers/userReducer";
+
+
+import { signUpInitialValues, signUpSchema } from "./signUp.utils";
 
 const SignUp: React.FC<any> = ({}) => {
+  const dispatch: Dispatch<any> = useDispatch();
+  const navigate = useNavigate();
+
   const onHandleSubmit = (values) => {
     let data = {
       username: values.username,
       password: values.password,
       fullName: values.fullName,
       userType: parseInt(values.userType),
+      phoneNumber: values.phoneNumber,
     };
     axios.post(`/Account/SignUp`, data).then((res) => {
       if (res.data) {
+        const loginData = {
+          Username: values.username,
+          Password: values.password,
+        };
+        axios.post(`/Account/Login`, loginData).then((res) => {
+          const user: IUser = {
+            username: values.username,
+            type: parseInt(values.userType),
+            fullName: values.fullName,
+          };
+
+          dispatch(setUser(user));
+
+          navigate(`/dashboard`);
+        });
       }
-      const persons = res.data;
     });
   };
 
@@ -42,7 +65,7 @@ const SignUp: React.FC<any> = ({}) => {
       >
         <Formik
           initialValues={signUpInitialValues}
-          //validationSchema={signUpSchema}
+          validationSchema={signUpSchema}
           onSubmit={(values) => {
             // same shape as initial values
             onHandleSubmit(values);
@@ -86,7 +109,7 @@ const SignUp: React.FC<any> = ({}) => {
 
                 <TextInput
                   name="fullName"
-                  placeholder="full Name"
+                  placeholder="Full Name"
                   type="string"
                   error={touched.fullName && errors.fullName}
                   label="Full Name"
@@ -101,10 +124,17 @@ const SignUp: React.FC<any> = ({}) => {
                 />
                 <TextInput
                   name="repeatPassword"
-                  placeholder="repeatPassword"
+                  placeholder="Repeat Password"
                   type="password"
                   error={touched.repeatPassword && errors.repeatPassword}
                   label="Repeat Password"
+                />
+                <TextInput
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                  type="string"
+                  error={touched.phoneNumber && errors.phoneNumber}
+                  label="Phone Number"
                 />
                 <SelectInput
                   name="userType"

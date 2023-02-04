@@ -40,6 +40,10 @@ namespace WebApplication1.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("phoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.ToTable((string)null);
 
                     b.ToView("__notExist4", (string)null);
@@ -102,6 +106,9 @@ namespace WebApplication1.Data.Migrations
 
                     b.Property<string>("ProfileImage")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Region")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Speed")
                         .HasColumnType("int");
@@ -503,6 +510,9 @@ namespace WebApplication1.Data.Migrations
                     b.Property<string>("ProfileImage")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Region")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Sector")
                         .HasColumnType("int");
 
@@ -558,6 +568,23 @@ namespace WebApplication1.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rating", (string)null);
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.Region", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Region", (string)null);
                 });
 
             modelBuilder.Entity("WebApplication1.Models.UserProfile", b =>

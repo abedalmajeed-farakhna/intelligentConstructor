@@ -21,6 +21,7 @@ const GuestInformation: React.FC<any> = ({}) => {
   const [initialValues, setInitialValues] = useState({
     fullName: "",
     userName: "",
+    phoneNumber:""
   });
 
   const [imagePath, setImagePath] = useState<string | undefined>(undefined);
@@ -32,6 +33,7 @@ const GuestInformation: React.FC<any> = ({}) => {
         setInitialValues({
           fullName: data.fullName,
           userName: data.userName,
+          phoneNumber:data.phoneNumber
         });
         if (data.profileImage) {
           setImagePath(`/Upload/${data.profileImage}`);
@@ -43,6 +45,7 @@ const GuestInformation: React.FC<any> = ({}) => {
   const onHandleSubmit = (values) => {
     let data = {
       fullName: values.fullName,
+      phoneNumber:values.phoneNumber
     };
     axios.post(`/Guest/updateInformation`, data).then((res) => {
       if (res.data) {
@@ -91,14 +94,16 @@ const GuestInformation: React.FC<any> = ({}) => {
                 error={touched.fullName && errors.fullName}
                 label="Full Name"
               />
+              <TextInput
+                name="phoneNumber"
+                placeholder="Phone Number"
+                type="string"
+                error={touched.phoneNumber && errors.phoneNumber}
+                label="Phone Number"
+              />
 
               <CustomButton text={"save"} />
-
-              <Box>
-                <Typography></Typography>
-              </Box>
             </Box>
-            <FileUploader />
           </Form>
         )}
       </Formik>

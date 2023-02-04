@@ -57,5 +57,24 @@ namespace Backend.Controllers
         {
             return await _craftsmanScheduleService.GetCraftsmanRequestList();
         }
+
+        public async Task<List<GetReceivedRequestListSP>> GetReceivedRequestList()
+        {
+            return await _craftsmanScheduleService.GetReceivedRequestList();
+        }
+        
+        
+        [HttpPost]
+        public async Task<bool> StartWorking([FromBody] StartWorkingRequestDto request)
+        {
+            return await _craftsmanScheduleService.StartWorking(request.RequestId);
+        }
+
+        [HttpPost]
+        public async Task<bool> DoneWorking([FromBody] DoneWorkingRequestDto request)
+        {
+            return await _craftsmanScheduleService.DoneWorking(request.RequestId);
+        }
     }
+
 }

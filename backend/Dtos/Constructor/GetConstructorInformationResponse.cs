@@ -1,7 +1,4 @@
-﻿using Backend.Enums;
-using System.ComponentModel.DataAnnotations;
-
-namespace Backend.Dtos.Constructor
+﻿namespace Backend.Dtos.Constructor
 {
     public class GetConstructorInformationResponse
     {
@@ -10,7 +7,6 @@ namespace Backend.Dtos.Constructor
         public string? ProfileImage { get; set; }
         public string? Note { get; set; }
         public int? Capacity { get; set; }
-
-
+        public string? phoneNumber { get; set; }
     }
 }

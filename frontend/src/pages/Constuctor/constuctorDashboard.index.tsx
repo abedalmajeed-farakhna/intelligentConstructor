@@ -5,16 +5,20 @@ import { IApplicationState } from "../../redux/ApplicationState";
 import { Box } from "@mui/material";
 import useStyles from "./constuctorDashboard.style";
 import ConstuctorSidebar from "../../components/commonComponent/Constuctor/Sidebar/constuctorSidebar.index";
+import MainDashboard from "./MainDashboard/mainDashboard.index";
 
 const ConstuctorDashboard: React.FC<any> = ({ children }) => {
   const user: IUser = useSelector((state: IApplicationState) => state.user);
   //console.log(queryString.parse(location.search),"location")
   const classes = useStyles();
+
   return (
-    <Box  className={classes.root}>
+    <Box className={classes.root}>
       <ConstuctorSidebar />
 
-      <Box   className={classes.main}>{children} </Box>
+      <Box className={classes.main}>
+        {children ? children : <MainDashboard />}
+      </Box>
     </Box>
   );
 };

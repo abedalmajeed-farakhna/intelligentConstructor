@@ -34,8 +34,7 @@ const Login: React.FC<any> = ({}) => {
           username: values.username,
           type: data.userType,
           fullName: data.fullName,
-          id:data.id,
-          profileImage:data.profileImage
+          profileImage: data.profileImage,
         };
 
         dispatch(setUser(user));

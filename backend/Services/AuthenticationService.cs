@@ -3,6 +3,7 @@ using Backend.Repositories;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using WebApplication1.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Backend.Services
 {
@@ -74,11 +75,15 @@ namespace Backend.Services
                 UserName = request.Username,
                 FullName = request.FullName,
                 EmailConfirmed = true,
-                UserType = request.UserType
+                UserType = request.UserType,
+                PhoneNumber = request.PhoneNumber
             };
 
             var createUser = await _userManager.CreateAsync(user, request.Password);
-            
+            if (createUser.Errors.Any())
+            {
+                throw new Exception(createUser.Errors.FirstOrDefault().Description);
+            }
             return createUser.Succeeded;
         }
 
@@ -92,7 +97,7 @@ namespace Backend.Services
         {
             if (_httpContextAccessor.HttpContext == null)
             {
-                return null;
+                throw new Exception("unauthorize");
             }
             Guid.TryParse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier), out var ID);
             return ID;

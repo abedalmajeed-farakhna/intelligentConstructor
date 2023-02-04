@@ -5,4 +5,7 @@ export const validationSchema = Yup.object().shape({
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
+
+    phoneNumber:Yup.string()
+    .required("Required"),
 });

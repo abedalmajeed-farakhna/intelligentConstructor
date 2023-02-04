@@ -39,6 +39,9 @@ namespace Backend.Services
                var updateUserInformationRequest = new UpdateUserInformationRequest
                {
                    FullName = request.FullName,
+                    PhoneNumber= request.PhoneNumber, 
+                      
+                     
                };
                await _userRepository.updateUserInformation(userId.GetValueOrDefault(), updateUserInformationRequest);
 
@@ -47,6 +50,7 @@ namespace Backend.Services
             {
                 Capacity = request.Capacity,
                 Note = request.Note
+
             };
 
                await _constructorRepository.AddOrUpdateConstructorInformation( constructorRequest, userId.GetValueOrDefault());
@@ -62,13 +66,15 @@ namespace Backend.Services
             var userId = _authenticationService.GetCurrentUserId();
 
             var data = await _constructorRepository.ConstructorInformation(userId.GetValueOrDefault());
+            
             return new GetConstructorInformationResponse
             {
                 UserName = data.UserName,
                 FullName = data.FullName,
                 ProfileImage = data.ProfileImage,
                 Note = data.Note,
-                Capacity = data.Capacity
+                Capacity = data.Capacity,
+                phoneNumber= data.phoneNumber,
 
             };
         }
@@ -187,8 +193,8 @@ namespace Backend.Services
                     projectStatus = t.RequestStatus,
                     FullName = user.FullName,
                     UserName = user.UserName,
-                    Sector = user.Sector
-
+                    Sector = user.Sector,
+                     RatingValue= user.RatingValue
                 });
                 
             }); 

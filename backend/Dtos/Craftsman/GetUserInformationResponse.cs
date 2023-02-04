@@ -11,6 +11,7 @@ namespace Backend.Dtos.Craftsman
         public int? Speed { get; set; }
         public SectorEnum? Sector { get; set; }
         public string? ProfileImage { get; set; }
+        public string? PhoneNumber { get; set; }
 
         public int? Region { get; set; }
 

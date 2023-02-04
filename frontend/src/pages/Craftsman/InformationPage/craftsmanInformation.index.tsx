@@ -13,9 +13,11 @@ import { sectorEnum } from "../../../enums/sectorEnum";
 import { validationSchema } from "./craftsmanInformation.utils";
 import useStyles from "./craftsmanInformation.style";
 import ProfileImageUpload from "../../../components/CoreComponents/ProfileImageUpload/profileImageUpload.index";
+import { showSuccessPopup } from "../../../utils/projectUtils";
 
 const CraftsmanInformation: React.FC<any> = ({}) => {
   const classes = useStyles();
+  const [regionList, setRegionList] = useState([]);
 
   const user: IUser = useSelector((state: IApplicationState) => state.user);
   const [initialValues, setInitialValues] = useState({
@@ -24,6 +26,8 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
     sector: "",
     speed: "",
     userName: "",
+    region: 0,
+    phoneNumber:""
   });
 
   const [imagePath, setImagePath] = useState<string | undefined>(undefined);
@@ -38,26 +42,35 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
           note: data.note,
           sector: data.sector,
           speed: data.speed,
+          region: data.region,
+          phoneNumber:data.phoneNumber
         });
         if (data.profileImage) {
           setImagePath(`/Upload/${data.profileImage}`);
         }
       }
     });
+    getRegionList();
   }, []);
 
+  const getRegionList = () => {
+    axios.get(`/Region/GetRegionList`).then((res) => {
+      setRegionList(res.data);
+    });
+  };
   const onHandleSubmit = (values) => {
-    debugger;
     let data = {
       fullName: values.fullName,
       note: values.note,
       speed: values.speed,
       sector: parseInt(values.sector),
+      region: Number(values.region),
+      phoneNumber:values.phoneNumber
     };
     axios.post(`/Craftsman/updateInformation`, data).then((res) => {
-      if (res.data) {
-      }
-      const persons = res.data;
+      console.log(res,"res")
+        showSuccessPopup();
+      
     });
   };
 
@@ -101,6 +114,13 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
                 error={touched.fullName && errors.fullName}
                 label="Full Name"
               />
+              <TextInput
+                name="phoneNumber"
+                placeholder="Phone Number"
+                type="string"
+                error={touched.phoneNumber && errors.phoneNumber}
+                label="Phone Number"
+              />
 
               <TextInput
                 name="speed"
@@ -108,6 +128,12 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
                 type="number"
                 label="speed"
                 error={touched.speed && errors.speed}
+              />
+              <SelectInput
+               label="Region"
+                name={"region"}
+                options={regionList}
+                keyName={"id"}
               />
 
               <SelectInput
@@ -143,3 +169,4 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
 };
 
 export default CraftsmanInformation;
+

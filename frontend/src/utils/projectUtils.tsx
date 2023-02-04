@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { ProjectStatusEnum } from "../enums/projectStatusEnum";
 
 export const getProjectStatus = (allRequestStatus: ProjectStatusEnum[]) => {
@@ -13,4 +14,13 @@ export const getProjectStatus = (allRequestStatus: ProjectStatusEnum[]) => {
     return ProjectStatusEnum.Done;
   }
   return ProjectStatusEnum.Aproved;
+};
+
+export const showSuccessPopup = (message?: string) => {
+  Swal.fire({
+    title: message || "Done",
+    icon: "success",
+    timerProgressBar: true,
+    confirmButtonColor: "red",
+  });
 };

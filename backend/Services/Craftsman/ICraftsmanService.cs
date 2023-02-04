@@ -12,7 +12,7 @@ namespace Backend.Services
         Task<List<CraftsmanUserInformationSP>> getAllCraftsmanInformation();
         Task<CraftsmanUserInformationSP> getCraftsmanInformation(Guid id);
         Task<CraftsmanInformationSP> GetCraftsmanInformationById(Guid id);
-        Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySectorAndRegion(SectorEnum sector, int region);
+        Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySector(SectorEnum sector);
 
 
 

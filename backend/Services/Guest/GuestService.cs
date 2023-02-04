@@ -50,6 +50,7 @@ namespace WebApplication1.Services.Guest
             var updateUserInformationRequest = new UpdateUserInformationRequest
             {
                 FullName = request.FullName,
+                PhoneNumber = request.PhoneNumber
             };
             await _userRepository.updateUserInformation(userId.GetValueOrDefault(), updateUserInformationRequest);
            
@@ -70,6 +71,7 @@ namespace WebApplication1.Services.Guest
                 FullName = user.FullName,
                 ProfileImage = user.ProfileImage,
                 UserName = user.UserName,
+                PhoneNumber = user.PhoneNumber
 
             };
         }

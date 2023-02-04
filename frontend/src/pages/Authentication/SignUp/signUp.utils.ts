@@ -7,12 +7,15 @@ import { userTypeEnum } from "../../../enums/userTypeEnum";
 export const signUpSchema = Yup.object().shape({
     password:
       Yup.string()
-      .required(Exceptions.REQUIRED).min(2, 'Too Short!')
+      .required(Exceptions.REQUIRED)
+      .min(8, 'Too Short!')
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'the Password must have at least one uppercase letter, one lowercase letter and one number.')
       .max(50, 'Too Long!'),
 
       repeatPassword:
       Yup.string()
-      .required(Exceptions.REQUIRED).min(2, 'Too Short!')
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required(Exceptions.REQUIRED).min(8, 'Too Short!')
       .max(50, 'Too Long!'),
 
     username: Yup.string().email(Exceptions.INVALID_EMAIL).required(Exceptions.REQUIRED).min(2, 'Too Short!')
@@ -21,7 +24,7 @@ export const signUpSchema = Yup.object().shape({
     
     
     fullName: Yup.string()
-    .min(2, 'Too Short!')
+    .min(5, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
 
@@ -37,5 +40,6 @@ export const signUpInitialValues = {
     fullName: "",
     password: "",
     repeatPassword: "",
+    phoneNumber:"",
     userType: userTypeEnum.CONSTRUCTOR,
   };

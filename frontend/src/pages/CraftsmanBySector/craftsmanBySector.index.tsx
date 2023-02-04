@@ -3,69 +3,71 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CustomDataGrid from "../../components/CoreComponents/CustomDataGrid/customDataGrid.index";
 import CustomLink from "../../components/CoreComponents/CustomLink/customLink.index";
-
-
-
+import CustomRating from "../../components/CoreComponents/CustomRating/customRating.index";
+import Loading from "../../components/CoreComponents/Loading/loading.index";
 
 const CraftsmanBySector: React.FC<any> = ({ children }) => {
+  const location = window.location;
+  const locationQiery = location?.href.split("/");
+  const [rowsData, setRows] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    const location = window.location ;
-    const locationQiery = location?.href.split("/");
-    const [rowsData, setRows] = useState([]);
+  const sector = locationQiery[locationQiery.length - 1];
 
-
-
-
-const sector =locationQiery[locationQiery.length -1]
-   
-  
-const columns2: GridColDef[] = [
-    
+  const columns2: GridColDef[] = [
     {
-        field: 'userName',
-        headerName: 'User name',
-        description: 'Username ',
-        sortable: false,
-        width: 160,
-        renderCell:(params) => (
-          
-          <CustomLink path={`/craftsmanInformation/${params.row.id}`} text={params.row.userName}/>
+      field: "userName",
+      headerName: "User name",
+      description: "Username ",
+      sortable: false,
+      width: 180,
+      renderCell: (params) => (
+        <CustomLink
+          path={`/craftsmanInformation/${params.row.id}`}
+          text={params.row.userName}
+        />
       ),
-
-      },
+    },
 
     {
-      field: 'fullName',
-      headerName: 'full name',
+      field: "fullName",
+      headerName: "full name",
       width: 150,
-      
+    },
+
+    {
+      field: "regionName",
+      headerName: "Region Name",
+      width: 150,
     },
     {
-      field: 'speed',
-      headerName: 'speed',
+      field: "speed",
+      headerName: "speed",
       width: 150,
     },
- 
-
+    {
+      field:"ratingValue",
+      headerName:"Rating",
+      width:150,
+      renderCell: (params) => ( <CustomRating value={params.row.ratingValue} readOnly={true} />)
+    }
   ];
 
-useEffect(()=>{
+  useEffect(() => {
+    setLoading(true);
 
-
-        axios.get(`/Craftsman/GetCraftsmanbYSector?sector=${sector}`)
-        .then(result=>{
-            setRows(result.data) 
-            console.log(result.data);
-        })
-    },[]);
-    console.log(rowsData,"rowsData")
+    axios
+      .get(`/Craftsman/GetCraftsmanBySector?sector=${sector}`)
+      .then((result) => {
+        setLoading(false);
+        setRows(result.data);
+      });
+  }, []);
+  if (loading) return <Loading />;
   return (
     <div>
-        <CustomDataGrid columns={columns2} rows={rowsData}/>
+      <CustomDataGrid columns={columns2} rows={rowsData} />
     </div>
-    
   );
 };
 export default CraftsmanBySector;
-
-

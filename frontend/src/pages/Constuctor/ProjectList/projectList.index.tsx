@@ -36,12 +36,7 @@ const ProjectList: React.FC<IProjectListProps> = ({}) => {
       renderCell: (params) => (
         <BasicTimeline data={params.row.projectDetails}/>
       ),
-    },
-    {
-      field: "speed",
-      headerName: "speed",
-      width: 150,
-    },
+    }
   ];
   useEffect(() => {
     axios.get(`/Constructor/GetProjectList`).then((result) => {

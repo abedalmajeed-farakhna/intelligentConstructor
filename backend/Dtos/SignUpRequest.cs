@@ -13,6 +13,8 @@ namespace Backend.Dtos
         [Required]
         public string FullName { get; set; }
         [Required]
+        public string PhoneNumber { get; set; }
+        [Required]
         public userTypeEnum UserType { get; set; }
 
     }

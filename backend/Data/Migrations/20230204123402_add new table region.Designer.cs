@@ -12,8 +12,8 @@ using WebApplication1.Data;
 namespace WebApplication1.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230127143006_alter table for Project")]
-    partial class altertableforProject
+    [Migration("20230204123402_add new table region")]
+    partial class addnewtableregion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,6 @@ namespace WebApplication1.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Note")
@@ -44,6 +43,10 @@ namespace WebApplication1.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("phoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.ToTable((string)null);
 
                     b.ToView("__notExist4", (string)null);
@@ -51,6 +54,12 @@ namespace WebApplication1.Data.Migrations
 
             modelBuilder.Entity("Backend.Dtos.Constructor.GetTopAvailableCraftsmanInSpecificInterval", b =>
                 {
+                    b.Property<DateTime>("ExpectedEndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpectedStartDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ExpectedTime")
                         .HasColumnType("int");
 
@@ -101,6 +110,9 @@ namespace WebApplication1.Data.Migrations
                     b.Property<string>("ProfileImage")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Region")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Speed")
                         .HasColumnType("int");
 
@@ -113,12 +125,18 @@ namespace WebApplication1.Data.Migrations
                     b.ToView("__notExist2", (string)null);
                 });
 
-            modelBuilder.Entity("Backend.Dtos.Project.GetSentRequestListResponseDto", b =>
+            modelBuilder.Entity("Backend.Dtos.Project.CraftsmanScheduleWithUserDetailsSP", b =>
                 {
-                    b.Property<DateTime>("FromeDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("FromUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
                     b.Property<string>("RequestDescription")
@@ -128,7 +146,49 @@ namespace WebApplication1.Data.Migrations
                     b.Property<int>("RequestStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ToDate")
+                    b.Property<int>("Sector")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ToUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("__notExist6", (string)null);
+                });
+
+            modelBuilder.Entity("Backend.Dtos.Project.GetFirstAvailableDateSP", b =>
+                {
+                    b.Property<DateTime>("FirstAvailableDate")
+                        .HasColumnType("datetime2");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("__notExist7", (string)null);
+                });
+
+            modelBuilder.Entity("Backend.Dtos.Project.GetSentRequestListResponseDto", b =>
+                {
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RequestDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RequestStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ToFullName")
@@ -409,11 +469,11 @@ namespace WebApplication1.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("FromUserId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("FromeDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int?>("ProjectId")
                         .HasColumnType("int");
@@ -425,7 +485,7 @@ namespace WebApplication1.Data.Migrations
                     b.Property<int>("RequestStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ToDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("ToUserId")
@@ -453,6 +513,9 @@ namespace WebApplication1.Data.Migrations
                     b.Property<string>("ProfileImage")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Region")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Sector")
                         .HasColumnType("int");
 
@@ -477,6 +540,9 @@ namespace WebApplication1.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Region")
+                        .HasColumnType("int");
+
                     b.Property<int>("Sector")
                         .HasColumnType("int");
 
@@ -486,6 +552,41 @@ namespace WebApplication1.Data.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("CraftsmanInformation", (string)null);
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("RateValue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequestId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rating", (string)null);
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.Region", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Name")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Region", (string)null);
                 });
 
             modelBuilder.Entity("WebApplication1.Models.UserProfile", b =>

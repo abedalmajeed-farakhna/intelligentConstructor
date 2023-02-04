@@ -12,6 +12,9 @@ namespace Backend.Repositories
         Task<bool> AcceptRequest(int RequestId);
         Task<bool> RejectRequest(int RequestId);
 
+
+        Task<bool> DoneWorking(int RequestId);
+        Task<bool> StartWorking(int RequestId);
         Task<bool> AddNewRequest(AddNewRequestDto request, ProjectStatusEnum RequestStatus = ProjectStatusEnum.Pending);
         Task<bool> CancelRequest(int RequestId);
 
@@ -23,6 +26,7 @@ namespace Backend.Repositories
         Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request);
         Task<DateTime?> GetFirstAvailableDate(Guid userId, DateTime projectStartDate);
         Task<List<CraftsmanSchedule>> GetProjectDetailsById(int ProjectId);
+        Task<List<GetReceivedRequestListSP>> GetReceivedRequestList(Guid userId);
 
     }
 }

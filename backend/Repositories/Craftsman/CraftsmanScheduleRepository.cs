@@ -35,6 +35,32 @@ namespace Backend.Repositories
             return true;
         }
 
+        public async Task<bool> DoneWorking(int RequestId)
+        {
+            var item = await _context.craftsmanSchedule.FirstOrDefaultAsync(t => t.Id == RequestId);
+            if (item == null)
+            {
+                return false;
+            }
+            item.RequestStatus = ProjectStatusEnum.Done;
+            item.EndDate = DateTime.Now;
+            _context.SaveChanges();
+            return true;
+        }
+
+        public async Task<bool> StartWorking(int RequestId)
+        {
+            var item = await _context.craftsmanSchedule.FirstOrDefaultAsync(t => t.Id == RequestId);
+            if (item == null)
+            {
+                return false;
+            }
+            item.RequestStatus = ProjectStatusEnum.Inprogres;
+            item.StartDate = DateTime.Now;
+            _context.SaveChanges();
+            return true;
+        }
+
         public async Task<bool> RejectRequest(int RequestId)
         {
             var item = await _context.craftsmanSchedule.FirstOrDefaultAsync(t => t.Id == RequestId);
@@ -90,6 +116,15 @@ namespace Backend.Repositories
          
         }
 
+
+        public async Task<List<GetReceivedRequestListSP>> GetReceivedRequestList(Guid userId)
+        {
+            var userIdParameter = new SqlParameter("@userId", userId);
+
+            string sql = "EXECUTE [dbo].[GetreceivedRequestList_SP]  @userId={0}";
+            return (await _context.ReceivedRequestList.FromSqlRaw(sql, userIdParameter).ToListAsync());
+
+        }
         public async Task<List<CraftsmanScheduleWithUserDetailsSP>> GetCraftsmanRequestListByProjectId(int projectid)
         {
 

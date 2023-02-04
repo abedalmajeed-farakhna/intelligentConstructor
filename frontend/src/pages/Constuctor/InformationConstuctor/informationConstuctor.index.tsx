@@ -1,29 +1,33 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
 import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
-import SelectInput from "../../../components/CoreComponents/SelectInput/selectInput.index";
 import TextInput from "../../../components/CoreComponents/TextInput/textInput.index";
 import { IUser } from "../../../types/types";
 import { IApplicationState } from "../../../redux/ApplicationState";
 import FileUploader from "../../../components/CoreComponents/FileUploader/fileUploader.index";
-import { sectorEnum } from "../../../enums/sectorEnum";
-import useStyles from "./informationConstuctor.style";
 import ProfileImageUpload from "../../../components/CoreComponents/ProfileImageUpload/profileImageUpload.index";
+
 import { validationSchema } from "./informationConstuctor.utils";
+import useStyles from "./informationConstuctor.style";
+import SelectInput from "../../../components/CoreComponents/SelectInput/selectInput.index";
+import { showSuccessPopup } from "../../../utils/projectUtils";
 
 const InformationConstuctor: React.FC<any> = ({}) => {
   const classes = useStyles();
 
   const user: IUser = useSelector((state: IApplicationState) => state.user);
-  const [initialValues, setInitialValues] = useState({
+
+      const [initialValues, setInitialValues] = useState({
     fullName: "",
     note: "",
     sector: "",
     capacity: "",
     userName: "",
+    phoneNumber: "",
   });
 
   const [imagePath, setImagePath] = useState<string | undefined>(undefined);
@@ -38,6 +42,7 @@ const InformationConstuctor: React.FC<any> = ({}) => {
           note: data.note,
           sector: data.sector,
           capacity: data.capacity,
+          phoneNumber: data.phoneNumber,
         });
         if (data.profileImage) {
           setImagePath(`/Upload/${data.profileImage}`);
@@ -46,17 +51,21 @@ const InformationConstuctor: React.FC<any> = ({}) => {
     });
   }, []);
 
+ 
+
   const onHandleSubmit = (values) => {
     let data = {
       fullName: values.fullName,
       note: values.note,
       capacity: values.capacity,
       sector: parseInt(values.sector),
+      phoneNumber:values.phoneNumber,
     };
     axios.post(`/Constructor/updateInformation`, data).then((res) => {
       if (res.data) {
+        showSuccessPopup();
+
       }
-      const persons = res.data;
     });
   };
 
@@ -102,6 +111,13 @@ const InformationConstuctor: React.FC<any> = ({}) => {
               />
 
               <TextInput
+                name="phoneNumber"
+                placeholder="Phone Number"
+                type="string"
+                error={touched.phoneNumber && errors.phoneNumber}
+                label="Phone Number"
+              />
+              <TextInput
                 name="capacity"
                 placeholder="capacity"
                 type="number"
@@ -109,7 +125,6 @@ const InformationConstuctor: React.FC<any> = ({}) => {
                 error={touched.capacity && errors.capacity}
               />
 
-            
               <TextInput
                 as="textarea"
                 name="note"
@@ -120,12 +135,7 @@ const InformationConstuctor: React.FC<any> = ({}) => {
               />
 
               <CustomButton text={"save"} />
-
-              <Box>
-                <Typography></Typography>
-              </Box>
             </Box>
-            <FileUploader />
           </Form>
         )}
       </Formik>

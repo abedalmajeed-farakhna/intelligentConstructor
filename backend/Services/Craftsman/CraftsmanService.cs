@@ -32,6 +32,7 @@ namespace Backend.Services
             var updateUserInformationRequest = new UpdateUserInformationRequest
             {
                 FullName = request.FullName,
+                PhoneNumber = request.PhoneNumber,
             };
             await _userRepository.updateUserInformation(userId.GetValueOrDefault(), updateUserInformationRequest);
             await _craftsmanInformationRepository.AddOrUpdateUserInformation( request, userId.GetValueOrDefault());
@@ -66,18 +67,18 @@ namespace Backend.Services
                 Sector = craftmanInformation?.Sector,
                 Speed = craftmanInformation?.Speed,
                 Note = craftmanInformation?.Note,
-                Region = craftmanInformation?.Region
-
+                Region = craftmanInformation?.Region,
+                PhoneNumber = user.PhoneNumber
             };
         }
         public async Task<CraftsmanInformationSP> GetCraftsmanInformationById(Guid id)
         {
            return await _craftsmanInformationRepository.GetCraftsmanInformationById(id);
         }
-        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySectorAndRegion(SectorEnum sector, int region)
+        public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySector(SectorEnum sector)
         {
 
-            return await _craftsmanInformationRepository.GetCraftsmanBySectorAndRegion(sector, region);
+            return await _craftsmanInformationRepository.GetCraftsmanBySector(sector);
         }
 
 

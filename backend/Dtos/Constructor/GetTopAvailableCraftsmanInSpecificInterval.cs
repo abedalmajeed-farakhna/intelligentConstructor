@@ -14,5 +14,8 @@ namespace Backend.Dtos.Constructor
         public DateTime ExpectedStartDate { get; set; }
         public DateTime ExpectedEndDate { get; set; }
         public int ExpectedTime { get; set; }
+        public int? RatingValue { get; set; }
+        public int? RegionId { get; set; }
+        public string? RegionName { get; set; }
     }
 }

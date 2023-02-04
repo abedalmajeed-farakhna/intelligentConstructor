@@ -21,6 +21,15 @@ const CraftsmanSidebar = () => {
               path={PATH_NAMES.INFORMATION}
             />
           </List>
+
+          <List>
+            <CustomeListItem
+              icon={<InfoIcon />}
+              text={"RequestList"}
+              path={PATH_NAMES.CRAFTSMAN_REQUEST_LISt}
+            />
+          </List>
+          
         </div>
       </Drawer>
     </Box>

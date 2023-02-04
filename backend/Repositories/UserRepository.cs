@@ -39,6 +39,7 @@ namespace Backend.Repositories
         {
             var user = await _context.userProfile.FirstOrDefaultAsync(t => t.Id == userId.ToString());
             user.FullName = request.FullName;
+            user.PhoneNumber = request.PhoneNumber;
             _context.SaveChanges();
             return true;
         }

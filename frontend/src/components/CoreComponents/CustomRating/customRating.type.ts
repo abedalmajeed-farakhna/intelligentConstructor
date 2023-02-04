@@ -1,3 +1,6 @@
 export interface ICustomRatingProps {
-  id:number;
+  id?: number;
+  value?: number;
+  readOnly?: boolean;
+  disabled?: boolean;
 }

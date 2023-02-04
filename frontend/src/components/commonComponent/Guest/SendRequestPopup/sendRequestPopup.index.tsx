@@ -7,10 +7,9 @@ import { DialogContent, DialogActions } from "@mui/material";
 import DateInput from "../../../CoreComponents/DateInput/dateInput.index";
 import TextInput from "../../../CoreComponents/TextInput/textInput.index";
 import CustomButton from "../../../CoreComponents/CustomButton/customButton.index";
-import { InitialValues } from "./sendRequestPopup.utils";
+import { InitialValues, sendRequestSchema } from "./sendRequestPopup.utils";
 import FormDialog from "../../../CoreComponents/FormDialog/formDialog.index";
 import { ISendRequestPopup } from "./sendRequestPopup.type";
-import AlertDialog from "../../../CoreComponents/AlertDialog/alertDialog.index";
 
 const SendRequestPopup: React.FC<ISendRequestPopup> = ({
   isOpen,
@@ -19,18 +18,15 @@ const SendRequestPopup: React.FC<ISendRequestPopup> = ({
 }) => {
   //const container = window !== undefined ? () => window().document.body : undefined;
   const [fromDate, setFrom] = React.useState(moment().format('YYYY-MM-DD'));
-  const [toDate, setTo] = React.useState(moment().format('YYYY-MM-DD'));
 
   
 
   const onHandleSubmit = (values) => {
   
     values.from = fromDate;
-    values.to = toDate;
     values.toUserId = userId;
 
     axios.post(`/Project/SendRequest`, values).then(() => {
-      console.log(values);
       onClose(true);
     });
   };
@@ -45,10 +41,10 @@ const SendRequestPopup: React.FC<ISendRequestPopup> = ({
     <>
    
 
-      <FormDialog title="Send request" isOpen={isOpen} onClose={onClose}>
+      <FormDialog title="Send request" isOpen={isOpen} onClose={()=>onClose(false)}>
         <Formik
           initialValues={InitialValues}
-          //validationSchema={loginSchema}
+          validationSchema={sendRequestSchema}
           onSubmit={(values) => {
             // same shape as initial values
             onHandleSubmit(values);

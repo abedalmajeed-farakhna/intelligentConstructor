@@ -37,7 +37,8 @@ namespace Backend.Repositories
                 {
                     UserId = userID,
                     Note = request.Note,
-                    Capacity = request.Capacity,
+                    Capacity = request.Capacity, 
+                      
 
                 };
                 await _context.ConstructorInformation.AddAsync(userInformation);

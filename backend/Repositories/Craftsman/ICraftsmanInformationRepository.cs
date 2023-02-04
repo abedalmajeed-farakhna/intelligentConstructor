@@ -13,6 +13,7 @@ namespace Backend.Repositories
         Task<bool> AddOrUpdateUserInformation(UpdateInformationRequest request, Guid userID);
         Task<List<CraftsmanUserInformationSP>> getAllCraftsmanInformation();
         Task<CraftsmanUserInformationSP> getCraftsmanInformation(Guid id);
-        Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySectorAndRegion(SectorEnum sector, int region);
+        Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySector(SectorEnum sector);
+        Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySectorAndRegion(SectorEnum sector, int regionId);
     }
 }
