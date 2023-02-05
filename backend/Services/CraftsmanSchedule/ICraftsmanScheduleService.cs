@@ -20,6 +20,7 @@ namespace Backend.Services
         Task<List<CraftsmanSchedule>> GetCraftsmanRequestList();
         Task<List<GetReceivedRequestListSP>> GetReceivedRequestList();
         Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request);
+        Task<List<GetTopRatedCraftsmanResponse>> GetTopRatedCraftsman(GetTopRatedCraftsmanRequest request);
 
     }
 }

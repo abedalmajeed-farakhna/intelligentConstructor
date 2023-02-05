@@ -1,7 +1,9 @@
 import React from "react";
 import BuilderStep from "../BuilderStep/builderStep.index";
 import CarpenterStep from "../CarpenterStep/carpenterStep.index";
+import ElectricianStep from "../ElectricianStep/electricianStep.index";
 import HousePainterStep from "../HousePainterStep/housePainterStep.index";
+import PlumberStep from "../PlumberStep/plumberStep.index";
 import StepOne from "../StepOne/stepOne.index";
 import TilerStep from "../TilerStep/tilerStep.index";
 import { IStepContainerProps } from "./stepContainer.type";
@@ -25,6 +27,13 @@ const StepContainer: React.FC<IStepContainerProps> = ({step,errors,touched,custo
 
         case 4:
         return (<CarpenterStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
+
+        
+        case 5:
+        return (<PlumberStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
+        
+        case 6:
+        return (<ElectricianStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
 
         default : return<></>
   }

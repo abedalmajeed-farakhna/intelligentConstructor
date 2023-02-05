@@ -4,4 +4,6 @@ export const Steps = [
   "Tiler",
   "HousePainter",
   "Carpenter",
+  "Plumber",
+  "Electrician"
 ];

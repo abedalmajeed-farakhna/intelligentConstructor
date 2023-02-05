@@ -111,5 +111,34 @@ namespace Backend.Services
             return result.OrderBy(t => t.ExpectedEndDate).OrderBy(t=>t.RatingValue).ToList();
 
         }
+
+        public async Task<List<GetTopRatedCraftsmanResponse>> GetTopRatedCraftsman(GetTopRatedCraftsmanRequest request)
+        {
+
+            var craftsmanList = await _craftsmanInformationRepository.GetCraftsmanBySectorAndRegion(request.Sector, request.Region);
+
+
+            var result = new List<GetTopRatedCraftsmanResponse>();
+            foreach (var item in craftsmanList)
+            {
+
+                result.Add(new GetTopRatedCraftsmanResponse
+                {
+                    Username = item.UserName,
+                    Speed = item.Speed,
+                    ProfileImage = item.ProfileImage,
+                    Note = item.Note,
+                    Id = new Guid(item.Id),
+                    FullName = item.FullName,
+                    Sector = item.Sector.GetValueOrDefault(),
+                    RatingValue = item.RatingValue,
+                    RegionId = item.RegionId,
+                    RegionName = item.RegionName
+                });
+            }
+
+            return result.OrderBy(t => t.RatingValue).ToList();
+
+        }
     }
 }

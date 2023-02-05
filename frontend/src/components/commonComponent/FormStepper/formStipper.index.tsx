@@ -74,6 +74,7 @@ const FormStepper: React.FC<IFormStepperProps> = ({
     setActiveStep(0);
   };
 
+  console.log(timeLine,"timeLine")
   const total = Object.values(timeLine).reduce(
     (sum, previousValue) => sum + previousValue.numberOfDays,
     0

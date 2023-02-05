@@ -42,6 +42,12 @@ namespace Backend.Controllers
 
 
 
+        [HttpGet]
+        public async Task<List<GetTopRatedCraftsmanResponse>> GetTopRatedCraftsman(GetTopRatedCraftsmanRequest request)
+        {
+
+            return await _craftsmanScheduleService.GetTopRatedCraftsman(request);
+        }
         // [Authorize]
         [HttpPost]
         public async Task<bool> updateInformation([FromBody] Dtos.Constructor.UpdateInformationRequest request)
