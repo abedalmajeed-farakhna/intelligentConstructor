@@ -7,6 +7,33 @@ const useStyle = makeStyles((theme) => ({
     width: "100%",
     textAlign: "left",
   },
+  thumbsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 16,
+  },
+  thumb: {
+    display: "inline-flex",
+    borderRadius: 2,
+    border: "1px solid #eaeaea",
+    marginBottom: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    boxSizing: "border-box",
+  },
+  img: {
+    display: "block",
+    width: "auto",
+    height: "100%",
+  },
+  thumbInner: {
+    display: "flex",
+    minWidth: 0,
+    overflow: "hidden",
+  },
   rsgPreview60: {
     padding: 16,
     border: `1px solid  rgb(232, 232, 232)`,

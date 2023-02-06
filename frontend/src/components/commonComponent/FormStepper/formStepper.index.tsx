@@ -8,10 +8,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import StepContainer from "./StepContainer/stepContainer.index";
-import { IFormStepperProps } from "./formStopper.type";
-import { Steps } from "./formStopper.utils";
+import { Steps } from "./formStepper.utils";
 import CustomButton from "../../CoreComponents/CustomButton/customButton.index";
 import { Exceptions } from "../../../enums/exceptions";
+import { IFormStepperProps } from "./formStepper.type";
 
 const FormStepper: React.FC<IFormStepperProps> = ({
   errors,
@@ -88,6 +88,7 @@ const FormStepper: React.FC<IFormStepperProps> = ({
             optional?: React.ReactNode;
           } = {};
           return (
+            
             <Step key={label} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
             </Step>

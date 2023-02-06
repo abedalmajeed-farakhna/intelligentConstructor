@@ -10,6 +10,8 @@ import {
 import { Grid } from "@mui/material";
 import { format } from "date-fns";
 import { getProjectStatus } from "../../../utils/projectUtils";
+import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
+import { PATH_NAMES } from "../../../constants/route";
 
 const ProjectDetails: React.FC<IProjectDetailsProps> = ({}) => {
   const [data, setData] = useState<IDataProps>();
@@ -40,6 +42,11 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({}) => {
   var projectStatus = getProjectStatus(allRequestStatus);
   return (
     <div>
+        <div>
+        <BreadCrump current={"Project Details"} linkList={[{name:"ProjectList",link:PATH_NAMES.PROJECT_LIST}]}/>
+           
+        </div>
+    <div>
       <div>
         <div>Project name : {data.projectName}</div>
        
@@ -63,6 +70,7 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({}) => {
           </Grid>
         ))}
       </Grid>
+    </div>
     </div>
   );
 };

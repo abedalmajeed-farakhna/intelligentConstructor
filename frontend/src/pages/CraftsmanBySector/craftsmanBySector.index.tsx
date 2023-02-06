@@ -1,10 +1,13 @@
 import { GridColDef } from "@mui/x-data-grid";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import BreadCrump from "../../components/CoreComponents/BreadCrump/breadCrump.index";
 import CustomDataGrid from "../../components/CoreComponents/CustomDataGrid/customDataGrid.index";
 import CustomLink from "../../components/CoreComponents/CustomLink/customLink.index";
 import CustomRating from "../../components/CoreComponents/CustomRating/customRating.index";
 import Loading from "../../components/CoreComponents/Loading/loading.index";
+import { PATH_NAMES } from "../../constants/route";
+import { getSectorEnumDescriptions } from "../../utils/enumDescriptions";
 
 const CraftsmanBySector: React.FC<any> = ({ children }) => {
   const location = window.location;
@@ -66,8 +69,14 @@ const CraftsmanBySector: React.FC<any> = ({ children }) => {
   if (loading) return <Loading />;
   return (
     <div>
+
+    <BreadCrump current={getSectorEnumDescriptions(parseInt(sector))} linkList={[{name:"Craftsman list",link:PATH_NAMES.CRAFTSMAN}]}/>
+
+    <div>
       <CustomDataGrid columns={columns2} rows={rowsData} />
     </div>
+    </div>
+
   );
 };
 export default CraftsmanBySector;

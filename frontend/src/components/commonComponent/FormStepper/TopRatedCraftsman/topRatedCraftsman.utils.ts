@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { sectorEnum } from "../../../../enums/sectorEnum";
-import { ITimeLineProps } from "../formStopper.type";
+import { ITimeLineProps } from "../formStepper.type";
 
 
 export const GetFromDateValue = (

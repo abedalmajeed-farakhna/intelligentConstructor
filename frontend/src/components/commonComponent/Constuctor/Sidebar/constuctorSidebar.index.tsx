@@ -4,6 +4,10 @@ import { PATH_NAMES } from "../../../../constants/route";
 import CustomeListItem from "../../../CoreComponents/CustomeListItem/customeListItem.index";
 import useStyles from "./constuctorSidebar.style";
 import InfoIcon from "@mui/icons-material/Info";
+import DashboardIcon from '@mui/icons-material/GridView';
+import CraftsmanIcon from '@mui/icons-material/Groups';
+import RequestIcon from '@mui/icons-material/Send';
+import ProjectIcon from '@mui/icons-material/Apartment';
 
 
 const ConstuctorSidebar = () => {
@@ -14,25 +18,27 @@ const ConstuctorSidebar = () => {
         <Drawer className={classes.drawer} variant="permanent" open>
           <div>
             <List>
+            
+
               <CustomeListItem
-                icon={<InfoIcon />}
-                path={PATH_NAMES.INFORMATION}
-                text={"information"}
+                icon={<DashboardIcon />}
+                path={"/"}
+                text={"Dashboard"}
               />
-  
+
               <CustomeListItem
-                icon={<InfoIcon />}
+                icon={<CraftsmanIcon />}
                 path={PATH_NAMES.CRAFTSMAN}
                 text={"craftsman"}
               />
                <CustomeListItem
-                icon={<InfoIcon />}
+                icon={<RequestIcon />}
                 path={PATH_NAMES.CONSTUCTOR_REQUEST}
                 text={"request"}
               />
 
                <CustomeListItem
-                icon={<InfoIcon />}
+                icon={<ProjectIcon />}
                 path={PATH_NAMES.PROJECT_LIST}
                 text={"project"}
               />

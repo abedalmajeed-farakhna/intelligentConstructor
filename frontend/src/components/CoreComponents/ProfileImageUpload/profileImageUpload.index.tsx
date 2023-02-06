@@ -12,6 +12,7 @@ const ProfileImageUpload: React.FC<IProfileImageUploadProps> = ({type, isMultipl
   );
 
   const handleChange = (e) => {
+    console.log(e.target.files[0],"e.target.files[0]")
     const image = URL.createObjectURL(e.target.files[0]);
     onChange(e.target.files[0]);
 

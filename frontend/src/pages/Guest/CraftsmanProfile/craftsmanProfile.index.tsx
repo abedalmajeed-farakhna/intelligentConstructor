@@ -6,6 +6,8 @@ import useStyles from "./craftsmanProfile.style";
 import CustomRating from "../../../components/CoreComponents/CustomRating/customRating.index";
 import Loading from "../../../components/CoreComponents/Loading/loading.index";
 import { showSuccessPopup } from "../../../utils/projectUtils";
+import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
+import { PATH_NAMES } from "../../../constants/route";
 
 const CraftsmanProfile: React.FC<any> = ({ children }) => {
   const location = window.location;
@@ -45,6 +47,8 @@ const CraftsmanProfile: React.FC<any> = ({ children }) => {
   if (!data?.fullName) return <Loading/>;
   return (
     <>
+              <BreadCrump current={"Craftsman information"} linkList={[{name:"Craftsman list",link:PATH_NAMES.CRAFTSMAN}]}/>
+
       {isOpen && (
         <SendRequestPopup
           isOpen={isOpen}

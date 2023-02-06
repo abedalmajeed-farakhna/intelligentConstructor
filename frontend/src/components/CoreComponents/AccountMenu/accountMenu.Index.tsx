@@ -29,26 +29,25 @@ const AccountMenu = () => {
   };
 
   return (
-    <>
-      <div className={classes.root}>
-        <Typography>{user.fullName}</Typography>
+    <div className={classes.root}>
+      <div className={classes.logo}> myLogo</div>
 
-        <Tooltip title="Account settings">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-          >
-            <ProfileImage path={user?.profileImage} />
-          </IconButton>
-        </Tooltip>
+      <div className={classes.container}>
+        <IconButton
+          className={classes.accountSettings}
+          onClick={handleClick}
+          size="small"
+          aria-controls={open ? "account-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+        >
+          <ProfileImage path={user?.profileImage} />
+
+          <Typography className={classes.userName}>{user.fullName}</Typography>
+        </IconButton>
+        <CustomMenu open={open} anchorEl={anchorEl} onClose={handleClose} />
       </div>
-
-      <CustomMenu open={open} anchorEl={anchorEl} onClose={handleClose} />
-    </>
+    </div>
   );
 };
 export default AccountMenu;

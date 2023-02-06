@@ -14,6 +14,8 @@ import { validationSchema } from "./craftsmanInformation.utils";
 import useStyles from "./craftsmanInformation.style";
 import ProfileImageUpload from "../../../components/CoreComponents/ProfileImageUpload/profileImageUpload.index";
 import { showSuccessPopup } from "../../../utils/projectUtils";
+import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
+import { PATH_NAMES } from "../../../constants/route";
 
 const CraftsmanInformation: React.FC<any> = ({}) => {
   const classes = useStyles();
@@ -89,6 +91,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
   if (!initialValues.userName) return <> Loading</>;
 
   return (
+  
     <div>
       <ProfileImageUpload
         type={"image/*"}
@@ -130,7 +133,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
                 error={touched.speed && errors.speed}
               />
               <SelectInput
-               label="Region"
+                label="Region"
                 name={"region"}
                 options={regionList}
                 keyName={"id"}
@@ -160,10 +163,10 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
 
               <CustomButton text={"save"} />
             </Box>
-            <FileUploader />
           </Form>
         )}
       </Formik>
+      <FileUploader />
     </div>
   );
 };

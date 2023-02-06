@@ -1,10 +1,16 @@
 import { Grid } from "@mui/material";
 import React, { useState } from "react";
+import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
 import ImageCard from "../../../components/CoreComponents/ImageCard/imageCard.index";
+import { PATH_NAMES } from "../../../constants/route";
 import { sectorEnum } from "../../../enums/sectorEnum";
 
 const CraftsmanList: React.FC<any> = ({ children }) => {
   return (
+<>
+
+    <BreadCrump current={"CraftsmanList"} linkList={[]}/>
+
     <Grid container spacing={1}>
   <Grid  xs={4}>
   <ImageCard
@@ -24,6 +30,7 @@ const CraftsmanList: React.FC<any> = ({ children }) => {
   </Grid>
  
   </Grid>
+  </>
   );
 };
 export default CraftsmanList;

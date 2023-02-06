@@ -1,15 +1,17 @@
+import { ThemeOptions } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((theme: ThemeOptions) => ({
   root: {
-display:"flex",
+    display: "flex",
+    height: "100vh",
   },
-  main:{
-    width:  `calc(100% - ${200}px)` ,
-    flexGrow:1,
-    margin:20
-
-  }
+  main: {
+    width: `calc(100% - ${250}px)`,
+    flex: 1,
+    background: theme.colors.gray1,
+    padding: "40px 40px",
+  },
 }));
 
 export default useStyle;

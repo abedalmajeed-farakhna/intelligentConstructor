@@ -5,12 +5,13 @@ import moment from "moment";
 import { Box } from "@mui/material";
 
 import useStyles from "./projectDashboard.style";
-import FormStepper from "../../../components/commonComponent/FormStepper/formStipper.index";
 import { InitialValues, validationSchema } from "./projectDashboard.utils";
-import { ITimeLineProps } from "../../../components/commonComponent/FormStepper/formStopper.type";
+import { ITimeLineProps } from "../../../components/commonComponent/FormStepper/formStepper.type";
 import { addNumberOfDays } from "../../../utils/DateUtils";
 import { useNavigate } from "react-router-dom";
 import { PATH_NAMES } from "../../../constants/route";
+import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
+import FormStepper from "../../../components/commonComponent/FormStepper/formStepper.index";
 
 const ProjectDashboard: React.FC<any> = ({}) => {
   const classes = useStyles();
@@ -89,6 +90,8 @@ const ProjectDashboard: React.FC<any> = ({}) => {
 
   return (
     <div>
+              <BreadCrump current={"Add Project"} linkList={[{name:"ProjectList",link:PATH_NAMES.PROJECT_LIST}]}/>
+
       <Formik
         initialValues={InitialValues}
         //  validationSchema={validationSchema}

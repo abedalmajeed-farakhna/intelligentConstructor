@@ -7,6 +7,7 @@ import CustomLink from "../../../components/CoreComponents/CustomLink/customLink
 import { PATH_NAMES } from "../../../constants/route";
 import { IProjectListProps } from "./projectList.type";
 import useStyles from "./projectList.style";
+import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
 
 const ProjectList: React.FC<IProjectListProps> = ({}) => {
   const [data, setData] = useState([]);
@@ -47,12 +48,21 @@ const ProjectList: React.FC<IProjectListProps> = ({}) => {
 
   console.log(data, "rowsData");
   return (
-    <div>
+    <div>  
+
+    <div>  
+    
+    <BreadCrump current={"ProjectList"} linkList={[]}/>
+
+     </div>
+     
+    <div>    
 <CustomLink path={PATH_NAMES.PROJECT} text={"add new project"} /> 
     <div>
       <CustomDataGrid rows={data} columns={columns} />
     </div>
- 
+    </div>
+
     </div>
   );
 };
