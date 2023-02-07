@@ -20,7 +20,6 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<bool> UpdateProfileImage([FromBody] UpdateProfileImageRequest request)
         {
-            var asd = await _craftsmanService.getAllCraftsmanInformation();
             return await _userService.UpdateProfileImageAsync(request);
         }
     }

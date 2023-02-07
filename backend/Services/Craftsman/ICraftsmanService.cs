@@ -1,5 +1,6 @@
 ﻿using Backend.Dtos.Craftsman;
 using Backend.Enums;
+using WebApplication1.Dtos.ImageGallery;
 using WebApplication1.Models.Craftsman;
 
 namespace Backend.Services
@@ -13,6 +14,8 @@ namespace Backend.Services
         Task<CraftsmanUserInformationSP> getCraftsmanInformation(Guid id);
         Task<CraftsmanInformationSP> GetCraftsmanInformationById(Guid id);
         Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySector(SectorEnum sector);
+        Task<List<GetImageListResponse>> GetImageGalleryList();
+        Task<bool> DeleteImage(int id);
 
 
 

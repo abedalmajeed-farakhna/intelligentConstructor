@@ -16,10 +16,12 @@ import ProfileImageUpload from "../../../components/CoreComponents/ProfileImageU
 import { showSuccessPopup } from "../../../utils/projectUtils";
 import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
 import { PATH_NAMES } from "../../../constants/route";
+import ImageGallery from "../../../components/commonComponent/Craftsman/ImageGallery/imageGallery.index";
 
 const CraftsmanInformation: React.FC<any> = ({}) => {
   const classes = useStyles();
   const [regionList, setRegionList] = useState([]);
+  const [imageList, setImageList] = useState<string[]>([]);
 
   const user: IUser = useSelector((state: IApplicationState) => state.user);
   const [initialValues, setInitialValues] = useState({
@@ -67,7 +69,8 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
       speed: values.speed,
       sector: parseInt(values.sector),
       region: Number(values.region),
-      phoneNumber:values.phoneNumber
+      phoneNumber:values.phoneNumber,
+      imageList:imageList
     };
     axios.post(`/Craftsman/updateInformation`, data).then((res) => {
       console.log(res,"res")
@@ -77,6 +80,8 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
   };
 
   const handleOnChangeImage = (path) => {
+    console.log(path,"path:handleOnChangeImage")
+
     var reader = new FileReader();
     reader.readAsDataURL(path);
     reader.onloadend = function () {
@@ -87,6 +92,27 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
       axios.post(`/UserSettings/UpdateProfileImage`, data).then((res) => {});
     };
   };
+
+  const handleUploadImages =(images)=>{
+    images?.map(t=>{
+       converToBase64(t)
+     })
+  }
+
+  
+
+const converToBase64 = (blob) => {
+  var reader = new FileReader();
+  reader.readAsDataURL(blob);
+  let base64data;
+  reader.onloadend = function () {
+    base64data = reader.result;
+    //return base64data;
+    imageList.push(base64data);
+    setImageList(imageList);
+  };
+  //return base64data;
+};
 
   if (!initialValues.userName) return <> Loading</>;
 
@@ -166,7 +192,8 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
           </Form>
         )}
       </Formik>
-      <FileUploader />
+      <FileUploader  onChange={(data) => handleUploadImages(data)} />
+      <ImageGallery/>
     </div>
   );
 };

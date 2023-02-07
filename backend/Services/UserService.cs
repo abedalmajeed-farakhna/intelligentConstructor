@@ -26,7 +26,7 @@ namespace Backend.Services
 
             var userId = _authenticationService.GetCurrentUserId();
 
-            var user = await _userRepository.GetUserProfile(userId.GetValueOrDefault());
+            var user = await _userRepository.GetUserProfile(userId);
             if(user == null)
             {
                 throw new Exception("user is null");

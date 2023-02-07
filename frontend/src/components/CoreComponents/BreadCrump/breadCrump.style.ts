@@ -3,6 +3,9 @@ import { makeStyles } from "@mui/styles";
 
 const useStyle = makeStyles((theme: ThemeOptions) => ({
   root: {
+    marginBottom:30
+  },
+  current:{
 
   }
 }));

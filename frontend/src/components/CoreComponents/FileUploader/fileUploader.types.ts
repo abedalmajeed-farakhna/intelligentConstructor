@@ -1,4 +1,6 @@
-export interface IFileUploaderProps {}
+export interface IFileUploaderProps {
+  onChange: (data: string[]) => void;
+}
 
 export interface IFileProps {
   name: any;

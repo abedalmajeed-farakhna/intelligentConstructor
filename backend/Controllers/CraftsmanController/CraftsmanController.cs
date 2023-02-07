@@ -4,6 +4,7 @@ using Backend.Services;
 using Backend.Dtos.Craftsman;
 using WebApplication1.Models.Craftsman;
 using Backend.Enums;
+using WebApplication1.Dtos.ImageGallery;
 
 namespace Backend.Controllers
 {
@@ -43,6 +44,17 @@ namespace Backend.Controllers
         public async Task<bool> updateInformation([FromBody]UpdateInformationRequest request)
         {
             return await _craftsmanService.UpdateInformationAsync(request);
+        }
+        [HttpGet]
+        public async Task<List<GetImageListResponse>> GetImageList()
+        {
+            return await _craftsmanService.GetImageGalleryList();
+        }
+
+        [HttpPost]
+        public async Task<bool> DeleteImage([FromBody] DeleteImageRequest request)
+        {
+            return await _craftsmanService.DeleteImage(request.ImageGalleryId);
         }
     }
 }

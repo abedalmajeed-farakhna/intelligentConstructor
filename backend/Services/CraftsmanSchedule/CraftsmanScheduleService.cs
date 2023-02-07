@@ -31,7 +31,7 @@ namespace Backend.Services
             var addNewRequestDto = new AddNewRequestDto
             {
                 StartDate = request.From,
-                FromUserId = userId.GetValueOrDefault(),
+                FromUserId = userId,
                 ToUserId = request.ToUserId,
                 Description = request.Description,
             };
@@ -61,21 +61,21 @@ namespace Backend.Services
         public async Task<List<GetSentRequestListResponseDto>> GetSentRequestList()
         {
             var userId = _authenticationService.GetCurrentUserId();
-            return await _craftsmanScheduleRepository.GetSentRequestList(userId.GetValueOrDefault());
+            return await _craftsmanScheduleRepository.GetSentRequestList(userId);
 
         }
 
         public async Task<List<CraftsmanSchedule>> GetCraftsmanRequestList()
         {
             var userId = _authenticationService.GetCurrentUserId();
-            return await _craftsmanScheduleRepository.GetCraftsmanRequestList(userId.GetValueOrDefault());
+            return await _craftsmanScheduleRepository.GetCraftsmanRequestList(userId);
         }
 
 
         public async Task<List<GetReceivedRequestListSP>> GetReceivedRequestList()
         {
             var userId = _authenticationService.GetCurrentUserId();
-            return await _craftsmanScheduleRepository.GetReceivedRequestList(userId.GetValueOrDefault());
+            return await _craftsmanScheduleRepository.GetReceivedRequestList(userId);
         }
         public async Task<List<GetTopAvailableCraftsmanInSpecificInterval>> GetTopAvailableCraftsmanInSpecificInterval(GetTopAvailableCraftsmanInSpecificIntervalRequest request)
         {

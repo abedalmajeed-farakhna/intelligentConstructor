@@ -17,14 +17,28 @@ const CustomeListItem: React.FC<ICustomeListItemProps> = ({
   const classes = useStyles();
   const currentUrl = window.location.pathname;
 
-  const isActive = currentUrl ==path;
+  const isActive = currentUrl == path;
   return (
-    <ListItem key={text} disablePadding className={classNames(classes.root,isActive && classes.active)}>
+    <ListItem
+      key={text}
+      disablePadding
+      className={classNames(classes.root, isActive && classes.active)}
+    >
       <ListItemButton>
-        <ListItemIcon className={classNames(classes.link,isActive && classes.activeLink)}>{icon}</ListItemIcon>
-        <Link className={classNames(classes.link,isActive && classes.activeLink)} to={path}>
-          {text}
-        </Link>
+        <CustomLink
+          path={path}
+          text={text}
+          isActive={isActive}
+          icon={
+            <ListItemIcon
+              className={classNames(
+                isActive && classes.activeIcon
+              )}
+            >
+              {icon}
+            </ListItemIcon>
+          }
+        />
       </ListItemButton>
     </ListItem>
   );

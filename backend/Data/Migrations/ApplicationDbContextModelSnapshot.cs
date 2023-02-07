@@ -41,7 +41,6 @@ namespace WebApplication1.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("phoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.ToTable((string)null);
@@ -71,6 +70,15 @@ namespace WebApplication1.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfileImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RatingValue")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RegionName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Sector")
@@ -107,8 +115,14 @@ namespace WebApplication1.Data.Migrations
                     b.Property<string>("ProfileImage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Region")
+                    b.Property<int?>("RatingValue")
                         .HasColumnType("int");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RegionName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Speed")
                         .HasColumnType("int");
@@ -165,6 +179,41 @@ namespace WebApplication1.Data.Migrations
                     b.ToTable((string)null);
 
                     b.ToView("__notExist7", (string)null);
+                });
+
+            modelBuilder.Entity("Backend.Dtos.Project.GetReceivedRequestListSP", b =>
+                {
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FromFullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FromProfileImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("FromUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RequestDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RequestStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("__notExist8", (string)null);
                 });
 
             modelBuilder.Entity("Backend.Dtos.Project.GetSentRequestListResponseDto", b =>
@@ -510,8 +559,14 @@ namespace WebApplication1.Data.Migrations
                     b.Property<string>("ProfileImage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Region")
+                    b.Property<int?>("RatingValue")
                         .HasColumnType("int");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RegionName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Sector")
                         .HasColumnType("int");
@@ -549,6 +604,35 @@ namespace WebApplication1.Data.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("CraftsmanInformation", (string)null);
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.ImageGallery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("RequestId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImageGallery", (string)null);
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Rating", b =>

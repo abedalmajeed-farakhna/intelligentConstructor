@@ -7,6 +7,6 @@ namespace Backend.Services
         Task<LoginResponse> LoginAsync(LoginRequest request);
         Task<bool> SignUpAsync(SignUpRequest request);
         Task<bool> SignOutAsync();
-        Guid? GetCurrentUserId();
+        Guid GetCurrentUserId();
     }
 }

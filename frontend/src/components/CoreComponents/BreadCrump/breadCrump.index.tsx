@@ -1,22 +1,28 @@
 import { Breadcrumbs, Link, Typography } from "@mui/material";
 import React from "react";
 import { IBreadCrumpProps } from "./breadCrump.type";
+import useStyles from "./breadCrump.style";
 
-function handleClick(event) {
-  //event.preventDefault();
-  console.info("You clicked a breadcrumb.");
-}
-const BreadCrump: React.FC<IBreadCrumpProps> = ({ linkList, current }) => {
+import classNames from "classnames";
+import CustomLink from "../CustomLink/customLink.index";
+
+const BreadCrump: React.FC<IBreadCrumpProps> = ({
+  linkList,
+  current}) => {
+  const classes = useStyles();
+
   return (
-    <div role="presentation" onClick={handleClick}>
+    <div
+      role="presentation"
+      className={classNames(classes.root)}
+    >
       <Breadcrumbs aria-label="breadcrumb">
+        <CustomLink path="/" text="Home" />
         {linkList?.map((element) => (
-          <Link underline="hover" color="inherit" href={element.link}>
-            {element.name}
-     </Link>
+          <CustomLink path={element.link} text={element.name} />
         ))}
 
-        <Typography color="text.primary">{current}</Typography>
+        <Typography  className={classes.current} color="text.primary">{current}</Typography>
       </Breadcrumbs>
     </div>
   );

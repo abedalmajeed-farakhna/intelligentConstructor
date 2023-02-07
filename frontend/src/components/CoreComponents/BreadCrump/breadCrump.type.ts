@@ -1,7 +1,6 @@
 export interface IBreadCrumpProps {
     current:string;
-    linkList?: ILinkProps[]
-}
+    linkList?: ILinkProps[]}
 
 
 interface ILinkProps {

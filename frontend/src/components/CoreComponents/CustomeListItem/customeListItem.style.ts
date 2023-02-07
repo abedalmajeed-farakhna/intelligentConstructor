@@ -11,16 +11,11 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
       fontSize:"22px"
     }
   },
-  link:{
-    display:"block",
-    textTransform:"capitalize",
-    textDecoration:"none"
-  },
   active:{
     background:"rgb(24 144 255 / 20%)",
     borderRight: `2px solid ${theme.colors.primary} !important`,
   },
-  activeLink:{
+  activeIcon:{
     color:`${theme.colors.primary} !important` ,
   }
 }));

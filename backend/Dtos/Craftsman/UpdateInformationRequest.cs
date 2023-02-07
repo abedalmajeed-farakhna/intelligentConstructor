@@ -20,6 +20,6 @@ namespace Backend.Dtos.Craftsman
         [Required]
         public int Region { get; set; }
 
-
+        public List<string> ImageList { get; set; }
     }
 }

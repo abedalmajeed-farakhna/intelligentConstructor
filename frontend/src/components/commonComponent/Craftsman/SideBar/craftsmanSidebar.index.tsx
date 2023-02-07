@@ -2,6 +2,8 @@ import React from "react";
 import { List, Drawer } from "@mui/material";
 import { Box } from "@mui/system";
 import InfoIcon from "@mui/icons-material/Info";
+import DashboardIcon from '@mui/icons-material/GridView';
+import RequestIcon from '@mui/icons-material/Send';
 
 import { PATH_NAMES } from "../../../../constants/route";
 import CustomeListItem from "../../../CoreComponents/CustomeListItem/customeListItem.index";
@@ -16,15 +18,13 @@ const CraftsmanSidebar = () => {
         <div>
           <List>
             <CustomeListItem
-              icon={<InfoIcon />}
-              text={"Information"}
+              icon={<DashboardIcon />}
+              text={"Dashboard"}
               path={PATH_NAMES.INFORMATION}
             />
-          </List>
-
-          <List>
+            
             <CustomeListItem
-              icon={<InfoIcon />}
+              icon={<RequestIcon />}
               text={"RequestList"}
               path={PATH_NAMES.CRAFTSMAN_REQUEST_LISt}
             />

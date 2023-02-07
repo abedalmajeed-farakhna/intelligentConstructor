@@ -16,6 +16,7 @@ declare module "@mui/material/styles" {
       gray3?: React.CSSProperties["color"];
       gray4?: React.CSSProperties["color"];
       gray5?: React.CSSProperties["color"];
+      gray6?: React.CSSProperties["color"];
       borderColor?: React.CSSProperties["color"];
       approvedColor?: React.CSSProperties["color"];
       doneColor?: React.CSSProperties["color"];
@@ -39,6 +40,7 @@ declare module "@mui/material/styles" {
       gray3?: React.CSSProperties["color"];
       gray4?: React.CSSProperties["color"];
       gray5?: React.CSSProperties["color"];
+      gray6?: React.CSSProperties["color"];
       borderColor?: React.CSSProperties["color"];
       approvedColor?: React.CSSProperties["color"];
       doneColor?: React.CSSProperties["color"];
@@ -68,6 +70,7 @@ export const theme = createTheme({
     gray3: "gray",
     gray4: "#ddd",
     gray5: "#d0d0d0",
+    gray6:"#979797",
     approvedColor:"gray",
     doneColor:"green",
     rejectedColor:"red",

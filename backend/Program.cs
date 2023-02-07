@@ -58,6 +58,9 @@ builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
 builder.Services.AddScoped<IRegionService, RegionService>();
 
+//ImageGalleryRepository
+builder.Services.AddScoped<IImageGalleryRepository, ImageGalleryRepository>();
+
 /*builder.Services.AddScoped<IFileUploaderServices, FileUploaderServices>();*/
 
 var app = builder.Build();

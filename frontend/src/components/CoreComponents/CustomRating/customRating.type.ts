@@ -3,4 +3,5 @@ export interface ICustomRatingProps {
   value?: number;
   readOnly?: boolean;
   disabled?: boolean;
+  classNames?:any
 }

@@ -11,6 +11,7 @@ const CustomRating: React.FC<ICustomRatingProps> = ({
   value,
   readOnly,
   disabled,
+  classNames
 }) => {
   function IconContainer(props) {
     const { value, ...other } = props;
@@ -32,7 +33,7 @@ const CustomRating: React.FC<ICustomRatingProps> = ({
   };
 
   return (
-    <StyledRating
+    <StyledRating className={classNames}
       onChange={handleChange}
       name="highlight-selected-only"
       defaultValue={value}

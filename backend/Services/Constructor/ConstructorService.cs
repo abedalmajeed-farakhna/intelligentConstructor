@@ -43,7 +43,7 @@ namespace Backend.Services
                       
                      
                };
-               await _userRepository.updateUserInformation(userId.GetValueOrDefault(), updateUserInformationRequest);
+               await _userRepository.updateUserInformation(userId, updateUserInformationRequest);
 
 
             var constructorRequest = new UpdateConstructorInformationRequest
@@ -53,7 +53,7 @@ namespace Backend.Services
 
             };
 
-               await _constructorRepository.AddOrUpdateConstructorInformation( constructorRequest, userId.GetValueOrDefault());
+               await _constructorRepository.AddOrUpdateConstructorInformation( constructorRequest, userId);
 
                return true;
         }
@@ -65,7 +65,7 @@ namespace Backend.Services
         {
             var userId = _authenticationService.GetCurrentUserId();
 
-            var data = await _constructorRepository.ConstructorInformation(userId.GetValueOrDefault());
+            var data = await _constructorRepository.ConstructorInformation(userId);
             
             return new GetConstructorInformationResponse
             {
@@ -88,7 +88,7 @@ namespace Backend.Services
                 throw new Exception();
             }
 
-            var projectId = await _projectRepository.AddNewProject(request, userId.GetValueOrDefault());
+            var projectId = await _projectRepository.AddNewProject(request, userId);
 
             
 
@@ -98,7 +98,7 @@ namespace Backend.Services
                 ProjectId= projectId,
                 Description = "",
                 StartDate = request.Builder.StratDate,
-                FromUserId = userId.GetValueOrDefault(),
+                FromUserId = userId,
                 ToUserId = request.Builder.UserId,
                 EndDate = request.Builder.EndDate
 
@@ -114,7 +114,7 @@ namespace Backend.Services
                 ProjectId = projectId,
                 Description = "",
                 StartDate = request.Tiler.StratDate,
-                FromUserId = userId.GetValueOrDefault(),
+                FromUserId = userId,
                 ToUserId = request.Tiler.UserId,
                 EndDate = request.Tiler.EndDate
 
@@ -128,7 +128,7 @@ namespace Backend.Services
                 ProjectId = projectId,
                 Description = "",
                 StartDate = request.HousePainter.StratDate,
-                FromUserId = userId.GetValueOrDefault(),
+                FromUserId = userId,
                 ToUserId = request.HousePainter.UserId,
                 EndDate = request.HousePainter.EndDate
 
@@ -141,7 +141,7 @@ namespace Backend.Services
             {ProjectId = projectId,
                 Description = "",
                 StartDate = request.Carpenter.StratDate,
-                FromUserId = userId.GetValueOrDefault(),
+                FromUserId = userId,
                 ToUserId = request.Carpenter.UserId,
                 EndDate = request.Carpenter.EndDate
 
@@ -155,7 +155,7 @@ namespace Backend.Services
         public async Task<List<GetProjectListDetails>> getProjectList()
         {
             var userId = _authenticationService.GetCurrentUserId();
-            var list = await _projectRepository.GetProjectListByUserId(userId.GetValueOrDefault());
+            var list = await _projectRepository.GetProjectListByUserId(userId);
 
             var result = new List<GetProjectListDetails>();
             foreach (var project in list)

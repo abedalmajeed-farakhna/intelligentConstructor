@@ -5,6 +5,9 @@ import InfoIcon from "@mui/icons-material/Info";
 import { PATH_NAMES } from "../../../../constants/route";
 import CustomeListItem from "../../../CoreComponents/CustomeListItem/customeListItem.index";
 import useStyles from "./guestSidebar.style";
+import DashboardIcon from '@mui/icons-material/GridView';
+import CraftsmanIcon from '@mui/icons-material/Groups';
+import RequestIcon from '@mui/icons-material/Send';
 const GuestSidebar = () => {
   const drawerWidth = 250;
 
@@ -17,18 +20,18 @@ const GuestSidebar = () => {
         <div>
           <List>
             <CustomeListItem
-              icon={<InfoIcon />}
+              icon={<DashboardIcon />}
               path={PATH_NAMES.INFORMATION}
-              text={"information"}
+              text={"Dashboard"}
             />
 
             <CustomeListItem
-              icon={<InfoIcon />}
+              icon={<CraftsmanIcon />}
               path={PATH_NAMES.CRAFTSMAN}
               text={"craftsman"}
             />
              <CustomeListItem
-              icon={<InfoIcon />}
+              icon={<RequestIcon />}
               path={PATH_NAMES.REQUEST}
               text={"request"}
             />

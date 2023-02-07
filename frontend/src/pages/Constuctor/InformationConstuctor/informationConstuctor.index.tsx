@@ -70,6 +70,7 @@ const InformationConstuctor: React.FC<any> = ({}) => {
   };
 
   const handleOnChangeImage = (path) => {
+    console.log(path,"path:handleOnChangeImage")
     var reader = new FileReader();
     reader.readAsDataURL(path);
     reader.onloadend = function () {

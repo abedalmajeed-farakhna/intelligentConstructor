@@ -13,9 +13,17 @@ import CustomRating from "../../../components/CoreComponents/CustomRating/custom
 import { format } from "date-fns";
 import CraftsmanAction from "../../../components/commonComponent/Craftsman/CraftsmanAction/craftsmanAction.index";
 import ProfileImage from "../../../components/CoreComponents/ProfileImage/profileImage.index";
+import FormDialog from "../../../components/CoreComponents/FormDialog/formDialog.index";
+import { UploadFile } from "@mui/icons-material";
+import FileUploader from "../../../components/CoreComponents/FileUploader/fileUploader.index";
+import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
 
 const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
   const [data, setData] = useState([]);
+  const [showUploadImageModal, setShowUploadImageModal] =
+    useState<boolean>(false);
+  const [imageList, setImageList] = useState<string[]>([]);
+
   const classes = useStyles();
 
   const columns: GridColDef[] = [
@@ -27,9 +35,7 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
       width: 30,
       renderCell: (params) => (
         <div className={classes.imageContainer}>
-          <ProfileImage
-            path={params.row.fromProfileImage}
-          />
+          <ProfileImage path={params.row.fromProfileImage} />
         </div>
       ),
     },
@@ -39,8 +45,6 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
       sortable: false,
       width: 160,
     },
-
-  
 
     {
       field: "rating",
@@ -77,7 +81,7 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
 
     {
       field: "requestStatus",
-      headerName: "Status", // to be removed 
+      headerName: "Status", // to be removed
       width: 150,
       renderCell: (params) => (
         <div> {getProjectStatusDescription(params.row.requestStatus)}</div>
@@ -86,7 +90,22 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
     {
       field: "Actions",
       width: 120,
-      renderCell: (params) => <CraftsmanAction requestStatus={params.row.requestStatus} id={params.row.id} />,
+      renderCell: (params) => (
+        <CraftsmanAction
+          requestStatus={params.row.requestStatus}
+          id={params.row.id}
+        />
+      ),
+    },
+    {
+      field: "",
+      width: 120,
+      renderCell: (params) => (
+        <CustomButton
+          text="test"
+          onClick={openUploadImageModal}
+        />
+      ),
     },
   ];
   useEffect(() => {
@@ -96,7 +115,57 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
     });
   }, []);
 
+  const openUploadImageModal = () => {
+    setShowUploadImageModal(true);
+  };
+  const HideUploadImageModal = () => {
+    setShowUploadImageModal(false);
+  };
+  const handleUploadImages = (images) => {
+    images?.map((t) => {
+      converToBase64(t);
+    });
+  };
+  const converToBase64 = (blob) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(blob);
+    let base64data;
+    reader.onloadend = function () {
+      base64data = reader.result;
+      //return base64data;
+      imageList.push(base64data);
+      setImageList(imageList);
+    };
+    //return base64data;
+  };
+
   console.log(data, "rowsData");
-  return <CustomDataGrid rows={data} columns={columns} />;
+  const onHandleSubmit = () => {
+    let data = {
+      imageList: imageList,
+    };
+    axios.post(`/Craftsman/AddImageForSpecificRequest`, data).then((res) => {
+      console.log(res, "res");
+      //  showSuccessPopup();
+    });
+  };
+  return (
+    <>
+      {showUploadImageModal && (
+        <FormDialog
+          isOpen={showUploadImageModal}
+          title={"Upload Image"}
+          onClose={HideUploadImageModal}
+        >
+          <>
+            <FileUploader onChange={(data) => handleUploadImages(data)} />
+
+            <CustomButton text={"upload"} onClick={onHandleSubmit} />
+          </>
+        </FormDialog>
+      )}
+      <CustomDataGrid rows={data} columns={columns} />
+    </>
+  );
 };
 export default CraftsmanRequestList;

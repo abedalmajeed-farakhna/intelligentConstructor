@@ -9,19 +9,19 @@ const ImageCard: React.FC<ICardProps> = ({ text,description, sector,imagePath })
   const classes = useStyles();
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card  className={classes.root}>
     <CardMedia
       component="img"
       alt="green iguana"
-      height="140"
+      height="200"
     image={`images/${imagePath}`}
     />
     <CardContent>
-      <Typography gutterBottom variant="h5" component="div">
+      <Typography gutterBottom variant="h6" component="div">
        
-       <CustomLink path={`${sector}`} text={text}/>
+       <CustomLink path={`${sector}`} text={text} className={classes.link}/>
              </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" className={classes.description} >
         {description}
       </Typography>
     </CardContent>

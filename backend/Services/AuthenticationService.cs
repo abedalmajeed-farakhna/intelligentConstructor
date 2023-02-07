@@ -93,7 +93,7 @@ namespace Backend.Services
             return true;
         }
 
-        public Guid? GetCurrentUserId()
+        public Guid GetCurrentUserId()
         {
             if (_httpContextAccessor.HttpContext == null)
             {

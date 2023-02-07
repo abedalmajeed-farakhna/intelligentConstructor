@@ -1,3 +1,4 @@
+import { Class } from "@mui/icons-material";
 import { GridColDef } from "@mui/x-data-grid";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -8,9 +9,12 @@ import CustomRating from "../../components/CoreComponents/CustomRating/customRat
 import Loading from "../../components/CoreComponents/Loading/loading.index";
 import { PATH_NAMES } from "../../constants/route";
 import { getSectorEnumDescriptions } from "../../utils/enumDescriptions";
+import useStyles from "./craftsmanBySector.style";
 
 const CraftsmanBySector: React.FC<any> = ({ children }) => {
   const location = window.location;
+  const classes = useStyles();
+
   const locationQiery = location?.href.split("/");
   const [rowsData, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -19,39 +23,32 @@ const CraftsmanBySector: React.FC<any> = ({ children }) => {
 
   const columns2: GridColDef[] = [
     {
-      field: "userName",
-      headerName: "User name",
-      description: "Username ",
+      field: "fullName",
+      headerName: "Full name",
       sortable: false,
-      width: 180,
+      width: 265,
       renderCell: (params) => (
-        <CustomLink
+        <CustomLink className={classes.link}
           path={`/craftsmanInformation/${params.row.id}`}
-          text={params.row.userName}
+          text={params.row.fullName}
         />
       ),
     },
 
     {
-      field: "fullName",
-      headerName: "full name",
-      width: 150,
-    },
-
-    {
       field: "regionName",
       headerName: "Region Name",
-      width: 150,
+      width: 265,
     },
     {
       field: "speed",
       headerName: "speed",
-      width: 150,
+      width: 265,
     },
     {
       field:"ratingValue",
       headerName:"Rating",
-      width:150,
+      width:265,
       renderCell: (params) => ( <CustomRating value={params.row.ratingValue} readOnly={true} />)
     }
   ];

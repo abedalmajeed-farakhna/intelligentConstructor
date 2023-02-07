@@ -52,7 +52,7 @@ namespace WebApplication1.Services.Guest
                 FullName = request.FullName,
                 PhoneNumber = request.PhoneNumber
             };
-            await _userRepository.updateUserInformation(userId.GetValueOrDefault(), updateUserInformationRequest);
+            await _userRepository.updateUserInformation(userId, updateUserInformationRequest);
            
 
             return true;
@@ -61,7 +61,7 @@ namespace WebApplication1.Services.Guest
         public async Task<GetGuestInformationResponse> GetGuestInformation()
         {
             var userId= _authenticationService.GetCurrentUserId();
-           var user = await _userRepository.GetUserProfile(userId.GetValueOrDefault());
+           var user = await _userRepository.GetUserProfile(userId);
             if(user == null)
             {
                 throw new Exception();
