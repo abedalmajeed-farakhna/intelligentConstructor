@@ -22,7 +22,8 @@ namespace WebApplication1.Data
 
         public virtual DbSet<UserProfile> userProfile { get; set; }
         public virtual DbSet<Region> region { get; set; }
-        public virtual DbSet<ImageGallery> imageGallery { get; set; }
+        public virtual DbSet<ImageGalleryModel> imageGallery { get; set; }
+        public virtual DbSet<ImageGalleryGroup> imageGalleryGroup { get; set; }
         public virtual DbSet<CraftsmanUserInformationSP> CraftsmanUserInformation { get; set; }
         public virtual DbSet<GetReceivedRequestListSP> ReceivedRequestList { get; set; }
         public virtual DbSet<ConstructorInformation> ConstructorInformation { get; set; }
@@ -50,6 +51,7 @@ namespace WebApplication1.Data
             modelBuilder.ApplyConfiguration( new RatingConfigration());
             modelBuilder.ApplyConfiguration( new RegionConfigration());
             modelBuilder.ApplyConfiguration( new ImageGalleryConfigration());
+            modelBuilder.ApplyConfiguration( new ImageGalleryGroupConfigratio());
             modelBuilder.ApplyConfiguration(new CraftsmanScheduleConfigration());
             modelBuilder.ApplyConfiguration(new CraftsmanScheduleConfigration());
             modelBuilder.ApplyConfiguration(new ConstructorInformationConfigration());

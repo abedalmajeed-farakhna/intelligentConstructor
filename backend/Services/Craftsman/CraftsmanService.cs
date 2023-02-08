@@ -3,6 +3,7 @@ using Backend.Dtos.Craftsman;
 using Backend.Enums;
 using Backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebApplication1.Dtos.ImageGallery;
 using WebApplication1.Dtos.Settings;
 using WebApplication1.Models;
@@ -45,7 +46,7 @@ namespace Backend.Services
             await _craftsmanInformationRepository.AddOrUpdateUserInformation( request, userId);
 
 
-            await AddImageList(request.ImageList, userId);
+            await AddImageList(request.ImageList, userId,"");
             
             return true;
         }
@@ -91,32 +92,51 @@ namespace Backend.Services
             return await _craftsmanInformationRepository.GetCraftsmanBySector(sector);
         }
 
-        public async Task<List<GetImageListResponse>> GetImageGalleryList()
+        public async Task<List<GetImageListResponse>> GetImageGalleryList(int? requestId)
         {
 
             var userId = _authenticationService.GetCurrentUserId();
-            return await _imageGalleryRepository.GetImageGalleryList(userId);
+            return await _imageGalleryRepository.GetImageGalleryList(userId, requestId);
         }
-          public async Task<bool> DeleteImage(int id)
+
+        public async Task<bool> AddImageForSpecificRequest(AddImageForSpecificRequestRequest request)
+        {
+            var userId = _authenticationService.GetCurrentUserId();
+            await AddImageList(request.ImageList, userId, request.Title, request.RequestId);
+            return true;
+        }
+
+        public async Task<bool> DeleteImage(int id)
         {
 
             return await _imageGalleryRepository.DeleteImage(id);
         }
         
-        private async Task AddImageList(List<string> list, Guid userId)
+        private async Task AddImageList(List<string> list, Guid userId, string title, int? requestId=0)
         {
+
             if (list.Count == 0)
             {
                 return;
             }
-            var imageGallery = new List<ImageGallery>();
+
+
+            var data = new ImageGalleryGroup
+            {
+                GroupTitle = title,
+                userId = userId,
+                RequestId = requestId
+            };
+
+            var groupId = await _imageGalleryRepository.AddImageGalleryGroup(data);
+            var imageGallery = new List<ImageGalleryModel>();
             list.ForEach(async t =>
             {
                 var filename = await _uploadService.SaveImageAsync(t, "./Upload/ImageGallery");
-                imageGallery.Add(new ImageGallery
+                imageGallery.Add(new ImageGalleryModel
                 {
                     ImageName = filename,
-                    UserId = userId
+                    ImageGalleryGroupId = groupId
                 });
             });
             await _imageGalleryRepository.AddImageList(imageGallery);

@@ -4,11 +4,11 @@ using WebApplication1.Models;
 
 namespace WebApplication1.FluentApi
 {
-    public class ImageGalleryConfigration : IEntityTypeConfiguration<ImageGalleryModel>
+    public class ImageGalleryGroupConfigratio : IEntityTypeConfiguration<ImageGalleryGroup>
     {
-        public void Configure(EntityTypeBuilder<ImageGalleryModel> builder)
+        public void Configure(EntityTypeBuilder<ImageGalleryGroup> builder)
         {
-            builder.ToTable("ImageGallery");
+            builder.ToTable("ImageGalleryGroup");
             builder.HasKey(x => x.Id);
         }
     }

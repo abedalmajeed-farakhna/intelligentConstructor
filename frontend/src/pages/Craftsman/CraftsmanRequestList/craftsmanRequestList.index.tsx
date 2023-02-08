@@ -3,28 +3,28 @@ import CustomDataGrid from "../../../components/CoreComponents/CustomDataGrid/cu
 import { ICraftsmanRequestListProps } from "./craftsmanRequestList.type";
 import useStyles from "./craftsmanRequestList.style";
 import { GridColDef } from "@mui/x-data-grid";
-import CustomLink from "../../../components/CoreComponents/CustomLink/customLink.index";
-import { PATH_NAMES } from "../../../constants/route";
 import axios from "axios";
-import BasicTimeline from "../../../components/CoreComponents/BasicTimeline/basicTimeline.index";
 import { getProjectStatusDescription } from "../../../utils/enumDescriptions";
-import { Rating } from "@mui/material";
 import CustomRating from "../../../components/CoreComponents/CustomRating/customRating.index";
 import { format } from "date-fns";
 import CraftsmanAction from "../../../components/commonComponent/Craftsman/CraftsmanAction/craftsmanAction.index";
 import ProfileImage from "../../../components/CoreComponents/ProfileImage/profileImage.index";
-import FormDialog from "../../../components/CoreComponents/FormDialog/formDialog.index";
-import { UploadFile } from "@mui/icons-material";
-import FileUploader from "../../../components/CoreComponents/FileUploader/fileUploader.index";
 import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
+import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
+import CraftsmanUploadImageModal from "../CraftsmanUploadImageModal/craftsmanUploadImageModal.index";
+import ImageGalleryModal from "../ImageGalleryModal/ImageGalleryModal.index";
+
 
 const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
-  const [data, setData] = useState([]);
-  const [showUploadImageModal, setShowUploadImageModal] =
-    useState<boolean>(false);
-  const [imageList, setImageList] = useState<string[]>([]);
 
   const classes = useStyles();
+
+  const [data, setData] = useState([]);
+  const [activeRow, setActiveRow] = useState<number>(0);
+  const [showUploadImageModal, setShowUploadImageModal] =  useState<boolean>(false);
+  const [showImageGalleryModal, setshowImageGalleryModal] =  useState<boolean>(false);
+
+
 
   const columns: GridColDef[] = [
     {
@@ -43,7 +43,7 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
       field: "fromFullName",
       headerName: "Full Name",
       sortable: false,
-      width: 160,
+      width: 100,
     },
 
     {
@@ -58,7 +58,7 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
     {
       field: "requestDescription",
       headerName: "Description",
-      width: 150,
+      width: 100,
     },
 
     {
@@ -89,7 +89,7 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
     },
     {
       field: "Actions",
-      width: 120,
+      width: 100,
       renderCell: (params) => (
         <CraftsmanAction
           requestStatus={params.row.requestStatus}
@@ -98,16 +98,41 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
       ),
     },
     {
-      field: "",
+      field: "uploadImage",
       width: 120,
       renderCell: (params) => (
-        <CustomButton
-          text="test"
-          onClick={openUploadImageModal}
-        />
+        params.row.requestStatus,
+        (
+          <CustomButton
+            text="upload"
+            //   requestStatus= {params.row.requestStatus}
+            disabled={
+              params.row.requestStatus != ProjectStatusEnum.Done &&
+              params.row.requestStatus != ProjectStatusEnum.Inprogres
+            }
+            onClick={() => openUploadImageModal(params.row.id)}
+          />
+        )
+      ),
+    },
+
+    {
+      field: "imageUploaded",
+      headerName: "imageUploaded",
+      width: 120,
+      renderCell: (params) => (
+    
+        (params.row.requestStatus == ProjectStatusEnum.Done ||
+          params.row.requestStatus == ProjectStatusEnum.Inprogres) && (
+          <CustomButton
+            text="show Image"
+            onClick={() => openImageGalleryModal(params.row.id)}
+          />
+        )
       ),
     },
   ];
+  
   useEffect(() => {
     axios.get(`/Project/GetReceivedRequestList`).then((result) => {
       setData(result.data);
@@ -115,56 +140,37 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
     });
   }, []);
 
-  const openUploadImageModal = () => {
+  const openUploadImageModal = (id:number) => {
+    setActiveRow(id)
     setShowUploadImageModal(true);
   };
-  const HideUploadImageModal = () => {
+  
+  const hideUploadImageModal = () => {
     setShowUploadImageModal(false);
   };
-  const handleUploadImages = (images) => {
-    images?.map((t) => {
-      converToBase64(t);
-    });
-  };
-  const converToBase64 = (blob) => {
-    var reader = new FileReader();
-    reader.readAsDataURL(blob);
-    let base64data;
-    reader.onloadend = function () {
-      base64data = reader.result;
-      //return base64data;
-      imageList.push(base64data);
-      setImageList(imageList);
-    };
-    //return base64data;
-  };
 
-  console.log(data, "rowsData");
-  const onHandleSubmit = () => {
-    let data = {
-      imageList: imageList,
-    };
-    axios.post(`/Craftsman/AddImageForSpecificRequest`, data).then((res) => {
-      console.log(res, "res");
-      //  showSuccessPopup();
-    });
+
+
+  // image Gallery
+  const openImageGalleryModal = (id:number) => {
+    setActiveRow(id)
+    setshowImageGalleryModal(true);
+  };
+  const closeImageGalleryModal = () => {
+    setshowImageGalleryModal(false);
   };
   return (
     <>
       {showUploadImageModal && (
-        <FormDialog
-          isOpen={showUploadImageModal}
-          title={"Upload Image"}
-          onClose={HideUploadImageModal}
-        >
-          <>
-            <FileUploader onChange={(data) => handleUploadImages(data)} />
-
-            <CustomButton text={"upload"} onClick={onHandleSubmit} />
-          </>
-        </FormDialog>
+        <CraftsmanUploadImageModal requestId ={activeRow}
+          hideUploadImageModal={hideUploadImageModal}
+        />
+      )}
+      {showImageGalleryModal && (
+        <ImageGalleryModal onHide={closeImageGalleryModal} requestId ={activeRow} />
       )}
       <CustomDataGrid rows={data} columns={columns} />
+      {}
     </>
   );
 };

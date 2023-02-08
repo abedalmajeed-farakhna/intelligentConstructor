@@ -3,4 +3,5 @@ export interface IFormDialogProps {
   title: string;
   children: React.ReactChild;
   onClose: () => void;
+  customClassName?:any;
 }

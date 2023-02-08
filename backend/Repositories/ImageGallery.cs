@@ -14,15 +14,28 @@ namespace Backend.Repositories
             _context = context;
         }
 
-        public async Task<List<GetImageListResponse>> GetImageGalleryList(Guid userId)
+        public async Task<List<GetImageListResponse>> GetImageGalleryList(Guid userId, int? requestId)
         {
-            return await _context.imageGallery.Where(t => t.UserId == userId && t.IsDeleted == false).Select(t => new GetImageListResponse
+            var list = await _context.imageGalleryGroup.Where(t => t.userId == userId).ToListAsync();
+            if (requestId != null && requestId > 0)
             {
-                ImageName = t.ImageName,
-                Title = t.Title,
-                Id= t.Id
-            }).ToListAsync();
+                list = list.Where(t=>t.RequestId== requestId).ToList();
+            }
+            var listGroupId = list.Select(t => t.Id);
+            var result = new List<GetImageListResponse>();
+            var allImages = await _context.imageGallery.Where(t=>listGroupId.Contains(t.ImageGalleryGroupId)).ToListAsync();
+            
+            foreach (var imageGalleryGroup in list)
+            {
+                result.Add(new GetImageListResponse
+                {
+                    imageList = allImages.Where(t => t.ImageGalleryGroupId == imageGalleryGroup.Id).ToList(),
+                    Title = imageGalleryGroup.GroupTitle,
+                });
+            }
+            return result;
         }
+
         public async Task<bool> DeleteImage(int id)
         {
             var item =  await _context.imageGallery.FirstOrDefaultAsync(t => t.Id == id);
@@ -35,7 +48,7 @@ namespace Backend.Repositories
             return true;
         }
        
-        public async Task<bool> AddImageList(List<ImageGallery> data)
+        public async Task<bool> AddImageList(List<ImageGalleryModel> data)
         {
             await _context.imageGallery.AddRangeAsync(data);
 
@@ -44,6 +57,14 @@ namespace Backend.Repositories
 
             return true;
         }
+        public async Task<int> AddImageGalleryGroup(ImageGalleryGroup data)
+        {
+            await _context.imageGalleryGroup.AddAsync(data);
+            _context.SaveChanges();
+
+            return data.Id;
+        }
+
 
     }
 }

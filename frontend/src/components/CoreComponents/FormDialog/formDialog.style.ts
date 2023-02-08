@@ -8,6 +8,9 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
     }
 
   },
+  close:{
+    cursor:"Pointer",
+  }
 }));
 
 export default useStyle;

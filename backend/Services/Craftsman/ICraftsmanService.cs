@@ -14,7 +14,8 @@ namespace Backend.Services
         Task<CraftsmanUserInformationSP> getCraftsmanInformation(Guid id);
         Task<CraftsmanInformationSP> GetCraftsmanInformationById(Guid id);
         Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySector(SectorEnum sector);
-        Task<List<GetImageListResponse>> GetImageGalleryList();
+        Task<List<GetImageListResponse>> GetImageGalleryList(int? requestId);
+        Task<bool> AddImageForSpecificRequest(AddImageForSpecificRequestRequest request);
         Task<bool> DeleteImage(int id);
 
 

@@ -9,6 +9,10 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
     boxShadow: " none",
     fontWeight: "400",
   },
+  disabled:{
+    background:`${theme.colors.gray3} !important`,
+  
+    }
 }));
 
 export default useStyle;

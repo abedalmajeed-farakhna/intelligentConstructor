@@ -5,8 +5,9 @@ namespace Backend.Repositories
 {
     public interface IImageGalleryRepository
     {
-        Task<bool> AddImageList(List<ImageGallery> data);
-        Task<List<GetImageListResponse>> GetImageGalleryList(Guid userId);
+        Task<bool> AddImageList(List<ImageGalleryModel> data);
         Task<bool> DeleteImage(int id);
+        Task<int> AddImageGalleryGroup(ImageGalleryGroup data);
+        Task<List<GetImageListResponse>> GetImageGalleryList(Guid userId, int? requestId);
     }
 }

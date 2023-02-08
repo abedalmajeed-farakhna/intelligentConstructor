@@ -3,17 +3,15 @@ import { makeStyles } from "@mui/styles";
 
 const useStyle = makeStyles((theme: ThemeOptions) => ({
   root: {
-    height: 400,
-    width: "100%",
-  },
-  imageContainer: {
-    borderRadius: "50%",
-    width: "40px",
-    overflow: "hidden",
-    height: "40px",
+
   },
   image: {
-    maxWidth: "100%",
+    width: "150px !important",
+    height: "150px !important",
+  },
+  imageListItem:{
+    width: "150px !important",
+    height: "150px !important",
   },
   majeedpopup: {
     minWidth: 450,
@@ -22,9 +20,6 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
       width: 750,
       maxWidth: 750,
     },
-  },
-  fileUploader: {
-    width: 600,
   },
 }));
 

@@ -26,7 +26,7 @@ const CraftsmanBySector: React.FC<any> = ({ children }) => {
       field: "fullName",
       headerName: "Full name",
       sortable: false,
-      width: 265,
+      width: 270,
       renderCell: (params) => (
         <CustomLink className={classes.link}
           path={`/craftsmanInformation/${params.row.id}`}
@@ -38,17 +38,17 @@ const CraftsmanBySector: React.FC<any> = ({ children }) => {
     {
       field: "regionName",
       headerName: "Region Name",
-      width: 265,
+      width: 270,
     },
     {
       field: "speed",
       headerName: "speed",
-      width: 265,
+      width: 270,
     },
     {
       field:"ratingValue",
       headerName:"Rating",
-      width:265,
+      width:270,
       renderCell: (params) => ( <CustomRating value={params.row.ratingValue} readOnly={true} />)
     }
   ];

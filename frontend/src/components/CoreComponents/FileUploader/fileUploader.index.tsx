@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { IFileProps, IFileUploaderProps } from "./fileUploader.types";
 import useStyle from "./fileUploader.style";
-const FileUploader: React.FC<IFileUploaderProps> = ({ onChange }) => {
+import classNames from "classnames";
+const FileUploader: React.FC<IFileUploaderProps> = ({ onChange, customClassName }) => {
   
   const classes = useStyle();
   const [files, setFiles] = useState<IFileProps[]>([]);
@@ -47,7 +48,7 @@ const FileUploader: React.FC<IFileUploaderProps> = ({ onChange }) => {
   }, []);
 
   return (
-    <section className={classes.rsgPreview60}>
+    <section className={ classNames(classes.rsgPreview60,customClassName)}>
       <div className={classes.dropzone} {...getRootProps()}>
         <input {...getInputProps()} />
         <p>Drag 'n' drop some files here, or click to select files</p>

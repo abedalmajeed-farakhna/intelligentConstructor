@@ -193,7 +193,7 @@ const converToBase64 = (blob) => {
         )}
       </Formik>
       <FileUploader  onChange={(data) => handleUploadImages(data)} />
-      <ImageGallery/>
+      {false && <ImageGallery/>}
     </div>
   );
 };
