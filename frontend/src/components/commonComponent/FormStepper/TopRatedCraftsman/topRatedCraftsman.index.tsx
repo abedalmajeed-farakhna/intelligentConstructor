@@ -18,30 +18,14 @@ import CustomRating from "../../../CoreComponents/CustomRating/customRating.inde
 
 const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
   values,
-  sector,
-  checkBoxName,
-  timeLine,
-  handleUpdateTimeLine,
+  sector
 }) => {
   console.log(values, "values");
   // we will read it from the backend
-  const startDate = GetFromDateValue(sector, timeLine, values.fromDate);
   const classes = useStyles();
   const [rowsData, setRows] = useState<ITopRatedCraftsman[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!values[checkBoxName]) return;
-    console.log(values[checkBoxName], "values[checkBoxName]]");
-    handleUpdateTimeLine({
-      ...timeLine,
-      [checkBoxName]: {
-        startDate: startDate,
-        numberOfDays:
-          rowsData.find((t) => t.id == values[checkBoxName])?.expectedTime ?? 0,
-      },
-    });
-  }, [values[checkBoxName]]);
 
   const handleOnCahnage = (e) => {
     console.log(e, "handleOnCahnage");
@@ -50,25 +34,14 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
     {
       field: "",
       renderCell: (params) => (
-        <label
-          className={classNames(
-            classes.radioLabel,
-            values[checkBoxName] == params.row.id && classes.checked
-          )}
-        >
+       
           <Field
-            /*checked={
-              values[checkBoxName]
-                ? values[checkBoxName] == params.row.id
-                : rowsData[0].id == params.row.id
-            }*/
             onFromChange={handleOnCahnage}
             type="radio"
-            name={checkBoxName}
             value={params.row.id}
             className={classes.radioButton}
           />
-        </label>
+     
       ),
     },
 

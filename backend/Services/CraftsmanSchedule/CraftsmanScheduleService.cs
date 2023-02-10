@@ -25,8 +25,6 @@ namespace Backend.Services
 
         public async Task<bool> SendRequest(SendRequestDto request)
         {
-            // add new Project if project Id = null
-
             var userId = _authenticationService.GetCurrentUserId();
             var addNewRequestDto = new AddNewRequestDto
             {
@@ -34,6 +32,8 @@ namespace Backend.Services
                 FromUserId = userId,
                 ToUserId = request.ToUserId,
                 Description = request.Description,
+                ProjectId = request.ProjectId,
+                EndDate = request.ExpectedEndDate
             };
             return await _craftsmanScheduleRepository.AddNewRequest(addNewRequestDto);
 

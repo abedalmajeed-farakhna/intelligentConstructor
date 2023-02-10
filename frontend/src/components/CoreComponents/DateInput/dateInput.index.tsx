@@ -18,12 +18,16 @@ const DateRangePicker: React.FC<IDateInputProps> = ({
     console.log(e.target.value, "handleOnchange date");
   };
   return (
+    <>
+    <div>
+     {label && <label> {label}</label>}
+     </div>
     <TextField
-      InputProps={{ inputProps: { min: min || moment().format('YYYY-MM-DD'), max: "2023-05-04" } }}
+      InputProps={{ inputProps: { min: min || moment().format('YYYY-MM-DD'), max: max } }}
       onChange={handleOnchange}
       className={classes.root}
       id="date"
-      label={label}
+//label={label}
       type="date"
       defaultValue={defaultValue}
       name={name}
@@ -32,6 +36,8 @@ const DateRangePicker: React.FC<IDateInputProps> = ({
         shrink: true,
       }}
     />
+    </>
+   
   );
 };
 export default DateRangePicker;

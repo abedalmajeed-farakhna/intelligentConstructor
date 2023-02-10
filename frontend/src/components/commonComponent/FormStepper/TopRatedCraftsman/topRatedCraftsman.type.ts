@@ -3,9 +3,6 @@ import { sectorEnum } from "../../../../enums/sectorEnum";
 export interface ITopRatedCraftsmanProps {
   values: any;
   sector: sectorEnum;
-  checkBoxName:string;
-  timeLine?:any;
-  handleUpdateTimeLine?:any
 }
 
 export interface ITopRatedCraftsman {

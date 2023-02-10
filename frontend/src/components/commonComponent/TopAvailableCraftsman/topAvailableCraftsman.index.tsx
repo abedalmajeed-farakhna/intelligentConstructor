@@ -16,64 +16,44 @@ import { GetFromDateValue } from "./topAvailableCraftsman.utils";
 import { format } from "date-fns";
 import { addNumberOfDays } from "../../../utils/DateUtils";
 import CustomRating from "../../CoreComponents/CustomRating/customRating.index";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import CustomButton from "../../CoreComponents/CustomButton/customButton.index";
+import { showSuccessPopup } from "../../../utils/projectUtils";
+import Loading from "../../CoreComponents/Loading/loading.index";
+import { getProjectStatusDescription } from "../../../utils/enumDescriptions";
 
 const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
   values,
   sector,
-  checkBoxName,
-  timeLine,
-  handleUpdateTimeLine,
+
+  editable,
+  selectedUser,
+  projectStatus,
+
 }) => {
   console.log(values, "values");
-  // we will read it from the backend
-  const startDate = GetFromDateValue(
-    sector,
-    timeLine,
-    values.fromDate
-  );
+
   const classes = useStyles();
   const [rowsData, setRows] = useState<ITopAvailableCraftsman[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [value, setValue] = React.useState('');
 
-  useEffect(() => {
-    if (!values[checkBoxName]) return;
-    console.log(values[checkBoxName], "values[checkBoxName]]");
-    handleUpdateTimeLine({
-      ...timeLine,
-      [checkBoxName]:{
-        startDate:startDate,
-        numberOfDays: rowsData.find((t) => t.id == values[checkBoxName])?.expectedTime ?? 0,
-      }
-      
-    });
-  }, [values[checkBoxName]]);
 
-  const handleOnCahnage = (e) => {
-    console.log(e, "handleOnCahnage");
+  const handleRadioChange = (event) => {
+    setValue(event.target.value);
+    console.log(event, "handleOnCahnage");
   };
   const columns: GridColDef[] = [
     {
       field: "",
       renderCell: (params) => (
-        <label
-          className={classNames(
-            classes.radioLabel,
-            values[checkBoxName] == params.row.id && classes.checked
-          )}
-        >
-          <Field
-            /*checked={
-              values[checkBoxName]
-                ? values[checkBoxName] == params.row.id
-                : rowsData[0].id == params.row.id
-            }*/
-            onFromChange={handleOnCahnage}
-            type="radio"
-            name={checkBoxName}
-            value={params.row.id}
-            className={classes.radioButton}
-          />
-        </label>
+        <FormControlLabel disabled={!editable}
+          value={params.row.id}
+          //checked={params.row.username ===selectedUser}
+          control={<Radio />}
+          label=""
+          //onChange={handleOnCahnage}
+        />
       ),
     },
 
@@ -144,24 +124,49 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
       axios
         .get(
           `/Constructor/GetTopAvailableCraftsmanInSpecificInterval?space=${
-            values.space
-          }&sector=${sector}&FromDate=${GetFromDateValue(
-            sector,
-            timeLine,
-            values.fromDate
-          )}&region=${Number(values.region)}`
+            values.area
+          }&sector=${sector}&FromDate=${ format(new Date(values.startDate), "yyyy-MM-dd")}&region=${Number(values.regionId)}`
         )
         .then((result) => {
           setRows(result.data);
           console.log(result.data);
+          const defaultValue = selectedUser || result.data[0].id;
+          console.log(defaultValue,"defaultValue")
+          setValue(defaultValue)
           setLoading(false);
         });
     }
   }, []);
+const sendRequest = () => {
+  console.log(value, "value");
+  const currentUserinfo = rowsData.find(t=>t.id == value);
+  const data = {
+    ToUserId: value,
+    From: currentUserinfo?.expectedStartDate,
+    expectedEndDate: addNumberOfDays(currentUserinfo?.expectedEndDate, -1),
+    Description: ` we have a  new project with area ${values.area}`,
+    projectId : values.projectId
+  };
+  axios.post(`/Project/SendRequest`, data).then(() => {
+    showSuccessPopup();
+  });
+};
+if(rowsData.length ==0) return <Loading/>
+console.log(value,"value")
 
   return (
     <div role="group" aria-labelledby="my-radio-group02">
-      <CustomDataGrid columns={columns} rows={rowsData} />
+      <RadioGroup  onChange={handleRadioChange}
+        aria-labelledby="demo-radio-buttons-group-label"
+        defaultValue={value}
+        name="radio-buttons-group"
+      >
+        suggested:{rowsData[0].fullName}      
+
+        {projectStatus != undefined && <div>request Status:{getProjectStatusDescription(projectStatus)} </div>}
+   {editable &&     <div> <CustomButton text={" Send Request"}  onClick={sendRequest}/></div>}
+        <CustomDataGrid columns={columns} rows={rowsData} />
+      </RadioGroup>
     </div>
   );
 };

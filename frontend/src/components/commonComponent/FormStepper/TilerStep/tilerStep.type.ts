@@ -1,6 +1,8 @@
+import { ICraftsmanDetailsProps } from "../../../../types/types";
+
 export interface ITilerStepProps {
   profileImage?: string;
   values: any;
-  timeLine:any,
-  handleUpdateTimeLine:any,
+  builderDetails?:ICraftsmanDetailsProps
+  tilerDetails?:ICraftsmanDetailsProps
 }

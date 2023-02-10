@@ -14,6 +14,7 @@ namespace WebApplication1.Models.Constructor
         public DateTime StartDate { get; set; }
         [Required]
         public int Space { get; set; }
+        public int RegionId { get; set; }
 
     }
 }

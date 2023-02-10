@@ -11,6 +11,7 @@ export const PATH_NAMES = {
   REQUEST:"/request", 
   CONSTUCTOR_REQUEST:"/constuctorRequestList", 
   PROJECT: "/project",
+  AddProjectCraftsman: "/addProjectCraftsman",
   PROJECT_LIST:"/PROJECTLIST",
   PROJECT_DETAILS:"/PROJECTDETAILS/:id",
   PROJECT_DETAILSLink:"/PROJECTDETAILS",

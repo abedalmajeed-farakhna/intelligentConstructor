@@ -6,5 +6,6 @@ namespace Backend.Repositories
     public interface IRegionRepository
     {
         Task<List<Region>> GetRegionList();
+        Task<Region> GetRegionById(int regionId);
     }
 }

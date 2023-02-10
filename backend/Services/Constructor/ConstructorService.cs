@@ -3,6 +3,8 @@
 using Backend.Dtos.Project;
 using Backend.Enums;
 using Backend.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
 using WebApplication1.Dtos.Settings;
 
 namespace Backend.Services
@@ -15,7 +17,8 @@ namespace Backend.Services
         private readonly IAuthenticationService _authenticationService;
         private readonly ICraftsmanScheduleRepository _craftsmanScheduleRepository;
         private readonly ICraftsmanService _craftsmanService;
-        public ConstructorService(IConstructorRepository constructorRepository, IAuthenticationService authenticationService  ,IUserRepository userRepository ,IProjectRepository projectRepository, ICraftsmanScheduleRepository craftsmanScheduleRepository , ICraftsmanService craftsmanService)
+        private readonly IRegionRepository _regionRepository;
+        public ConstructorService(IConstructorRepository constructorRepository, IAuthenticationService authenticationService  ,IUserRepository userRepository ,IProjectRepository projectRepository, ICraftsmanScheduleRepository craftsmanScheduleRepository , ICraftsmanService craftsmanService, IRegionRepository regionRepository )
         {
             _userRepository = userRepository;
             _constructorRepository = constructorRepository;
@@ -23,7 +26,7 @@ namespace Backend.Services
             _projectRepository = projectRepository;
             _craftsmanScheduleRepository = craftsmanScheduleRepository;
             _craftsmanService = craftsmanService;
-
+            _regionRepository = regionRepository;
 
         }
 
@@ -79,7 +82,7 @@ namespace Backend.Services
             };
         }
 
-        public async Task<bool> AddNewProject(AddNewProjectRequest request)
+        public async Task<int> AddNewProject(AddNewProjectRequest request)
         {
 
             var userId = _authenticationService.GetCurrentUserId();
@@ -87,9 +90,15 @@ namespace Backend.Services
             {
                 throw new Exception();
             }
+            var constructorInformation = await  _constructorRepository.ConstructorInformation(userId);
+            if(constructorInformation.Capacity < request.Space)
+            {
+                //return new StatusCodeResult(404, "Not found");
+                throw new Exception($"area should be less than {constructorInformation.Capacity}");
+            }
 
             var projectId = await _projectRepository.AddNewProject(request, userId);
-
+            /*
             
 
             //Builder 
@@ -147,9 +156,9 @@ namespace Backend.Services
 
             };
          
-            await _craftsmanScheduleRepository.AddNewRequest(carpenterInfo, ProjectStatusEnum.Aproved);
+            await _craftsmanScheduleRepository.AddNewRequest(carpenterInfo, ProjectStatusEnum.Aproved);*/
    
-            return true;
+            return projectId;
         }
 
         public async Task<List<GetProjectListDetails>> getProjectList()
@@ -172,7 +181,7 @@ namespace Backend.Services
 
             }
 
-            return result ;
+            return result.OrderByDescending(t => t.Id).ToList();
         }
 
         public async Task<GetProjectDetailsById> GetProjectDetailsById(int ProjectId)
@@ -194,24 +203,24 @@ namespace Backend.Services
                     FullName = user.FullName,
                     UserName = user.UserName,
                     Sector = user.Sector,
-                     RatingValue= user.RatingValue
+                    RatingValue = user.RatingValue,
+                    UserId = new Guid(user.Id),
                 });
                 
             }); 
             
 
             var project= await _projectRepository.GetProjectByProjectId(ProjectId);
+            var region = await _regionRepository.GetRegionById(project.RegionId);
             return new GetProjectDetailsById
             {
                 craftsmans = list,
+                Region = region,
                 ProjectName = project.ProjectName,
                 Space = project.Space,
                 StartDate = project.StartDate,
-                
+
             };
-
-            
-
 
         }
 

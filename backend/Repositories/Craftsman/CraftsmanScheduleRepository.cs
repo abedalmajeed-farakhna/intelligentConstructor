@@ -168,10 +168,10 @@ namespace Backend.Repositories
 
 
         }
-        public async Task <List<CraftsmanSchedule>> GetProjectDetailsById(int ProjectId)
+        public async Task<List<CraftsmanSchedule>> GetProjectDetailsById(int ProjectId)
         {
 
-            return await _context.craftsmanSchedule.Where(t => t.ProjectId == ProjectId).ToListAsync();
+            return await _context.craftsmanSchedule.Where(t => t.ProjectId == ProjectId).OrderByDescending(t => t.Id).ToListAsync();
 
         }
 

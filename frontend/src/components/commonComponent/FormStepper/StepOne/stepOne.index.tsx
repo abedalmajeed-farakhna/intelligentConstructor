@@ -30,39 +30,7 @@ const StepOne: React.FC<IStepOneProps> = ({
 
   return (
     <>
-      <TextInput
-        name="projectName"
-        placeholder="project Name"
-        type="string"
-        error={
-          (touched.projectName && errors.projectName) ||
-          customeErrors?.projectName
-        }
-        label="project Name"
-        validate={validateProjectName}
-      />
-
-      <SelectInput
-        label="Region"
-        name={"region"}
-        options={regionList}
-        keyName={"id"}
-      />
-      <TextInput
-        name="space"
-        placeholder="space"
-        type="number"
-        label="space"
-        error={(touched.space && errors.space) || customeErrors?.space}
-        validate={validateSpace}
-      />
-
-      <DateInput
-        defaultValue={moment().format("YYYY-MM-DD")}
-        label={"from"}
-        name={"from"}
-        onChange={(val) => onFromChange(val)}
-      />
+     
     </>
   );
 };

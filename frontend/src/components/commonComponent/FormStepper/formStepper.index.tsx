@@ -25,34 +25,6 @@ const FormStepper: React.FC<IFormStepperProps> = ({
   //const [flag, setFlag] = useState(false); // dont remove it 
 
 
-  const checkStepOneValidation = () => {
-   validateProjectName(values.projectName);
-  validateSpace(values.space);
-    console.log(customeErrors,"checkStepOneValidation")
-
-  };
-
-  const validateSpace = (value) => {
-    let error;
-    if (!value) {
-      error = Exceptions.REQUIRED;
-    }
-    console.log(error);
-    (customeErrors.current as any).space = error;
-
-    return error;
-  };
-  const validateProjectName = (value) => {
-    let error;
-    if (!value) {
-      error = Exceptions.REQUIRED;
-    }
-    //setFlag(!flag);
-   (customeErrors.current as any).projectName = error;
-
-   console.log(customeErrors,"customeErrors validateProjectName")
-    return error;
-  };
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -111,8 +83,8 @@ const FormStepper: React.FC<IFormStepperProps> = ({
           <>
             number of Days : {total}
             <StepContainer
-              validateSpace={validateSpace}
-              validateProjectName={validateProjectName}
+             // validateSpace={validateSpace}
+             // validateProjectName={validateProjectName}
               step={activeStep}
               errors={errors}
               touched={touched}

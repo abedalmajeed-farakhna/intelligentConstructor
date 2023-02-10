@@ -7,6 +7,6 @@ export interface IStepContainerProps {
   values:any,
   timeLine:any,
   handleUpdateTimeLine:any,
-  validateProjectName:any,
-  validateSpace:any
+  validateProjectName?:any,
+  validateSpace?:any
 }

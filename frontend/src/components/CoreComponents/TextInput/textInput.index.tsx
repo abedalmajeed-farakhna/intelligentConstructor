@@ -12,14 +12,16 @@ const TextInput: React.FC<ITextInputProps> = ({
   error,
   label,
   as = "input",
-  validate
+  validate,
+  onKeyUp
 }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.container}>
-      {label && <label> {label}</label>}{" "}
+      {label && <label> {label}</label>}
       <Field
+      onKeyUp={onKeyUp}
         as={as}
         className={classNames(classes.root, error && classes.error)}
         name={name}

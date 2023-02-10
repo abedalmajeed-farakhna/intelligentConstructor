@@ -12,6 +12,12 @@ import { useNavigate } from "react-router-dom";
 import { PATH_NAMES } from "../../../constants/route";
 import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
 import FormStepper from "../../../components/commonComponent/FormStepper/formStepper.index";
+import AddNewProjectSection from "../../../components/commonComponent/Constuctor/AddNewProjectSection/addNewProjectSection.index";
+import StepOne from "../../../components/commonComponent/FormStepper/StepOne/stepOne.index";
+import BuilderStep from "../../../components/commonComponent/FormStepper/BuilderStep/builderStep.index";
+import { getSectorEnumDescriptions } from "../../../utils/enumDescriptions";
+import { sectorEnum } from "../../../enums/sectorEnum";
+import AddNewProjectForm from "./AddNewProjectForm/addNewProjectForm.index";
 
 const ProjectDashboard: React.FC<any> = ({}) => {
   const classes = useStyles();
@@ -88,33 +94,15 @@ const ProjectDashboard: React.FC<any> = ({}) => {
     });
   };
 
+
+  
   return (
     <div>
-              <BreadCrump current={"Add Project"} linkList={[{name:"ProjectList",link:PATH_NAMES.PROJECT_LIST}]}/>
-
-      <Formik
-        initialValues={InitialValues}
-        //  validationSchema={validationSchema}
-        onSubmit={(values) => {
-          // same shape as initial values
-          onHandleSubmit(values);
-        }}
-      >
-        {({ errors, touched, values }) => (
-          <Form>
-            <Box className={classes.root}>
-              <FormStepper
-                errors={errors}
-                touched={touched}
-                onFromChange={onFromChange}
-                values={{ ...values, fromDate: fromDate }}
-                timeLine={timeLine}
-                handleUpdateTimeLine={handleUpdateTimeLine}
-              />
-            </Box>
-          </Form>
-        )}
-      </Formik>
+      <BreadCrump
+        current={"Add Project"}
+        linkList={[{ name: "ProjectList", link: PATH_NAMES.PROJECT_LIST }]}
+      />
+      <AddNewProjectForm />
     </div>
   );
 };

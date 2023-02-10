@@ -20,6 +20,9 @@ namespace Backend.Repositories
 
             return await _context.region.ToListAsync();
         }
-
+        public async Task<Region> GetRegionById(int regionId)
+        {
+            return await _context.region.FirstOrDefaultAsync(t=>t.Id == regionId);
+        }
     }
 }

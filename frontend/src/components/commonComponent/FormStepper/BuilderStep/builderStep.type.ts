@@ -1,6 +1,6 @@
+import { ICraftsmanDetailsProps, ICraftsmanStepValuesProps } from "../../../../types/types";
+
 export interface IBuilderStepProps {
-  profileImage?: string;
-  values: any;
-  timeLine:any,
-  handleUpdateTimeLine:any,
+  values: ICraftsmanStepValuesProps;
+  builderDetails?:ICraftsmanDetailsProps
 }

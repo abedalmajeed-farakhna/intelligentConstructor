@@ -14,9 +14,6 @@ const ElectricianStep: React.FC<IElectricianStepProps> = ({
     <TopRatedCraftsman
       values={values}
       sector={sectorEnum.Electrician}
-      checkBoxName={"electrician"}
-      timeLine={timeLine}
-      handleUpdateTimeLine={handleUpdateTimeLine}
     />
   );
 };

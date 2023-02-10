@@ -1,11 +1,13 @@
+import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
 import { sectorEnum } from "../../../enums/sectorEnum";
+import { ICraftsmanStepValuesProps } from "../../../types/types";
 
 export interface ITopAvailableCraftsmanProps {
-  values: any;
+  values: ICraftsmanStepValuesProps;
   sector: sectorEnum;
-  checkBoxName:string;
-  timeLine?:any;
-  handleUpdateTimeLine?:any
+  editable?:boolean,
+  selectedUser?:string,
+  projectStatus?:ProjectStatusEnum,
 }
 
 export interface ITopAvailableCraftsman {
@@ -17,4 +19,7 @@ export interface ITopAvailableCraftsman {
   note: string;
   sector: sectorEnum;
   speed: number;
+  expectedStartDate:Date,
+  expectedEndDate:Date,
 }
+

@@ -30,9 +30,10 @@ namespace Backend.Repositories
                 Space = request.Space,
                 StartDate = request.StartDate,
                 ProjectName = request.ProjectName,
-                UserId = UserId
-
+                UserId = UserId,
+                RegionId = request.RegionId
             };
+
             await _context.Project.AddAsync(data);
 
             _context.SaveChanges();

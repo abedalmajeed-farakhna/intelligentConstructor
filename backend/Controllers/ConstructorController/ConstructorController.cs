@@ -56,9 +56,18 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> AddNewProject([FromBody] AddNewProjectRequest request)
+        public async Task<ActionResult<int>> AddNewProject([FromBody] AddNewProjectRequest request)
         {
-            return await _constructorService.AddNewProject(request);
+            try
+            {
+                return await _constructorService.AddNewProject(request);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        
         }
 
         

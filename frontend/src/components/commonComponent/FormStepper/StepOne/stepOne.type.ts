@@ -1,8 +1,8 @@
 export interface IStepOneProps {
-  errors: any;
+  errors?: any;
   touched: any;
   onFromChange: any;
-  customeErrors:any
-  validateSpace:any,
-  validateProjectName:any
+  customeErrors?:any
+  validateSpace?:any,
+  validateProjectName?:any
 }

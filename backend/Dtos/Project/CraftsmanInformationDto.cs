@@ -12,5 +12,6 @@ namespace Backend.Dtos.Project
         public ProjectStatusEnum? projectStatus { get; set; }
         public SectorEnum? Sector { get; set; }
         public int? RatingValue { get; set; }
+        public Guid UserId { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Backend.Services
         Task<bool> UpdateInformationAsync(UpdateInformationRequest request);
 
         Task<GetConstructorInformationResponse> GetConstructorInformation();
-        Task<bool> AddNewProject(AddNewProjectRequest request);
+        Task<int> AddNewProject(AddNewProjectRequest request);
         Task<List<GetProjectListDetails>> getProjectList();
         Task<GetProjectDetailsById> GetProjectDetailsById(int ProjectId);
     }

@@ -16,17 +16,17 @@ const StepContainer: React.FC<IStepContainerProps> = ({step,errors,touched,custo
   switch(step){
     case 0:
       return (<StepOne  validateSpace={validateSpace} validateProjectName={validateProjectName} customeErrors={customeErrors} errors={errors} touched={touched} onFromChange={onFromChange} />)
-      case 1:
+      /*case 1:
         return (<BuilderStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
-
-        case 2:
+*/
+        /*case 2:
         return (<TilerStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
-        
-        case 3:
+        */
+       /* case 3:
         return (<HousePainterStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
-
-        case 4:
-        return (<CarpenterStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
+*/
+      /*  case 4:
+        return (<CarpenterStep values={values} />)
 
         
         case 5:
@@ -34,7 +34,7 @@ const StepContainer: React.FC<IStepContainerProps> = ({step,errors,touched,custo
         
         case 6:
         return (<ElectricianStep values={values} timeLine ={timeLine} handleUpdateTimeLine={handleUpdateTimeLine}/>)
-
+*/
         default : return<></>
   }
 
