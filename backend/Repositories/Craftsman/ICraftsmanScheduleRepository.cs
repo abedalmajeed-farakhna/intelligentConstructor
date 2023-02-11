@@ -17,6 +17,7 @@ namespace Backend.Repositories
         Task<bool> StartWorking(int RequestId);
         Task<bool> AddNewRequest(AddNewRequestDto request, ProjectStatusEnum RequestStatus = ProjectStatusEnum.Pending);
         Task<bool> CancelRequest(int RequestId);
+        Task<CraftsmanSchedule> GetRequestDetailsById(int RequestId);
 
 
         Task<List<CraftsmanScheduleWithUserDetailsSP>> GetCraftsmanRequestListByProjectId(int projectid);

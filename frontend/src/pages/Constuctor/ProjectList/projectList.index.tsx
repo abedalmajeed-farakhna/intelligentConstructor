@@ -8,36 +8,50 @@ import { PATH_NAMES } from "../../../constants/route";
 import { IProjectListProps } from "./projectList.type";
 import useStyles from "./projectList.style";
 import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
+import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
+import { useNavigate } from "react-router-dom";
+import ViewIcon from '@mui/icons-material/Visibility';
+
 
 const ProjectList: React.FC<IProjectListProps> = ({}) => {
   const [data, setData] = useState([]);
   const classes = useStyles();
 
 
+  const navigate = useNavigate();
+
+  const showProjectDetails=(id)=>{
+    navigate(`${PATH_NAMES.PROJECT_DETAILSLink}/${id}`); 
+  }
   const columns: GridColDef[] = [
     {
       field: "projectName",
       headerName: "Project name",
       description: "Project Name ",
       sortable: false,
-      width: 160,
-      
-      renderCell: (params) => (
-
-        <CustomLink path={`${PATH_NAMES.PROJECT_DETAILSLink}/${params.row.id}`} text={params.row.projectName}
-
-        /> 
-      ),
+      width: 160
     },
 
     {
-      field: "",
-      headerName: "Progress",
+      field: "Status",
+      headerName: "Status",
       width: 150,
       renderCell: (params) => (
         <BasicTimeline data={params.row.projectDetails}/>
       ),
-    }
+    },
+    {
+      field: "action",
+      headerName: "Actions",
+      filterable: false,
+      sortable: false,
+      width: 150,
+      renderCell: (params) => (
+        <div className={classes.tableICon}>
+        <ViewIcon className={classes.viewICon} onClick={()=>showProjectDetails(params.row.id)} />
+      </div>
+      ),
+    },
   ];
   useEffect(() => {
     axios.get(`/Constructor/GetProjectList`).then((result) => {
@@ -46,23 +60,25 @@ const ProjectList: React.FC<IProjectListProps> = ({}) => {
     });
   }, []);
 
-  console.log(data, "rowsData");
+  const goToProjectList=()=>{
+    navigate(PATH_NAMES.PROJECT);
+  }
+
   return (
-    <div>  
-
-    <div>  
-    
-    <BreadCrump current={"ProjectList"} linkList={[]}/>
-
-     </div>
-     
-    <div>    
-<CustomLink path={PATH_NAMES.PROJECT} text={"add new project"} /> 
     <div>
-      <CustomDataGrid rows={data} columns={columns} />
-    </div>
-    </div>
+      <div>
+        <BreadCrump current={"ProjectList"} linkList={[]} />
+      </div>
 
+      <div>
+        <div className={classes.fullWidth}>
+        <CustomButton className={classes.addProjectBtn} onClick={goToProjectList} text={"add new project"} />
+        </div>
+        
+        <div>
+          <CustomDataGrid rows={data} columns={columns} />
+        </div>
+      </div>
     </div>
   );
 };

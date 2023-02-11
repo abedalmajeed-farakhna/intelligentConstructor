@@ -62,7 +62,7 @@ export const theme = createTheme({
   colors: {
     primary: "#1890ff",
     secondary: "white",
-    error:"red",
+    error:"#d32f2f",
     orange:"#faad14",
     blue1:"#e6f7ff",
     gray1: "#fafafb",

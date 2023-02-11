@@ -9,13 +9,16 @@ import TextInput from "../../../CoreComponents/TextInput/textInput.index";
 import CustomButton from "../../../CoreComponents/CustomButton/customButton.index";
 import { InitialValues, sendRequestSchema } from "./sendRequestPopup.utils";
 import FormDialog from "../../../CoreComponents/FormDialog/formDialog.index";
+
 import { ISendRequestPopup } from "./sendRequestPopup.type";
+import useStyles from "./sendRequestPopup.style";
 
 const SendRequestPopup: React.FC<ISendRequestPopup> = ({
   isOpen,
   userId,
   onClose,
 }) => {
+  const classes = useStyles();
   //const container = window !== undefined ? () => window().document.body : undefined;
   const [fromDate, setFrom] = React.useState(moment().format('YYYY-MM-DD'));
 
@@ -55,11 +58,12 @@ const SendRequestPopup: React.FC<ISendRequestPopup> = ({
               <DialogContent>
                 <DateInput
                   defaultValue={moment().format("YYYY-MM-DD")}
-                  label={"from"}
+                  label={"start date"}
                   name={"from"}
                   onChange={(val) => onFromChanger(val)}
                 />
                 <TextInput
+                className ={classes.textarea}
                   as="textarea"
                   name={"description"}
                   placeholder={"description"}
@@ -70,7 +74,7 @@ const SendRequestPopup: React.FC<ISendRequestPopup> = ({
               </DialogContent>
 
               <DialogActions>
-                <CustomButton text={"Send request"} />
+                <CustomButton   className ={classes.button} text={"Send request"} />
               </DialogActions>
             </Form>
           )}

@@ -73,7 +73,8 @@ const useStyle = makeStyles((theme:ThemeOptions) => ({
       marginRight: "5px",
     },
     userIntro:{
-      color:`${theme.colors.gray3}`
+      color:`${theme.colors.gray3}`,
+      margin:'15px 0px',
     }
 
 }));

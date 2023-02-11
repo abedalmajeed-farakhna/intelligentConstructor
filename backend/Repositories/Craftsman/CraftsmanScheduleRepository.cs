@@ -92,6 +92,11 @@ namespace Backend.Repositories
 
             return true;
         }
+
+        public async Task<CraftsmanSchedule> GetRequestDetailsById(int RequestId)
+        {
+           return  await _context.craftsmanSchedule.FirstOrDefaultAsync(t => t.Id == RequestId);
+        }
         public async Task<bool> CancelRequest(int RequestId)
         {
             var item = await _context.craftsmanSchedule.FirstOrDefaultAsync(t => t.Id == RequestId);

@@ -1,6 +1,7 @@
 export interface ICustomButtonProps {
   text: string;
   icon?: any;
-  onClick?:()=>void;
-  disabled?:boolean
+  className?: string;
+  onClick?: () => void;
+  disabled?: boolean;
 }

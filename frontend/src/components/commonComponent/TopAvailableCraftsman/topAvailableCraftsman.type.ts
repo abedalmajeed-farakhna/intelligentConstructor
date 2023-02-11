@@ -1,6 +1,7 @@
 import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
 import { sectorEnum } from "../../../enums/sectorEnum";
 import { ICraftsmanStepValuesProps } from "../../../types/types";
+import { ITimeLineProps } from "../FormStepper/formStepper.type";
 
 export interface ITopAvailableCraftsmanProps {
   values: ICraftsmanStepValuesProps;
@@ -8,6 +9,8 @@ export interface ITopAvailableCraftsmanProps {
   editable?:boolean,
   selectedUser?:string,
   projectStatus?:ProjectStatusEnum,
+  timeLine: ITimeLineProps;
+  handleUpdateTimeLine: (val: ITimeLineProps) => void;
 }
 
 export interface ITopAvailableCraftsman {

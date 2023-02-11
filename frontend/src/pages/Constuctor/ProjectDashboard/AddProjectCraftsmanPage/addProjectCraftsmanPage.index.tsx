@@ -16,6 +16,7 @@ import { format } from "date-fns";
 import { sectorEnum } from "../../../../enums/sectorEnum";
 import TilerStep from "../../../../components/commonComponent/FormStepper/TilerStep/tilerStep.index";
 import HousePainterStep from "../../../../components/commonComponent/FormStepper/HousePainterStep/housePainterStep.index";
+import CarpenterStep from "../../../../components/commonComponent/FormStepper/CarpenterStep/carpenterStep.index";
 
 const AddProjectCraftsmanPage: React.FC<any> = ({}) => {
   const projectId = getIdFromLocationPath();
@@ -42,8 +43,8 @@ const AddProjectCraftsmanPage: React.FC<any> = ({}) => {
     },
   });
 
-  const handleUpdateTimeLine = (newVal) => {
-    setTimeLine(newVal);
+  const handleUpdateTimeLine = (val) => {
+    setTimeLine(val);
   };
 
   const onFromChange = (value) => {
@@ -124,6 +125,8 @@ const AddProjectCraftsmanPage: React.FC<any> = ({}) => {
       </AddNewProjectSection>
       <AddNewProjectSection title={"Builder"}>
         <BuilderStep
+         timeLine={timeLine}
+         handleUpdateTimeLine={handleUpdateTimeLine}
           values={{
             startDate: new Date(data.startDate),
             area: data.space,
@@ -138,6 +141,8 @@ const AddProjectCraftsmanPage: React.FC<any> = ({}) => {
 
       <AddNewProjectSection title="Tiler">
         <TilerStep
+         timeLine={timeLine}
+         handleUpdateTimeLine={handleUpdateTimeLine}
           tilerDetails={data.craftsmans.find(
             (t) => t.sector == sectorEnum.Tiler
           )}
@@ -150,27 +155,48 @@ const AddProjectCraftsmanPage: React.FC<any> = ({}) => {
             regionId: data.region.id,
             projectId: projectId,
           }}
-        //  timeLine={timeLine}
-         // handleUpdateTimeLine={handleUpdateTimeLine}
+          //  timeLine={timeLine}
+          // handleUpdateTimeLine={handleUpdateTimeLine}
         />
       </AddNewProjectSection>
 
       <AddNewProjectSection title="HousePainterStep">
-      <HousePainterStep
-        previousDetails={data.craftsmans.find(
-          (t) => t.sector == sectorEnum.Tiler
-        )}
-        currentDetails={data.craftsmans.find(
-          (t) => t.sector == sectorEnum.HousePainter
-        )}
-        
-        values={{
-          startDate: new Date(data.startDate),
-          area: data.space,
-          regionId: data.region.id,
-          projectId: projectId,
-        }}  />
-        </AddNewProjectSection>
+        <HousePainterStep
+         timeLine={timeLine}
+         handleUpdateTimeLine={handleUpdateTimeLine}
+          previousDetails={data.craftsmans.find(
+            (t) => t.sector == sectorEnum.Tiler
+          )}
+          currentDetails={data.craftsmans.find(
+            (t) => t.sector == sectorEnum.HousePainter
+          )}
+          values={{
+            startDate: new Date(data.startDate),
+            area: data.space,
+            regionId: data.region.id,
+            projectId: projectId,
+          }}
+        />
+      </AddNewProjectSection>
+
+      <AddNewProjectSection title="CarpenterStep">
+        <CarpenterStep
+          timeLine={timeLine}
+          handleUpdateTimeLine={handleUpdateTimeLine}
+          previousDetails={data.craftsmans.find(
+            (t) => t.sector == sectorEnum.HousePainter
+          )}
+          currentDetails={data.craftsmans.find(
+            (t) => t.sector == sectorEnum.Carpenter
+          )}
+          values={{
+            startDate: new Date(data.startDate),
+            area: data.space,
+            regionId: data.region.id,
+            projectId: projectId,
+          }}
+        />
+      </AddNewProjectSection>
     </div>
   );
 };

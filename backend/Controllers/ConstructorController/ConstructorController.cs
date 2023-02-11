@@ -80,6 +80,9 @@ namespace Backend.Controllers
         {
             return await _constructorService.GetProjectDetailsById(ProjectId);
         }
-
+        public async Task<GetRequestDetailsById> GetRequestDetailsById(int requestId)
+        {
+            return await _constructorService.GetRequestDetailsById(requestId);
+        }
     }
 }

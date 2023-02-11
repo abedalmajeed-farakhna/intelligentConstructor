@@ -3,20 +3,28 @@ import { makeStyles } from "@mui/styles";
 
 const useStyle = makeStyles((theme: ThemeOptions) => ({
   container: {
-    width: 300,
+    width: '100%',
+    maxWidth:'300px',
+    '& label':{
+      fontSize:'15px',
+      color:theme.colors.gray3,
+      marginBottom:'5px',
+      display:'block',
+      textTransform:'capitalize'
+    },
+    '& textarea' : {
+      minHeight:'100px',
+      boxSizing: 'border-box'
+    }
   },
   root: {
     textAlign: "left",
-    margin: `3px 0`,
-    borderRadius: 5,
-    lineHeight: "1.4375em",
-    width: "100%",
-    overflow: "hidden",
-    minWidth: "0%",
-    padding: "10.5px 14px 10.5px 12px",
-    fontSize: "14px",
-    border: `1px solid ${theme.colors.primary}`,
-
+    width: '100%',
+    padding: '10px 15px !important',
+    border:`1px solid ${theme.colors.borderColor} !important`,
+    borderRadius:'5px',
+    outline:'0 !important',
+    boxShadow:'none !important',
     "& :: focus-visible ": {
       outline: `0px !important`,
       border: `0px !important`,

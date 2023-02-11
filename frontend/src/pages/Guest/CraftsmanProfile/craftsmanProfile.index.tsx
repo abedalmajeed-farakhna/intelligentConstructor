@@ -11,6 +11,8 @@ import { PATH_NAMES } from "../../../constants/route";
 import Grid from "@mui/material/Grid";
 import PhoneIcon from "@mui/icons-material/PhoneIphone";
 import EmailIcon from '@mui/icons-material/MailOutline';
+import TimeICon from '@mui/icons-material/QueryBuilder';
+import { Class } from "@mui/icons-material";
 
 const CraftsmanProfile: React.FC<any> = ({ children }) => {
   const location = window.location;
@@ -84,9 +86,9 @@ const CraftsmanProfile: React.FC<any> = ({ children }) => {
               {data.userName}
               </div>
               <div className={classes.contactItem}><PhoneIcon className={classes.contactIcon}/>{data.phoneNumber}</div>
+              <div className={classes.contactItem}><TimeICon className={classes.contactIcon} />{data.speed} m/day</div>
             </div>
             <div className={classes.userIntro}>{data.note} </div>
-            <div>speed: {data.speed}</div>
 
             <CustomButton text={"Send requist"} onClick={handleClick} />
           </div>

@@ -10,7 +10,7 @@ const FormDialog: React.FC<IFormDialogProps> = ({isOpen, title, children, onClos
 
   return (
       <Dialog open={isOpen} className={classNames(classes.rootasd,customClassName)}>
-        <DialogTitle>
+        <DialogTitle className={classes.modaleTitle}>
           {title} <span className={classes.close} onClick={onClose}> x</span>
         </DialogTitle>
         {children}

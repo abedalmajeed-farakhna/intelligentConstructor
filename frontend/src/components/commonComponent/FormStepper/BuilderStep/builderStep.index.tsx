@@ -8,13 +8,15 @@ import { IBuilderStepProps } from "./builderStep.type";
 
 const BuilderStep: React.FC<IBuilderStepProps> = ({
   values,
-  builderDetails,
+  builderDetails,timeLine,handleUpdateTimeLine
 }) => {
   const editable =
     !builderDetails ||
     builderDetails.projectStatus == ProjectStatusEnum.Rejected;
   return (
     <TopAvailableCraftsman
+    timeLine={timeLine}
+    handleUpdateTimeLine={handleUpdateTimeLine}
       selectedUser={builderDetails?.userId}
       projectStatus={builderDetails?.projectStatus}
       values={values}

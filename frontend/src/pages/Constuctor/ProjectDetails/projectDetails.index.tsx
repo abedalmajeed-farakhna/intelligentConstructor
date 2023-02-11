@@ -12,8 +12,12 @@ import { format } from "date-fns";
 import { getProjectStatus } from "../../../utils/projectUtils";
 import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
 import { PATH_NAMES } from "../../../constants/route";
+import useStyles from "./projectDetails.style";
+import ProjectStatus from "../../../components/CoreComponents/ProjectStatus/projectStatus.index";
+
 
 const ProjectDetails: React.FC<IProjectDetailsProps> = ({}) => {
+  const classes = useStyles();
   const [data, setData] = useState<IDataProps>();
 
   const location = window.location;
@@ -47,13 +51,13 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({}) => {
            
         </div>
     <div>
-      <div>
-        <div>Project name : {data.projectName}</div>
+      <div className={classes.projectDetailss}>
+        <div className={classes.projectDetailsItem}>Project name : <span>{data.projectName}</span></div>
        
-        <div>Space : {data.space}</div>
+        <div className={classes.projectDetailsItem}>Space : <span>{data.space}</span></div>
 
-        <div>Start date: {format(new Date(data.startDate), "yyyy-MM-dd")}</div>
-        <div>project Status :{getProjectStatusDescription(projectStatus)}</div>
+        <div className={classes.projectDetailsItem}>Start date: <span>{format(new Date(data.startDate), "yyyy-MM-dd")}</span></div>
+        <div className={classes.projectDetailsItem}>project Status: <span>  <ProjectStatus projectStatus={projectStatus} className ={classes.projectStatus} /></span></div>
       </div>
 
       <Grid container spacing={2}>

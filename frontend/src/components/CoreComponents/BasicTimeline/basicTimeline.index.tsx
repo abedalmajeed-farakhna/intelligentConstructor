@@ -8,6 +8,7 @@ import {
   getSectorEnumDescriptions,
 } from "../../../utils/enumDescriptions";
 import { getProjectStatus } from "../../../utils/projectUtils";
+import ProjectStatus from "../ProjectStatus/projectStatus.index";
 
 const BasicTimeline: React.FC<IBasicTimelineProps> = ({ data }) => {
   const classes = useStyles();
@@ -27,7 +28,7 @@ const BasicTimeline: React.FC<IBasicTimelineProps> = ({ data }) => {
   return (
     <div>
       <div onClick={TriggerTimeLine} className={classes.nameSection}>
-        {getProjectStatusDescription(projectStatus)}
+        <ProjectStatus projectStatus={projectStatus} />
       </div>
       {isTimeLineOpen && (
         <div className={classes.root}>

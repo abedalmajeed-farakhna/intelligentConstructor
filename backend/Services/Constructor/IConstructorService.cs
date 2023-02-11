@@ -13,6 +13,7 @@ namespace Backend.Services
         Task<int> AddNewProject(AddNewProjectRequest request);
         Task<List<GetProjectListDetails>> getProjectList();
         Task<GetProjectDetailsById> GetProjectDetailsById(int ProjectId);
+        Task<GetRequestDetailsById> GetRequestDetailsById(int requestId);
     }
  
 }

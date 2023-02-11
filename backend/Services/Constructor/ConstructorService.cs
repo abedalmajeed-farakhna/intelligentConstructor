@@ -225,5 +225,31 @@ namespace Backend.Services
         }
 
 
+
+        public async Task<GetRequestDetailsById> GetRequestDetailsById(int requestId)
+        {
+
+            var details =await _craftsmanScheduleRepository.GetRequestDetailsById(requestId);
+            var list = await _craftsmanService.GetImageGalleryList(requestId);
+            var user = await _userRepository.GetUserProfile(details.ToUserId);
+            var projectName = "";
+            if(details.ProjectId != 0 && details.ProjectId != null)
+            {
+                projectName =( await _projectRepository.GetProjectByProjectId(details.ProjectId.GetValueOrDefault()))?.ProjectName;
+            }
+            return new GetRequestDetailsById
+            {
+                EndDate = details.EndDate,
+                ToUserName = user.FullName,
+                Id = details.Id,
+                ImageGalleryList = list,
+                ProjectId = details.ProjectId,
+                ProjectName = projectName,
+                RequestDescription = details.RequestDescription,
+                RequestStatus = details.RequestStatus,
+                StartDate = details.StartDate,
+                ToUserId = details.ToUserId,
+            };
+        }
     }
 }

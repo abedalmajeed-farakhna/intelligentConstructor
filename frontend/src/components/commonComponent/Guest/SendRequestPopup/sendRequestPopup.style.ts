@@ -5,6 +5,15 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
   root: {
     
 
+  },
+  button:{
+    display:'flex !important',
+    alignItems:'center !important',
+    justifyContent:'center !important',
+    margin:'0 auto 15px !important'
+  },
+  textarea:{
+    maxWidth:'100% !important',
   }
 }));
 

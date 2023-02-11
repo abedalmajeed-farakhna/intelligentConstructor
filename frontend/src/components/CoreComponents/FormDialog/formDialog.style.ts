@@ -10,6 +10,18 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
   },
   close:{
     cursor:"Pointer",
+    fontSize:'13px',
+    color:theme.colors.gray3
+    ,'&:hover':{
+      color:`red !important`
+    }
+  },
+  modaleTitle:{
+    display:'flex',
+    alignItems:'center',
+    justifyContent:'space-between',
+    textTransform:'capitalize',
+    color:theme.colors.primary
   }
 }));
 

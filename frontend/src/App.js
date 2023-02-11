@@ -21,6 +21,7 @@ import ProjectList from "./pages/Constuctor/ProjectList/projectList.index";
 import ProjectDetails from "./pages/Constuctor/ProjectDetails/projectDetails.index";
 import CraftsmanRequestList from "./pages/Craftsman/CraftsmanRequestList/craftsmanRequestList.index";
 import AddProjectCraftsmanPage from "./pages/Constuctor/ProjectDashboard/AddProjectCraftsmanPage/addProjectCraftsmanPage.index";
+import RequestDetails from "./pages/Constuctor/RequestDetails/requestDetails.index";
 //import CraftsmanProfile from "./pages/Guest/craftsmanProfile.index";
 
 
@@ -141,7 +142,9 @@ const App = () => {
              </RedirectToLogin>
             }
           />
-<Route
+          
+          
+          <Route
             path={`${PATH_NAMES.AddProjectCraftsman}/:id`}
             element={
               <RedirectToLogin>
@@ -151,8 +154,18 @@ const App = () => {
              </RedirectToLogin>
             }
           />
-
-
+          
+          
+          <Route
+            path={`${PATH_NAMES.RequestDetails}/:id`}
+            element={
+              <RedirectToLogin>
+              <MainDashboard>
+             <RequestDetails/>
+             </MainDashboard>
+             </RedirectToLogin>
+            }
+          />
           
            <Route
             path={PATH_NAMES.PROJECT_LIST}

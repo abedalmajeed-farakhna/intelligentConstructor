@@ -11,14 +11,22 @@ const HousePainterStep: React.FC<IHousePainterStepProps> = ({
   values,
   previousDetails,
   currentDetails,
+  timeLine,
+  handleUpdateTimeLine,
 }) => {
   let stratDate = getStartDate(previousDetails);
- 
-console.log(currentDetails,"currentDetails")
+
+  console.log(currentDetails, "currentDetails");
   return (
     <TopAvailableCraftsman
+      timeLine={timeLine}
+      handleUpdateTimeLine={handleUpdateTimeLine}
       projectStatus={currentDetails?.projectStatus}
-      editable={ stratDate != undefined &&  (!currentDetails ||currentDetails.projectStatus == ProjectStatusEnum.Rejected) }
+      editable={
+        stratDate != undefined &&
+        (!currentDetails ||
+          currentDetails.projectStatus == ProjectStatusEnum.Rejected)
+      }
       values={{ ...values, startDate: stratDate }}
       sector={sectorEnum.HousePainter}
     />

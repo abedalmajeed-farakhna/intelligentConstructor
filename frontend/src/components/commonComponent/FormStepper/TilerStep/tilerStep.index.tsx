@@ -11,6 +11,7 @@ const TilerStep: React.FC<ITilerStepProps> = ({
   values,
   builderDetails,
   tilerDetails,
+  timeLine, handleUpdateTimeLine
 }) => {
  
   let stratDate;
@@ -25,6 +26,8 @@ const TilerStep: React.FC<ITilerStepProps> = ({
 
   return (
     <TopAvailableCraftsman
+    timeLine={timeLine}
+    handleUpdateTimeLine={handleUpdateTimeLine}
       projectStatus={tilerDetails?.projectStatus}
       editable={
         stratDate != undefined &&
