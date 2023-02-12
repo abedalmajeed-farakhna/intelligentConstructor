@@ -23,6 +23,10 @@ const ProjectList: React.FC<IProjectListProps> = ({}) => {
   const showProjectDetails=(id)=>{
     navigate(`${PATH_NAMES.PROJECT_DETAILSLink}/${id}`); 
   }
+
+  const editProjectDetails=(id)=>{
+    navigate(`${PATH_NAMES.AddProjectCraftsman}/${id}`); 
+  }
   const columns: GridColDef[] = [
     {
       field: "projectName",
@@ -47,9 +51,14 @@ const ProjectList: React.FC<IProjectListProps> = ({}) => {
       sortable: false,
       width: 150,
       renderCell: (params) => (
+        <>
         <div className={classes.tableICon}>
         <ViewIcon className={classes.viewICon} onClick={()=>showProjectDetails(params.row.id)} />
       </div>
+       <div className={classes.tableICon}>
+       <ViewIcon className={classes.viewICon} onClick={()=>editProjectDetails(params.row.id)} /> edit 
+     </div>
+     </>
       ),
     },
   ];

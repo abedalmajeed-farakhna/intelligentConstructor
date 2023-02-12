@@ -5,6 +5,12 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
   root: {
 maxWidth:150,
 maxHeight:150
+  },
+  image:{
+
+  },
+  imageListItem:{
+
   }
 }));
 

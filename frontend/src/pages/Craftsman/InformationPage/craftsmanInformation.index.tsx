@@ -1,8 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
 import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
 import SelectInput from "../../../components/CoreComponents/SelectInput/selectInput.index";
 import TextInput from "../../../components/CoreComponents/TextInput/textInput.index";
@@ -10,18 +11,20 @@ import { IUser } from "../../../types/types";
 import { IApplicationState } from "../../../redux/ApplicationState";
 import FileUploader from "../../../components/CoreComponents/FileUploader/fileUploader.index";
 import { sectorEnum } from "../../../enums/sectorEnum";
-import { validationSchema } from "./craftsmanInformation.utils";
-import useStyles from "./craftsmanInformation.style";
 import ProfileImageUpload from "../../../components/CoreComponents/ProfileImageUpload/profileImageUpload.index";
 import { showSuccessPopup } from "../../../utils/projectUtils";
-import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
-import { PATH_NAMES } from "../../../constants/route";
 import ImageGallery from "../../../components/commonComponent/Craftsman/ImageGallery/imageGallery.index";
+import CraftsmanUploadImageModal from "../CraftsmanUploadImageModal/craftsmanUploadImageModal.index";
+
+import { validationSchema } from "./craftsmanInformation.utils";
+import useStyles from "./craftsmanInformation.style";
 
 const CraftsmanInformation: React.FC<any> = ({}) => {
   const classes = useStyles();
   const [regionList, setRegionList] = useState([]);
+  const [reloadData, setReloadData] = useState<boolean>(false);
   const [imageList, setImageList] = useState<string[]>([]);
+  const [showUploadImageModal, setShowUploadImageModal] = useState<boolean>(false);
 
   const user: IUser = useSelector((state: IApplicationState) => state.user);
   const [initialValues, setInitialValues] = useState({
@@ -31,7 +34,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
     speed: "",
     userName: "",
     region: 0,
-    phoneNumber:""
+    phoneNumber: "",
   });
 
   const [imagePath, setImagePath] = useState<string | undefined>(undefined);
@@ -47,7 +50,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
           sector: data.sector,
           speed: data.speed,
           region: data.region,
-          phoneNumber:data.phoneNumber
+          phoneNumber: data.phoneNumber,
         });
         if (data.profileImage) {
           setImagePath(`/Upload/${data.profileImage}`);
@@ -69,18 +72,18 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
       speed: values.speed,
       sector: parseInt(values.sector),
       region: Number(values.region),
-      phoneNumber:values.phoneNumber,
-      imageList:imageList
+      phoneNumber: values.phoneNumber,
+      imageList: imageList,
     };
     axios.post(`/Craftsman/updateInformation`, data).then((res) => {
-      console.log(res,"res")
-        showSuccessPopup();
-      
+      console.log(res, "res");
+      showSuccessPopup();
+      setReloadData(!reloadData);
     });
   };
 
   const handleOnChangeImage = (path) => {
-    console.log(path,"path:handleOnChangeImage")
+    console.log(path, "path:handleOnChangeImage");
 
     var reader = new FileReader();
     reader.readAsDataURL(path);
@@ -93,32 +96,50 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
     };
   };
 
-  const handleUploadImages =(images)=>{
-    images?.map(t=>{
-       converToBase64(t)
-     })
-  }
-
-  
-
-const converToBase64 = (blob) => {
-  var reader = new FileReader();
-  reader.readAsDataURL(blob);
-  let base64data;
-  reader.onloadend = function () {
-    base64data = reader.result;
-    //return base64data;
-    imageList.push(base64data);
-    setImageList(imageList);
+  const handleUploadImages = (images) => {
+    images?.map((t) => {
+      converToBase64(t);
+    });
   };
-  //return base64data;
-};
+
+  const converToBase64 = (blob) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(blob);
+    let base64data;
+    reader.onloadend = function () {
+      base64data = reader.result;
+      //return base64data;
+      imageList.push(base64data);
+      setImageList(imageList);
+    };
+    //return base64data;
+  };
+
+  const openUploadImageModal = () => {
+    setShowUploadImageModal(true);
+  };
+  const hideUploadImageModal = () => {
+    setShowUploadImageModal(false);
+  };
+
+
+
+  const getImageList = () => {
+    axios.get(`/Region/GetRegionList`).then((res) => {
+      setRegionList(res.data);
+    });
+  };
 
   if (!initialValues.userName) return <> Loading</>;
 
   return (
-  
     <div>
+      {showUploadImageModal && (
+        <CraftsmanUploadImageModal
+          hideUploadImageModal={hideUploadImageModal}
+          requestId={0}
+        />
+      )}
       <ProfileImageUpload
         type={"image/*"}
         onChange={(path) => handleOnChangeImage(path)}
@@ -186,17 +207,18 @@ const converToBase64 = (blob) => {
                 error={touched.note && errors.note}
                 label="note"
               />
+              <div>
+                <CustomButton text="upload" onClick={openUploadImageModal} />
+              </div>
 
               <CustomButton text={"save"} />
             </Box>
           </Form>
         )}
       </Formik>
-      <FileUploader  onChange={(data) => handleUploadImages(data)} />
-      {false && <ImageGallery/>}
+      <ImageGallery reloadData={reloadData} isEditable={true}  />
     </div>
   );
 };
 
 export default CraftsmanInformation;
-

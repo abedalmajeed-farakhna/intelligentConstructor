@@ -10,51 +10,78 @@ import CustomIconButton from "../../../CoreComponents/CustomIconButton/customIco
 
 import { IDataProps, IImageGalleryProps } from "./imageGallery.type";
 import useStyles from "./imageGallery.style";
+import { IImageGalleryListProps } from "../../../../types/types";
+import { Grid, List } from "@mui/material";
+import CustomButton from "../../../CoreComponents/CustomButton/customButton.index";
 
-const ImageGallery: React.FC<IImageGalleryProps> = ({}) => {
+const ImageGallery: React.FC<IImageGalleryProps> = ({
+  list,
+  requestId,
+  userId,
+  reloadData,
+  isEditable,
+}) => {
   const classes = useStyles();
 
-  const [data, setData] = useState<IDataProps[]>([]);
-
+  const [data, setData] = useState<undefined | IImageGalleryListProps[]>(list);
   useEffect(() => {
-    axios.get(`/Craftsman/GetImageList`).then((res) => {
+    console.log(reloadData,"reloadData")
+      getImageList();
+    
+  }, [reloadData]);
+  useEffect(() => {
+    if (!list) {
+      getImageList();
+    }
+  }, []);
+
+  const getImageList = () => {
+    axios.get(`/Craftsman/GetImageList?requestId=${requestId}&userId=${userId}`).then((res) => {
       console.log(res, "res");
       setData(res.data);
     });
-  }, []);
+  };
 
   const deleteImage = (id) => {
     const req = { ImageGalleryId: id };
     axios.post(`/Craftsman/DeleteImage/`, req).then((res) => {
-      console.log(res, "res");
-      //data =data.filter(t=>t.id != id);
-      setData(data.filter((t) => t.id != id));
+      getImageList();
     });
   };
-  console.log(data, "data");
-  if (data.length == 0) return <Loading />;
+  const deleteSection = (id) => {
+    const req = { SectionId: id };
+    axios.post(`/Craftsman/deleteSection/`, req).then((res) => {
+      getImageList();
+    });
+  };
+  if (data?.length == 0) return <div > </div>;//No image
 
   return (
-    <ImageList>
-      {data.map((item) => (
-        <ImageListItem key={item.imageName}>
-          <img 
-          className={classes.root}
-            width={20}
-            height={20}
-            src={`/Upload/ImageGallery/${item.imageName}?w=164&h=164&fit=crop&auto=format`}
-            srcSet={`/Upload/ImageGallery/${item.imageName}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-            alt={item.title}
-            loading="lazy"
-          />
-           <CustomIconButton
-            handleOnClick={() => deleteImage(item.id)}
-            title={"delete"}
-            icon={<CancelIcon color="error" />}
-          />
-        </ImageListItem>
+    <>
+      {data?.map((element, key) => (
+        <div>
+          <h1> {element.title} {isEditable && 
+          <CustomButton  onClick={() => deleteSection(element.id)} text={"delete section"}/>}</h1>
+
+          <Grid container spacing={2}>
+            {element.imageList.map((item) => (
+              <Grid className={classes.imageListItem}>
+                <img
+                  className={classes.image}
+                  width={50}
+                  height={50}
+                  src={`/Upload/ImageGallery/${item.imageName}`}
+                  srcSet={`/Upload/ImageGallery/${item.imageName}`}
+                  alt={""}
+                  loading="lazy"
+                />
+              {isEditable &&    <CustomButton  onClick={() => deleteImage(item.id)} text={"delete image"}/>}
+              </Grid>
+            ))}
+          </Grid>
+        </div>
       ))}
-    </ImageList>
+    </>
   );
 };
 export default ImageGallery;

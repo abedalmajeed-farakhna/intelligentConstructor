@@ -92,11 +92,14 @@ namespace Backend.Services
             return await _craftsmanInformationRepository.GetCraftsmanBySector(sector);
         }
 
-        public async Task<List<GetImageListResponse>> GetImageGalleryList(int? requestId)
+        public async Task<List<GetImageListResponse>> GetImageGalleryList(int? requestId, Guid? userId)
         {
+            if(userId == null)
+            {
+                userId = _authenticationService.GetCurrentUserId();
 
-            var userId = _authenticationService.GetCurrentUserId();
-            return await _imageGalleryRepository.GetImageGalleryList(userId, requestId);
+            }
+            return await _imageGalleryRepository.GetImageGalleryList(userId.GetValueOrDefault(), requestId);
         }
 
         public async Task<bool> AddImageForSpecificRequest(AddImageForSpecificRequestRequest request)
@@ -111,7 +114,12 @@ namespace Backend.Services
 
             return await _imageGalleryRepository.DeleteImage(id);
         }
-        
+        public async Task<bool> DeleteSection(int id)
+        {
+
+            return await _imageGalleryRepository.DeleteSection(id);
+        }
+
         private async Task AddImageList(List<string> list, Guid userId, string title, int? requestId=0)
         {
 

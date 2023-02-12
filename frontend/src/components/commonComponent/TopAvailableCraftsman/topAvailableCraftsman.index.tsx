@@ -29,19 +29,37 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
   editable,
   selectedUser,
   projectStatus,
+  sectionName,
+  timeLine,
+  handleUpdateTimeLine
 
 }) => {
-  console.log(values, "values");
-
+  console.log(values, "values 01"+sector);
+ // format(new Date(values.startDate), "yyyy-MM-dd")
   const classes = useStyles();
   const [rowsData, setRows] = useState<ITopAvailableCraftsman[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [value, setValue] = React.useState('');
 
 
+  const updateTimeLine = (val, data) => {
+    const item = data.find((t) => t.id == val);
+    handleUpdateTimeLine({
+      ...timeLine,
+      [sectionName]: {
+        startDate: item.expectedStartDate,
+        numberOfDays: item?.expectedTime ?? 0,
+      },
+    });
+    // console.log( timeLine?.[sectionName],"sectionName:handleOnCahnage"+sectionName);
+  };
+
   const handleRadioChange = (event) => {
     setValue(event.target.value);
-    console.log(event, "handleOnCahnage");
+    updateTimeLine(event.target.value,rowsData);
+    //if (!values[checkBoxName]) return;
+    //console.log(values[checkBoxName], "values[checkBoxName]]");
+
   };
   const columns: GridColDef[] = [
     {
@@ -119,20 +137,23 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
   ];
 
   useEffect(() => {
+    if(!values.startDate) return;
+    const fromDate = values.startDate && format(new Date(values.startDate), "yyyy-MM-dd");
     setLoading(true);
     if (!isLoading) {
       axios
         .get(
           `/Constructor/GetTopAvailableCraftsmanInSpecificInterval?space=${
             values.area
-          }&sector=${sector}&FromDate=${ format(new Date(values.startDate), "yyyy-MM-dd")}&region=${Number(values.regionId)}`
+          }&sector=${sector}&FromDate=${fromDate}&region=${Number(values.regionId)}`
         )
         .then((result) => {
           setRows(result.data);
-          console.log(result.data);
+          //console.log(result.data);
           const defaultValue = selectedUser || result.data[0].id;
-          console.log(defaultValue,"defaultValue")
+          //console.log(defaultValue,"defaultValue")
           setValue(defaultValue)
+          updateTimeLine(defaultValue,result.data);
           setLoading(false);
         });
     }
@@ -154,6 +175,7 @@ const sendRequest = () => {
 if(rowsData.length ==0) return <Loading/>
 console.log(value,"value")
 
+if(!timeLine?.[sectionName]?.startDate) return <div> error</div>
   return (
     <div role="group" aria-labelledby="my-radio-group02">
       <RadioGroup  onChange={handleRadioChange}
@@ -161,7 +183,9 @@ console.log(value,"value")
         defaultValue={value}
         name="radio-buttons-group"
       >
-        suggested:{rowsData[0].fullName}      
+        suggested:{rowsData[0].fullName}   
+        
+        <div>expectedTime: { timeLine[sectionName]?.expectedTime}</div>   
 
         {projectStatus != undefined && <div>request Status:{getProjectStatusDescription(projectStatus)} </div>}
    {editable &&     <div> <CustomButton text={" Send Request"}  onClick={sendRequest}/></div>}

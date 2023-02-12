@@ -10,7 +10,7 @@ const PlumberStep: React.FC<IPlumberStepProps> = ({
 }) => {
   return (
     <TopRatedCraftsman
-      values={values}
+    values={values}
       sector={sectorEnum.Plumber}
     />
   );

@@ -9,6 +9,7 @@ export interface ITopAvailableCraftsmanProps {
   editable?:boolean,
   selectedUser?:string,
   projectStatus?:ProjectStatusEnum,
+  sectionName:string,
   timeLine: ITimeLineProps;
   handleUpdateTimeLine: (val: ITimeLineProps) => void;
 }

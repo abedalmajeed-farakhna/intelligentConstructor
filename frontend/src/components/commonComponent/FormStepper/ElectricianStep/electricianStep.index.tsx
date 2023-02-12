@@ -5,14 +5,11 @@ import TopRatedCraftsman from "../TopRatedCraftsman/topRatedCraftsman.index";
 
 import { IElectricianStepProps } from "./electricianStep.type";
 
-const ElectricianStep: React.FC<IElectricianStepProps> = ({
-  values,
-  timeLine,
-  handleUpdateTimeLine,
+const ElectricianStep: React.FC<IElectricianStepProps> = ({values
 }) => {
   return (
     <TopRatedCraftsman
-      values={values}
+    values={values}
       sector={sectorEnum.Electrician}
     />
   );

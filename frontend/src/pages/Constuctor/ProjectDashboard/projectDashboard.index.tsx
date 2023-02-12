@@ -18,6 +18,7 @@ import BuilderStep from "../../../components/commonComponent/FormStepper/Builder
 import { getSectorEnumDescriptions } from "../../../utils/enumDescriptions";
 import { sectorEnum } from "../../../enums/sectorEnum";
 import AddNewProjectForm from "./AddNewProjectForm/addNewProjectForm.index";
+import { timeLineInitialValue } from "./AddProjectCraftsmanPage/addProjectCraftsmanPage.const";
 
 const ProjectDashboard: React.FC<any> = ({}) => {
   const classes = useStyles();
@@ -25,20 +26,7 @@ const ProjectDashboard: React.FC<any> = ({}) => {
 
   const [fromDate, setFrom] = useState(moment().format("YYYY-MM-DD"));
 
-  const [timeLine, setTimeLine] = React.useState<ITimeLineProps>({
-    builder: {
-      numberOfDays: 0,
-    },
-    tiler: {
-      numberOfDays: 0,
-    },
-    housePainter: {
-      numberOfDays: 0,
-    },
-    carpenter: {
-      numberOfDays: 0,
-    },
-  });
+  const [timeLine, setTimeLine] = React.useState<ITimeLineProps>(timeLineInitialValue);
 
   const handleUpdateTimeLine = (newVal) => {
     setTimeLine(newVal);

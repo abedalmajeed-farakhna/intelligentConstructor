@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
-import CustomDataGrid from "../../../components/CoreComponents/CustomDataGrid/customDataGrid.index";
-import { ICraftsmanRequestListProps } from "./craftsmanRequestList.type";
-import useStyles from "./craftsmanRequestList.style";
-import { GridColDef } from "@mui/x-data-grid";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { format } from "date-fns";
+
+import ViewIcon from '@mui/icons-material/Visibility';
+import { GridColDef } from "@mui/x-data-grid";
+
+import CustomDataGrid from "../../../components/CoreComponents/CustomDataGrid/customDataGrid.index";
 import { getProjectStatusDescription } from "../../../utils/enumDescriptions";
 import CustomRating from "../../../components/CoreComponents/CustomRating/customRating.index";
-import { format } from "date-fns";
 import CraftsmanAction from "../../../components/commonComponent/Craftsman/CraftsmanAction/craftsmanAction.index";
 import ProfileImage from "../../../components/CoreComponents/ProfileImage/profileImage.index";
 import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
 import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
 import CraftsmanUploadImageModal from "../CraftsmanUploadImageModal/craftsmanUploadImageModal.index";
 import ImageGalleryModal from "../ImageGalleryModal/ImageGalleryModal.index";
+import { PATH_NAMES } from "../../../constants/route";
+
+import useStyles from "./craftsmanRequestList.style";
+import { ICraftsmanRequestListProps } from "./craftsmanRequestList.type";
 
 
 const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
 
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const [data, setData] = useState([]);
   const [activeRow, setActiveRow] = useState<number>(0);
@@ -117,20 +124,13 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
     },
 
     {
-      field: "imageUploaded",
-      headerName: "imageUploaded",
-      width: 120,
-      renderCell: (params) => (
-    
-        (params.row.requestStatus == ProjectStatusEnum.Done ||
-          params.row.requestStatus == ProjectStatusEnum.Inprogres) && (
-          <CustomButton
-            text="show Image"
-            onClick={() => openImageGalleryModal(params.row.id)}
-          />
-        )
-      ),
-    },
+      field:"",
+      headerName:"Actions",
+      width:120,
+      renderCell :(params)=>(<div className={classes.tableICon}>
+        <ViewIcon className={classes.viewICon} onClick={()=>showRequestDetails(params.row.id)} />
+      </div>)
+    }
   ];
   
   useEffect(() => {
@@ -144,18 +144,15 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
     setActiveRow(id)
     setShowUploadImageModal(true);
   };
-  
+  const showRequestDetails=(id)=>{
+    navigate(`${PATH_NAMES.RequestDetails}/${id}`); //TODO save name in redux
+
+  }
   const hideUploadImageModal = () => {
     setShowUploadImageModal(false);
   };
 
 
-
-  // image Gallery
-  const openImageGalleryModal = (id:number) => {
-    setActiveRow(id)
-    setshowImageGalleryModal(true);
-  };
   const closeImageGalleryModal = () => {
     setshowImageGalleryModal(false);
   };

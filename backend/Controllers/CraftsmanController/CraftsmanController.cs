@@ -46,15 +46,20 @@ namespace Backend.Controllers
             return await _craftsmanService.UpdateInformationAsync(request);
         }
         [HttpGet]
-        public async Task<List<GetImageListResponse>> GetImageList(int? requestId)
+        public async Task<List<GetImageListResponse>> GetImageList(int? requestId, Guid? userId)
         {
-            return await _craftsmanService.GetImageGalleryList(requestId);
+            return await _craftsmanService.GetImageGalleryList(requestId, userId);
         }
 
         [HttpPost]
         public async Task<bool> DeleteImage([FromBody] DeleteImageRequest request)
         {
             return await _craftsmanService.DeleteImage(request.ImageGalleryId);
+        }
+        [HttpPost]
+        public async Task<bool> DeleteSection([FromBody] DeleteSectionRequest request)
+        {
+            return await _craftsmanService.DeleteSection(request.SectionId);
         }
         [HttpPost]
         public async Task<bool> AddImageForSpecificRequest([FromBody] AddImageForSpecificRequestRequest request)

@@ -14,7 +14,7 @@ const TilerStep: React.FC<ITilerStepProps> = ({
   timeLine, handleUpdateTimeLine
 }) => {
  
-  let stratDate;
+ /* let stratDate;
   if (builderDetails) {
     if (
       builderDetails?.projectStatus != ProjectStatusEnum.Pending &&
@@ -22,19 +22,22 @@ const TilerStep: React.FC<ITilerStepProps> = ({
     ) {
       stratDate = addNumberOfDays(builderDetails.expectedEndDate, 1);
     }
-  }
+  }*/
 
+  console.log("tiler ", values);
+  console.log("tiler :builderDetails ", builderDetails);
   return (
     <TopAvailableCraftsman
+     sectionName="tiler"
     timeLine={timeLine}
     handleUpdateTimeLine={handleUpdateTimeLine}
       projectStatus={tilerDetails?.projectStatus}
       editable={
-        stratDate != undefined &&
+        builderDetails != undefined &&
         (!tilerDetails ||
           tilerDetails.projectStatus == ProjectStatusEnum.Rejected)
       }
-      values={{ ...values, startDate: stratDate }}
+      values={values}
       sector={sectorEnum.Tiler}
     />
   );

@@ -16,7 +16,7 @@ export interface IRegionProps {
 
 export interface ICraftsmanStepValuesProps {
   area: number;
-  startDate: Date;
+  startDate?: Date;
   regionId: number;
   projectId?: number;
 }
@@ -30,4 +30,14 @@ export interface ICraftsmanDetailsProps {
   sector: sectorEnum;
   userName: string;
   userId:string
+}
+
+export interface IImageGalleryListProps {
+  title: string;
+  id:number;
+  imageList: IImageProps[];
+}
+interface IImageProps {
+  imageName: string;
+  id:number
 }

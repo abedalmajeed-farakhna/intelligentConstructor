@@ -13,6 +13,7 @@ import PhoneIcon from "@mui/icons-material/PhoneIphone";
 import EmailIcon from '@mui/icons-material/MailOutline';
 import TimeICon from '@mui/icons-material/QueryBuilder';
 import { Class } from "@mui/icons-material";
+import ImageGallery from "../../../components/commonComponent/Craftsman/ImageGallery/imageGallery.index";
 
 const CraftsmanProfile: React.FC<any> = ({ children }) => {
   const location = window.location;
@@ -94,7 +95,8 @@ const CraftsmanProfile: React.FC<any> = ({ children }) => {
           </div>
         </Grid>
         <Grid item xs={8} className={classes.col}>
-          Test
+        <ImageGallery  isEditable={false} userId={userId}  />
+
         </Grid>
       </Grid>
     </>

@@ -6,6 +6,12 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
   },
   container:{
 
+  },
+  imageListItem:{
+
+  },
+  image:{
+    
   }
 }));
 

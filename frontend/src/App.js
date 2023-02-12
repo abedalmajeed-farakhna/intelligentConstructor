@@ -100,7 +100,7 @@ const App = () => {
             }
           />
            <Route
-            path={PATH_NAMES.CRAFTSMAN_INFORMATION}
+            path={`${PATH_NAMES.CRAFTSMAN_INFORMATION }/:id`}
             element={
               <RedirectToLogin>
               <MainDashboard>
@@ -166,7 +166,7 @@ const App = () => {
              </RedirectToLogin>
             }
           />
-          
+   
            <Route
             path={PATH_NAMES.PROJECT_LIST}
             element={

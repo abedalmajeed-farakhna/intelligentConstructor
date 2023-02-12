@@ -31,6 +31,7 @@ namespace Backend.Repositories
                 {
                     imageList = allImages.Where(t => t.ImageGalleryGroupId == imageGalleryGroup.Id).ToList(),
                     Title = imageGalleryGroup.GroupTitle,
+                    Id = imageGalleryGroup.Id,
                 });
             }
             return result;
@@ -47,7 +48,25 @@ namespace Backend.Repositories
             }
             return true;
         }
-       
+
+        public async Task<bool> DeleteSection(int id)
+        {
+            var list = await _context.imageGallery.Where(t => t.ImageGalleryGroupId == id).ToListAsync();
+            if (list != null)
+            {
+                _context.imageGallery.RemoveRange(list);
+                _context.SaveChanges();
+
+            }
+            var item = await _context.imageGalleryGroup.FirstOrDefaultAsync(t => t.Id == id);
+            if (item != null)
+            {
+                _context.imageGalleryGroup.Remove(item);
+                _context.SaveChanges();
+
+            }
+            return true;
+        }
         public async Task<bool> AddImageList(List<ImageGalleryModel> data)
         {
             await _context.imageGallery.AddRangeAsync(data);

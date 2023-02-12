@@ -15,6 +15,7 @@ const BuilderStep: React.FC<IBuilderStepProps> = ({
     builderDetails.projectStatus == ProjectStatusEnum.Rejected;
   return (
     <TopAvailableCraftsman
+    sectionName="builder"
     timeLine={timeLine}
     handleUpdateTimeLine={handleUpdateTimeLine}
       selectedUser={builderDetails?.userId}

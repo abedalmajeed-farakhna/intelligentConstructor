@@ -1,9 +1,10 @@
 import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
+import { IImageGalleryListProps } from "../../../types/types";
 
 export interface IRequestDetailsProps {}
 
 export interface IDataProps {
-  imageGalleryList: any[];
+  imageGalleryList: IImageGalleryListProps[];
   projectId?: number;
   projectName?: string;
   requestDescription: string;
@@ -12,3 +13,6 @@ export interface IDataProps {
   toUserId: string;
   toUserName: string;
 }
+
+
+

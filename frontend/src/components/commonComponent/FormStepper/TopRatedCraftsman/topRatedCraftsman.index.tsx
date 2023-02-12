@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Field } from "formik";
-import classNames from "classnames";
 import { GridColDef } from "@mui/x-data-grid";
 import useStyles from "./topRatedCraftsman.style";
 
@@ -9,39 +8,53 @@ import {
   ITopRatedCraftsman,
   ITopRatedCraftsmanProps,
 } from "./topRatedCraftsman.type";
-import { GetFromDateValue } from "./topRatedCraftsman.utils";
-import { format } from "date-fns";
 import CustomLink from "../../../CoreComponents/CustomLink/customLink.index";
-import { addNumberOfDays } from "../../../../utils/DateUtils";
 import CustomDataGrid from "../../../CoreComponents/CustomDataGrid/customDataGrid.index";
 import CustomRating from "../../../CoreComponents/CustomRating/customRating.index";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import CustomButton from "../../../CoreComponents/CustomButton/customButton.index";
+import { showSuccessPopup } from "../../../../utils/projectUtils";
+import Loading from "../../../CoreComponents/Loading/loading.index";
 
 const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
   values,
+  selectedUser,
+  editable,
   sector
 }) => {
-  console.log(values, "values");
   // we will read it from the backend
   const classes = useStyles();
   const [rowsData, setRows] = useState<ITopRatedCraftsman[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [value, setValue] = React.useState('');
 
 
   const handleOnCahnage = (e) => {
     console.log(e, "handleOnCahnage");
   };
+  const sendRequest = () => {
+    console.log(value, "value");
+    const currentUserinfo = rowsData.find(t=>t.id == value);
+    const data = {
+      ToUserId: value,
+      Description: ` we have a  new project with area ${values.area}`,
+      projectId : values.projectId
+    };
+    axios.post(`/Project/SendRequest`, data).then(() => {
+      showSuccessPopup();
+    });
+  };
   const columns: GridColDef[] = [
     {
       field: "",
       renderCell: (params) => (
-       
-          <Field
-            onFromChange={handleOnCahnage}
-            type="radio"
-            value={params.row.id}
-            className={classes.radioButton}
-          />
-     
+        <FormControlLabel disabled={!editable}
+          value={params.row.id}
+          //checked={params.row.username ===selectedUser}
+          control={<Radio />}
+          label=""
+          //onChange={handleOnCahnage}
+        />
       ),
     },
 
@@ -93,28 +106,46 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
       width: 150,
     }
   ];
+  const handleRadioChange = (event) => {
+    setValue(event.target.value);
+   // updateTimeLine(event.target.value,rowsData);
+    //if (!values[checkBoxName]) return;
+    //console.log(values[checkBoxName], "values[checkBoxName]]");
 
+  };
   useEffect(() => {
     setLoading(true);
     if (!isLoading) {
       axios
         .get(
-          `/Constructor/GetTopRatedCraftsman?sector=${sector}&region=${Number(
-            values.region
-          )}`
+          `/Constructor/GetTopRatedCraftsman?sector=${sector}&region=${Number(values.regionId)}`
         )
         .then((result) => {
           setRows(result.data);
           console.log(result.data);
           setLoading(false);
+            const defaultValue = selectedUser || result.data[0].id;
+            setValue(defaultValue)
         });
     }
   }, []);
+  if(rowsData.length ==0) return <Loading/>
 
   return (
     <div role="group" aria-labelledby="my-radio-group02">
+    <RadioGroup  onChange={handleRadioChange}
+      aria-labelledby="demo-radio-buttons-group-label"
+      defaultValue={value}
+      name="radio-buttons-group"
+    >
+      suggested:{rowsData[0].fullName}   
+      
+    
+
+ {editable &&     <div> <CustomButton text={" Send Request"}  onClick={sendRequest}/></div>}
       <CustomDataGrid columns={columns} rows={rowsData} />
-    </div>
+    </RadioGroup>
+  </div>
   );
 };
 export default TopRatedCraftsman;

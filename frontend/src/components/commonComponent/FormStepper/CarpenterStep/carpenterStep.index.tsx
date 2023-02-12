@@ -13,19 +13,19 @@ const CarpenterStep: React.FC<ICarpenterStepProps> = ({
   currentDetails,
   timeLine, handleUpdateTimeLine
 }) => {
-  let stratDate = getStartDate(previousDetails);
   return (
     <>
       <TopAvailableCraftsman
+      sectionName="carpenter"
       timeLine={timeLine}
       handleUpdateTimeLine={handleUpdateTimeLine}
         projectStatus={currentDetails?.projectStatus}
         editable={
-          stratDate != undefined &&
+          previousDetails != undefined &&
           (!currentDetails ||
             currentDetails.projectStatus == ProjectStatusEnum.Rejected)
         }
-        values={{ ...values}} // startDate: stratDate  || new Date('20/1/2022')
+        values={values} // startDate: stratDate  || new Date('20/1/2022')
         sector={sectorEnum.Carpenter}
       />
     </>

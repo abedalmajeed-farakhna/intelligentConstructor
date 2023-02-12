@@ -1,8 +1,11 @@
 import { sectorEnum } from "../../../../enums/sectorEnum";
+import { ICraftsmanStepValuesProps } from "../../../../types/types";
 
 export interface ITopRatedCraftsmanProps {
-  values: any;
+  values: ICraftsmanStepValuesProps;
   sector: sectorEnum;
+  selectedUser?:string,
+  editable?:boolean
 }
 
 export interface ITopRatedCraftsman {
