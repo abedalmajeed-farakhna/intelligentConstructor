@@ -5,7 +5,7 @@ export interface ITopRatedCraftsmanProps {
   values: ICraftsmanStepValuesProps;
   sector: sectorEnum;
   selectedUser?:string,
-  editable?:boolean
+  editable:boolean
 }
 
 export interface ITopRatedCraftsman {

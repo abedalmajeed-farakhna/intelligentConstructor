@@ -13,7 +13,6 @@ const onBeforeLift = () => {
   // take some action before the gate lifts
 }
 root.render(
-  <React.StrictMode>
      <Provider store={store}>
      <PersistGate 
       loading={null}
@@ -22,7 +21,6 @@ root.render(
       <App />
     </PersistGate>
     </Provider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

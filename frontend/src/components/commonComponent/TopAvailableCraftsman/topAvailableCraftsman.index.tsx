@@ -25,47 +25,28 @@ import { getProjectStatusDescription } from "../../../utils/enumDescriptions";
 const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
   values,
   sector,
-
   editable,
   selectedUser,
   projectStatus,
   sectionName,
   timeLine,
-  handleUpdateTimeLine
-
+  handleUpdateTimeLine,
 }) => {
-  console.log(values, "values 01"+sector);
- // format(new Date(values.startDate), "yyyy-MM-dd")
+  console.log(values, "values 01" + sector);
+  // format(new Date(values.startDate), "yyyy-MM-dd")
   const classes = useStyles();
   const [rowsData, setRows] = useState<ITopAvailableCraftsman[]>([]);
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [value, setValue] = React.useState('');
+  const [isEditable, setIsEditable] = useState<boolean | undefined>(editable);
+  const [isLoading, setLoading] = useState<boolean>(true);
 
+  const [value, setValue] = React.useState("");
 
-  const updateTimeLine = (val, data) => {
-    const item = data.find((t) => t.id == val);
-    handleUpdateTimeLine({
-      ...timeLine,
-      [sectionName]: {
-        startDate: item.expectedStartDate,
-        numberOfDays: item?.expectedTime ?? 0,
-      },
-    });
-    // console.log( timeLine?.[sectionName],"sectionName:handleOnCahnage"+sectionName);
-  };
-
-  const handleRadioChange = (event) => {
-    setValue(event.target.value);
-    updateTimeLine(event.target.value,rowsData);
-    //if (!values[checkBoxName]) return;
-    //console.log(values[checkBoxName], "values[checkBoxName]]");
-
-  };
   const columns: GridColDef[] = [
     {
       field: "",
       renderCell: (params) => (
-        <FormControlLabel disabled={!editable}
+        <FormControlLabel
+          disabled={!isEditable}
           value={params.row.id}
           //checked={params.row.username ===selectedUser}
           control={<Radio />}
@@ -136,59 +117,97 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
     },
   ];
 
-  useEffect(() => {
-    if(!values.startDate) return;
-    const fromDate = values.startDate && format(new Date(values.startDate), "yyyy-MM-dd");
-    setLoading(true);
-    if (!isLoading) {
-      axios
-        .get(
-          `/Constructor/GetTopAvailableCraftsmanInSpecificInterval?space=${
-            values.area
-          }&sector=${sector}&FromDate=${fromDate}&region=${Number(values.regionId)}`
-        )
-        .then((result) => {
-          setRows(result.data);
-          //console.log(result.data);
-          const defaultValue = selectedUser || result.data[0].id;
-          //console.log(defaultValue,"defaultValue")
-          setValue(defaultValue)
-          updateTimeLine(defaultValue,result.data);
-          setLoading(false);
-        });
-    }
-  }, []);
-const sendRequest = () => {
-  console.log(value, "value");
-  const currentUserinfo = rowsData.find(t=>t.id == value);
-  const data = {
-    ToUserId: value,
-    From: currentUserinfo?.expectedStartDate,
-    expectedEndDate: addNumberOfDays(currentUserinfo?.expectedEndDate, -1),
-    Description: ` we have a  new project with area ${values.area}`,
-    projectId : values.projectId
+  const updateTimeLine = (val, data) => {
+    const item = data.find((t) => t.id == val);
+    handleUpdateTimeLine({
+      ...timeLine,
+      [sectionName]: {
+        startDate: item?.expectedStartDate,
+        numberOfDays: item?.expectedTime ?? 0,
+      },
+    });
   };
-  axios.post(`/Project/SendRequest`, data).then(() => {
-    showSuccessPopup();
-  });
-};
-if(rowsData.length ==0) return <Loading/>
-console.log(value,"value")
 
-if(!timeLine?.[sectionName]?.startDate) return <div> error</div>
+  const handleRadioChange = (event) => {
+    setValue(event.target.value);
+    updateTimeLine(event.target.value, rowsData);
+  };
+
+  const getTopAvailableCraftsmanInSpecificInterval = (startDate) => {
+    if(!startDate) return;
+   
+    setLoading(true);
+    const fromDate = startDate && format(new Date(startDate), "yyyy-MM-dd");
+    axios.get(
+        `/Constructor/GetTopAvailableCraftsmanInSpecificInterval?space=${
+          values.area
+        }&sector=${sector}&FromDate=${fromDate}&region=${Number(
+          values.regionId
+        )}`
+      )
+      .then((result) => {
+        setRows(result.data);
+        //console.log(result.data);
+        const defaultValue = selectedUser || result.data[0]?.id;
+        //console.log(defaultValue,"defaultValue")
+        setValue(defaultValue);
+        updateTimeLine(defaultValue, result.data);
+        setLoading(false);
+        //setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    console.log(values.startDate, "values.startDate");
+     getTopAvailableCraftsmanInSpecificInterval(values.startDate)
+  }, [values.startDate &&format(new Date(values.startDate), "yyyy-MM-dd")]);
+  
+  useEffect(() => {
+    if (!values.startDate) return;
+    getTopAvailableCraftsmanInSpecificInterval(values.startDate);
+  }, []);
+
+  const sendRequest = () => {
+    const currentUserinfo = rowsData.find((t) => t.id == value);
+    if(currentUserinfo == undefined) return;
+    
+    const data = {
+      ToUserId: value,
+      From: currentUserinfo?.expectedStartDate,
+      expectedEndDate: addNumberOfDays(currentUserinfo?.expectedEndDate, -1),
+      Description: ` we have a  new project with area ${values.area}`,
+      projectId: values.projectId,
+    };
+    axios.post(`/Project/SendRequest`, data).then(() => {
+      setIsEditable(false);
+      showSuccessPopup();
+    });
+  };
+
+  if (isLoading) return <Loading />;
+
+  if (!values.startDate) return <div> error</div>;
+
   return (
     <div role="group" aria-labelledby="my-radio-group02">
-      <RadioGroup  onChange={handleRadioChange}
+      <RadioGroup
+        onChange={handleRadioChange}
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue={value}
         name="radio-buttons-group"
       >
-        suggested:{rowsData[0].fullName}   
-        
-        <div>expectedTime: { timeLine[sectionName]?.expectedTime}</div>   
-
-        {projectStatus != undefined && <div>request Status:{getProjectStatusDescription(projectStatus)} </div>}
-   {editable &&     <div> <CustomButton text={" Send Request"}  onClick={sendRequest}/></div>}
+        suggested:{rowsData[0].fullName}
+        <div>expectedTime: {timeLine[sectionName]?.expectedTime}</div>
+        {projectStatus != undefined && (
+          <div>
+            request Status:{getProjectStatusDescription(projectStatus)}{" "}
+          </div>
+        )}
+        {isEditable && (
+          <div>
+            <CustomButton text={" Send Request"} onClick={sendRequest} />
+          </div>
+        )}
         <CustomDataGrid columns={columns} rows={rowsData} />
       </RadioGroup>
     </div>

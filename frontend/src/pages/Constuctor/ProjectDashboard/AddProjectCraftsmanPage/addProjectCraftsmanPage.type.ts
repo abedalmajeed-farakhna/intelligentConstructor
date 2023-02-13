@@ -10,3 +10,11 @@ export interface IDataProps {
   space: number;
   startDate: Date;
 }
+
+export const dataInitialValue = {
+  craftsmans: [],
+  projectName: "",
+  region: { id: 0, name: "" },
+  space: 0,
+  startDate: new Date(),
+};

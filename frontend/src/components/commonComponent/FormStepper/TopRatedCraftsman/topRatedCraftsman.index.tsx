@@ -25,30 +25,15 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
   // we will read it from the backend
   const classes = useStyles();
   const [rowsData, setRows] = useState<ITopRatedCraftsman[]>([]);
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(true);
+  const [isEditable, setIsEditable] = useState<boolean>(editable);
   const [value, setValue] = React.useState('');
-
-
-  const handleOnCahnage = (e) => {
-    console.log(e, "handleOnCahnage");
-  };
-  const sendRequest = () => {
-    console.log(value, "value");
-    const currentUserinfo = rowsData.find(t=>t.id == value);
-    const data = {
-      ToUserId: value,
-      Description: ` we have a  new project with area ${values.area}`,
-      projectId : values.projectId
-    };
-    axios.post(`/Project/SendRequest`, data).then(() => {
-      showSuccessPopup();
-    });
-  };
+  
   const columns: GridColDef[] = [
     {
       field: "",
       renderCell: (params) => (
-        <FormControlLabel disabled={!editable}
+        <FormControlLabel disabled={!isEditable}
           value={params.row.id}
           //checked={params.row.username ===selectedUser}
           control={<Radio />}
@@ -106,6 +91,24 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
       width: 150,
     }
   ];
+
+  const handleOnCahnage = (e) => {
+    console.log(e, "handleOnCahnage");
+  };
+  const sendRequest = () => {
+    console.log(value, "value");
+    const currentUserinfo = rowsData.find(t=>t.id == value);
+    const data = {
+      ToUserId: value,
+      Description: ` we have a  new project with area ${values.area}`,
+      projectId : values.projectId
+    };
+    axios.post(`/Project/SendRequest`, data).then(() => {
+      showSuccessPopup();
+      setIsEditable(false);
+    });
+  };
+ 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
    // updateTimeLine(event.target.value,rowsData);
@@ -115,21 +118,22 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
   };
   useEffect(() => {
     setLoading(true);
-    if (!isLoading) {
+
       axios
         .get(
           `/Constructor/GetTopRatedCraftsman?sector=${sector}&region=${Number(values.regionId)}`
         )
         .then((result) => {
           setRows(result.data);
-          console.log(result.data);
-          setLoading(false);
-            const defaultValue = selectedUser || result.data[0].id;
+          //console.log(result.data);
+            const defaultValue = selectedUser || result?.data[0]?.id;
             setValue(defaultValue)
+            setLoading(false);
+
         });
-    }
+    
   }, []);
-  if(rowsData.length ==0) return <Loading/>
+  if (isLoading) return <Loading />;
 
   return (
     <div role="group" aria-labelledby="my-radio-group02">
@@ -142,7 +146,7 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
       
     
 
- {editable &&     <div> <CustomButton text={" Send Request"}  onClick={sendRequest}/></div>}
+ {isEditable &&     <div> <CustomButton text={" Send Request"}  onClick={sendRequest}/></div>}
       <CustomDataGrid columns={columns} rows={rowsData} />
     </RadioGroup>
   </div>

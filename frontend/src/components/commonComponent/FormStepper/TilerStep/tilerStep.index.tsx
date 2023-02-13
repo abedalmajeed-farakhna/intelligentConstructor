@@ -9,8 +9,8 @@ import { ITilerStepProps } from "./tilerStep.type";
 
 const TilerStep: React.FC<ITilerStepProps> = ({
   values,
-  builderDetails,
-  tilerDetails,
+  currentDetails,
+  previousDetails,
   timeLine, handleUpdateTimeLine
 }) => {
  
@@ -25,17 +25,20 @@ const TilerStep: React.FC<ITilerStepProps> = ({
   }*/
 
   console.log("tiler ", values);
-  console.log("tiler :builderDetails ", builderDetails);
+  console.log("tiler :builderDetails ", previousDetails);
   return (
     <TopAvailableCraftsman
      sectionName="tiler"
     timeLine={timeLine}
     handleUpdateTimeLine={handleUpdateTimeLine}
-      projectStatus={tilerDetails?.projectStatus}
+      projectStatus={currentDetails?.projectStatus}
       editable={
-        builderDetails != undefined &&
-        (!tilerDetails ||
-          tilerDetails.projectStatus == ProjectStatusEnum.Rejected)
+        previousDetails &&
+        ![ProjectStatusEnum.Rejected, ProjectStatusEnum.Pending].includes(
+          previousDetails.projectStatus
+        ) &&
+        (!currentDetails ||
+          currentDetails.projectStatus == ProjectStatusEnum.Rejected)
       }
       values={values}
       sector={sectorEnum.Tiler}

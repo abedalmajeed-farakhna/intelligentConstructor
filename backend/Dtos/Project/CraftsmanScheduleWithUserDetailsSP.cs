@@ -15,8 +15,8 @@ namespace Backend.Dtos.Project
         public Guid ToUserId { get; set; }
         public int? ProjectId { get; set; }
         public string RequestDescription { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public ProjectStatusEnum RequestStatus { get; set; }
 
 

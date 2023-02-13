@@ -21,7 +21,10 @@ const CarpenterStep: React.FC<ICarpenterStepProps> = ({
       handleUpdateTimeLine={handleUpdateTimeLine}
         projectStatus={currentDetails?.projectStatus}
         editable={
-          previousDetails != undefined &&
+          previousDetails &&
+          ![ProjectStatusEnum.Rejected, ProjectStatusEnum.Pending].includes(
+            previousDetails.projectStatus
+          ) &&
           (!currentDetails ||
             currentDetails.projectStatus == ProjectStatusEnum.Rejected)
         }

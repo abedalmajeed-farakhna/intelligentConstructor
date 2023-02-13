@@ -6,6 +6,6 @@ export interface ITilerStepProps {
   handleUpdateTimeLine: (val: ITimeLineProps) => void;
   profileImage?: string;
   values: ICraftsmanStepValuesProps;
-  builderDetails?:ICraftsmanDetailsProps
-  tilerDetails?:ICraftsmanDetailsProps
+  previousDetails?:ICraftsmanDetailsProps
+  currentDetails?:ICraftsmanDetailsProps
 }

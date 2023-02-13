@@ -29,6 +29,14 @@ export const signUpSchema = Yup.object().shape({
     .required('Required'),
 
 
+    phoneNumber: Yup.string()
+    .min(10, 'Invalid phone number')
+    .max(10, 'Invalid phone number')
+    .required('Required'),
+     
+    userType: Yup.string()
+    
+    .required('Required'),
 
   });
 

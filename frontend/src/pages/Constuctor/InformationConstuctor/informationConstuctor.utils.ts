@@ -12,8 +12,8 @@ export const validationSchema = Yup.object().shape({
     .required("Required"),
 
   capacity: Yup.number()
-    .min(0, "the capacity shouldnot bee less than 1")
-    .max(30, "the capacity shouldnot bee mor than 30")
+    .min(100, "the capacity shouldnot bee less than 100")
+    .max(10000, "the capacity shouldnot bee mor than 10000")
     .required("Required"),
 
   phoneNumber: Yup.string().min(10, "Too Short!"),
