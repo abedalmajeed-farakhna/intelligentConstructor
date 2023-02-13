@@ -24,26 +24,48 @@ const CraftsmanList: React.FC<any> = ({ children }) => {
           
           sector={sectorEnum.HousePainter}/>
   </Grid>
+  
   <Grid item xs={4} className={classes.cardItem}>
   <ImageCard 
   sector={sectorEnum.Carpenter}
           imagePath="carpenter.jpg"
           description={"test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 "}
-           text={"carpenter"} />
-  </Grid><Grid item xs={4} className={classes.cardItem}>
+           text={"Carpenter"} />
+  </Grid>
+  
+  <Grid item xs={4} className={classes.cardItem}>
   <ImageCard 
-  sector={sectorEnum.Carpenter}
-          imagePath="carpenter.jpg"
+  sector={sectorEnum.Plumber}
+          imagePath="plumber.jpg"
           description={"test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 "}
-           text={"carpenter"} />
-  </Grid><Grid item xs={4} className={classes.cardItem}>
+           text={"Plumber"} />
+  </Grid>
+  
+  <Grid item xs={4} className={classes.cardItem}>
   <ImageCard 
-  sector={sectorEnum.Carpenter}
-          imagePath="carpenter.jpg"
+  sector={sectorEnum.Tiler}
+          imagePath="tiler.jpg"
           description={"test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 "}
-           text={"carpenter"} />
+           text={"Tiler"} />
   </Grid>
  
+  <Grid item xs={4} className={classes.cardItem}>
+  <ImageCard 
+  sector={sectorEnum.Electrician}
+          imagePath="electrician.jpg"
+          description={"test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 "}
+           text={"Electrician"} />
+  </Grid>
+
+  <Grid item xs={4} className={classes.cardItem}>
+  <ImageCard 
+  sector={sectorEnum.Builder}
+          imagePath="builder.jpg"
+          description={"test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 test 02 "}
+           text={"Builder"} />
+  </Grid>
+
+
   </Grid>
   </>
   );
