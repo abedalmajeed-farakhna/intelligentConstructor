@@ -10,7 +10,7 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
     display:'flex !important',
     alignItems:'center !important',
     justifyContent:'center !important',
-    margin:'0 auto 15px !important'
+    margin:'0 auto 15px !important',
   },
   textarea:{
     maxWidth:'100% !important',

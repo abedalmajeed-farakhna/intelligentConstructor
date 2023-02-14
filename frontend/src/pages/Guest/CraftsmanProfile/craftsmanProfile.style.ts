@@ -54,9 +54,9 @@ const useStyle = makeStyles((theme:ThemeOptions) => ({
     },
     fullName:{
       fontWeight: "bold",
-      marginBottom: "5px",
-      marginTop: "30px",
-
+      marginBottom: "15px",
+      textTransform:"capitalize",
+      fontSize: "18px",
     },
     contactInfo:{
       display:"flex",

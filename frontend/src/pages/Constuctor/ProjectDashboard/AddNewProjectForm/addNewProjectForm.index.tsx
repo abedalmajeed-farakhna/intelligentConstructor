@@ -16,17 +16,16 @@ import CustomButton from "../../../../components/CoreComponents/CustomButton/cus
 import Loading from "../../../../components/CoreComponents/Loading/loading.index";
 import ErrorMessage from "../../../../components/CoreComponents/Alerts/Error/errorMessage.index";
 import { IRegionProps } from "../../../../types/types";
+import { Grid } from "@mui/material";
 
 const AddNewProjectForm: React.FC<any> = ({}) => {
   const classes = useStyles();
 
-
-  
   const [initialValues, setInitialValues] = useState({
     projectName: "",
     space: 0,
     fromDate: moment(),
-    regionId:0
+    regionId: 0,
   });
   const navigate = useNavigate();
 
@@ -39,28 +38,29 @@ const AddNewProjectForm: React.FC<any> = ({}) => {
   };
 
   const onHandleSubmit = (values) => {
-    console.log("values")
+    console.log("values");
     values.startDate = fromDate;
     values.regionId = Number(values.regionId);
 
-    axios.post(`/Constructor/AddNewProject`, values).then((result) => {
-      navigate(`${PATH_NAMES.AddProjectCraftsman}/${result.data}`);
-      console.log(result,"result")
-      /* if (result.status == 200) {
+    axios
+      .post(`/Constructor/AddNewProject`, values)
+      .then((result) => {
+        navigate(`${PATH_NAMES.AddProjectCraftsman}/${result.data}`);
+        console.log(result, "result");
+        /* if (result.status == 200) {
        
       }*/
-    })
-    .catch(error => {
-      console.error('There was an error!', error);
-      setError(error.response.data);
-  })
-
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+        setError(error.response.data);
+      });
   };
-  const onAreaKeyUp =(val)=>{
-    if(error){
-      setError("")
+  const onAreaKeyUp = (val) => {
+    if (error) {
+      setError("");
     }
-  }
+  };
   const getRegionList = () => {
     axios.get(`/Region/GetRegionList`).then((res) => {
       setRegionList(res.data);
@@ -69,62 +69,73 @@ const AddNewProjectForm: React.FC<any> = ({}) => {
   };
   useEffect(() => {
     getRegionList();
-
   }, []);
-
 
   if (regionList.length == 0) return <Loading />;
   return (
     <div>
+      <Grid container className={classes.root}>
+        <Grid xs={4}>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+              // same shape as initial values
+              onHandleSubmit(values);
+            }}
+          >
+            {({ errors, touched, values }) => (
+              <Form>
+                <div className={classes.FieldItem}>
+                  <TextInput
+                    name="projectName"
+                    placeholder="project Name"
+                    type="string"
+                    error={touched.projectName && errors.projectName}
+                    label="Project Name"
+                  />
+                </div>
 
-      <Formik
-        initialValues={initialValues}
-          validationSchema={validationSchema}
-        onSubmit={(values) => {
-          // same shape as initial values
-          onHandleSubmit(values);
-        }}
-      >
-        {({ errors, touched, values }) => (
-          <Form>
-            <TextInput
-              name="projectName"
-              placeholder="project Name"
-              type="string"
-              error={touched.projectName && errors.projectName}
-              label="project Name"
-            />
+                <div className={classes.FieldItem}>
+                  <SelectInput
+                    label="Region"
+                    name={"regionId"}
+                    options={regionList}
+                    keyName={"id"}
+                  />
+                </div>
 
-            <SelectInput
-              label="Region"
-              name={"regionId"}
-              options={regionList}
-              keyName={"id"}
-            />
-            <TextInput
-             onKeyUp={onAreaKeyUp}
-              name="space"
-              placeholder="Area"
-              type="number"
-              label="Area"
-              error={touched.space && errors.space}
-            />
+                <div className={classes.FieldItem}>
+                  <TextInput
+                    onKeyUp={onAreaKeyUp}
+                    name="space"
+                    placeholder="Area"
+                    type="number"
+                    label="Area"
+                    error={touched.space && errors.space}
+                  />
+                </div>
+                <div className={classes.FieldItem}>
+                  <DateInput
+                    defaultValue={moment().format("YYYY-MM-DD")}
+                    label={"Start Date"}
+                    name={"from"}
+                    onChange={(val) => onFromChange(val)}
+                  />
+                </div>
 
-            <DateInput
-              defaultValue={moment().format("YYYY-MM-DD")}
-              label={"Start Date"}
-              name={"from"}
-              onChange={(val) => onFromChange(val)}
-            />
-            <div>
-               <CustomButton  text={"Add New Project"}  />
-               <ErrorMessage error={error}/>
-            </div>
-              
-
-          </Form>
-        )}
-      </Formik>
+                <div className={classes.addNewProject}>
+                  <CustomButton text={"Add New Project"} />
+                  <ErrorMessage error={error} />
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </Grid>
+        <Grid xs={8} >
+          <div className={classes.projectImagee} style={{ backgroundImage: `URL(images/project-img.jpeg)` }}></div>
+        </Grid>
+      </Grid>
     </div>
   );
 };
