@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { IFileProps, IFileUploaderProps } from "./fileUploader.types";
 import useStyle from "./fileUploader.style";
 import classNames from "classnames";
-const FileUploader: React.FC<IFileUploaderProps> = ({ onChange, customClassName }) => {
+const FileUploader: React.FC<IFileUploaderProps> = ({ onChange, customClassName,label }) => {
   
   const classes = useStyle();
   const [files, setFiles] = useState<IFileProps[]>([]);
@@ -28,6 +28,7 @@ const FileUploader: React.FC<IFileUploaderProps> = ({ onChange, customClassName 
 
   const thumbs = files.map((file) => (
     <div className={classes.thumb} key={file.name}>
+     
       <div className={classes.thumbInner}>
         <img
           src={file.preview}
@@ -48,6 +49,8 @@ const FileUploader: React.FC<IFileUploaderProps> = ({ onChange, customClassName 
   }, []);
 
   return (
+    <>
+     {label &&<label> {label}</label>}
     <section className={ classNames(classes.rsgPreview60,customClassName)}>
       <div className={classes.dropzone} {...getRootProps()}>
         <input {...getInputProps()} />
@@ -55,6 +58,7 @@ const FileUploader: React.FC<IFileUploaderProps> = ({ onChange, customClassName 
       </div>
       <aside className={classes.thumbsContainer}>{thumbs}</aside>
     </section>
+    </>
   );
 };
 export default FileUploader;

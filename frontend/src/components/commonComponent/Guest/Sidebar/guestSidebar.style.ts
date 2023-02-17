@@ -5,6 +5,7 @@ const useStyle = makeStyles((theme:ThemeOptions) => ({
   root: {
     width: 250,
     padding:"0px 10px",
+    zIndex:1
   },
   
   drawer: {

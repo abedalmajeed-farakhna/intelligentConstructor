@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { PATH_NAMES } from "../../../constants/route";
+import ProfileImage from "../../../components/CoreComponents/ProfileImage/profileImage.index";
 
 const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
   const classes = useStyles();
@@ -32,14 +33,7 @@ const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
       width: 70,
       filterable: false,
       sortable: false,
-      renderCell: (params) => (
-        <div className={classes.imageContainer}>
-          <img
-            className={classes.image}
-            src={`/Upload/${params.row.toProfileImage}`}
-          />
-        </div>
-      ),
+      renderCell: (params) => <ProfileImage path={params.row.toProfileImage} />,
     },
 
     { field: "toFullName", headerName: "Full Name", width: 160 },
@@ -77,11 +71,15 @@ const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
       renderCell: (params) => (
         <>
           <div className={classes.tableICon}>
-            <ViewIcon className={classes.viewICon} onClick={()=>showRequestDetails(params.row.id)} />
+            <ViewIcon
+              className={classes.viewICon}
+              onClick={() => showRequestDetails(params.row.id)}
+            />
           </div>
           <div
             className={classNames(
-              classes.tableICon,classes.deleteICon,
+              classes.tableICon,
+              classes.deleteICon,
               params.row.requestStatus != ProjectStatusEnum.Pending &&
                 classes.disabled
             )}

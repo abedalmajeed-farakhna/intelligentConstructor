@@ -9,6 +9,8 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
   },
   main: {
     width: `calc(100% - ${200}px)`,
+    paddingTop:'30px',
+    minHeight:"100vh"
   },
 }));
 

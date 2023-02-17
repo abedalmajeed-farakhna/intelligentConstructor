@@ -16,6 +16,7 @@ const ElectricianStep: React.FC<IElectricianStepProps> = ({values,
         !currentDetails ||
         currentDetails.projectStatus == ProjectStatusEnum.Rejected
       }
+      projectStatus={ currentDetails?.projectStatus}
       values={values}
       sector={sectorEnum.Electrician}
     />

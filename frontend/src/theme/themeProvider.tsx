@@ -21,6 +21,7 @@ declare module "@mui/material/styles" {
       approvedColor?: React.CSSProperties["color"];
       doneColor?: React.CSSProperties["color"];
       rejectedColor?: React.CSSProperties["color"];
+      mainTextColor?: React.CSSProperties["color"];
     };
     fontSize: {
       large: number;
@@ -45,6 +46,7 @@ declare module "@mui/material/styles" {
       approvedColor?: React.CSSProperties["color"];
       doneColor?: React.CSSProperties["color"];
       rejectedColor?: React.CSSProperties["color"];
+      mainTextColor?: React.CSSProperties["color"];
     };
     fontSize: {
       large: number;
@@ -75,6 +77,7 @@ export const theme = createTheme({
     doneColor:"green",
     rejectedColor:"red",
     borderColor:"rgb(240, 240, 240)",
+    mainTextColor:"#5a5a5a",
 
   },
   fontSize: {

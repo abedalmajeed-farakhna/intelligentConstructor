@@ -13,17 +13,18 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
     width: "100%",
     overflow: "hidden",
     minWidth: "0%",
-    borderColor: theme.colors.primary,
+    borderColor: `${theme.colors.borderColor}!important`,
     padding: "10.5px 14px 10.5px 12px",
     fontSize: "14px",
+    outline: 'none !important',
 
     "& :: focus-visible ": {
-      outline: `0px !important`,
+      outline: 'none !important',
     },
   },
 
   "input :focus-visible": {
-    outline: `0px !important`,
+    outline: 'none !important',
   }
 }));
 

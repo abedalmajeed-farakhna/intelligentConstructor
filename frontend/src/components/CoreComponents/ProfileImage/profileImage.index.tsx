@@ -1,22 +1,20 @@
 import * as React from "react";
 
 import Avatar from "@mui/material/Avatar";
+import classNames from "classnames";
 
 import useStyles from "./profileImage.style";
 import { IProfileImageProps } from "./profileImage.type";
 
-const ProfileImage: React.FC<IProfileImageProps> = ({ path }) => {
+const ProfileImage: React.FC<IProfileImageProps> = ({ path, className }) => {
+  console.log(path,"path")
   const classes = useStyles();
   return (
     <>
       {path && path !== "" ? (
-               <img
-               className={classes.root}
-               src={`/Upload/${path}`}
-               alt="profile pic"
-               width="32px"
-               height="32px"
-             />
+              <div  className={classNames(classes.imageContainer,className)} style={{ backgroundImage: `URL(${`/Upload/${path}`})` }}/>
+
+              
       ) : (
         <Avatar sx={{ width: 32, height: 32 }} />
       )}

@@ -7,7 +7,9 @@ display:"flex",
   main:{
     width:  `calc(100% - ${200}px)` ,
     flexGrow:1,
-    margin:20
+    margin:20,
+    paddingTop:'30px',
+    minHeight:"100vh"
 
   }
 }));

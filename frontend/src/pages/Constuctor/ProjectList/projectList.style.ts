@@ -33,11 +33,15 @@ tableICon:{
   alignItems: 'center',
   justifyContent: 'center',
   '& svg':{
-    fontSize:'15px'
+    fontSize:'15px',
+    marginRight:'2px'
   }
 },
 viewICon:{
   color:theme.colors.doneColor
+},
+editIcon:{
+  color:theme.colors.primary
 }
 }));
 

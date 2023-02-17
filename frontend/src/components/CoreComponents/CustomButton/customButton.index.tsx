@@ -9,7 +9,7 @@ const CustomButton: React.FC<ICustomButtonProps> = ({ text, icon ,disabled,class
   const classes = useStyles();
 
   return (
-    <Button className={classNames(classes.root,className,disabled&&classes.disabled)} startIcon={icon} type="submit" onClick={onClick} disabled={disabled}>
+    <Button   className={classNames(classes.root,className,disabled&&classes.disabled)} startIcon={icon} type="submit" onClick={onClick} disabled={disabled}>
       {text} 
     </Button>
   );

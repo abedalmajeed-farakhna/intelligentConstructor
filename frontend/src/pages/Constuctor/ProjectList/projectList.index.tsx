@@ -11,6 +11,7 @@ import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump
 import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
 import { useNavigate } from "react-router-dom";
 import ViewIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/ModeEdit';
 
 
 const ProjectList: React.FC<IProjectListProps> = ({}) => {
@@ -45,6 +46,55 @@ const ProjectList: React.FC<IProjectListProps> = ({}) => {
       ),
     },
     {
+      field: "Electrician",
+      headerName: "Electrician",
+      width: 120,
+      renderCell: (params) => (
+        <div> test</div>
+      ),
+    },
+    {
+      field: "Plumber",
+      headerName: "Plumber",
+      width: 120,
+      renderCell: (params) => (
+        <div> test 02</div>
+      ),
+    },
+    {
+      field: "Builder",
+      headerName: "Builder",
+      width: 120,
+      renderCell: (params) => (
+        <div> test 02</div>
+      ),
+    },
+    {
+      field: "Tiler",
+      headerName: "Tiler",
+      width: 120,
+      renderCell: (params) => (
+        <div> test 02</div>
+      ),
+    },
+    {
+      field: "carpenter",
+      headerName: "carpenter",
+      width: 120,
+      renderCell: (params) => (
+        <div> test 02</div>
+      ),
+    },
+    {
+      field: "hous painter",
+      headerName: "hous painter",
+      width: 120,
+      renderCell: (params) => (
+        <div> test 02</div>
+      ),
+    },
+   
+    {
       field: "action",
       headerName: "Actions",
       filterable: false,
@@ -52,11 +102,11 @@ const ProjectList: React.FC<IProjectListProps> = ({}) => {
       width: 150,
       renderCell: (params) => (
         <>
-        <div className={classes.tableICon}>
-        <ViewIcon className={classes.viewICon} onClick={()=>showProjectDetails(params.row.id)} />
+        <div className={classes.tableICon}  onClick={()=>showProjectDetails(params.row.id)}>
+        <ViewIcon className={classes.viewICon} /> view
       </div>
-       <div className={classes.tableICon}>
-       <ViewIcon className={classes.viewICon} onClick={()=>editProjectDetails(params.row.id)} /> edit 
+       <div className={classes.tableICon} onClick={()=>editProjectDetails(params.row.id)}>
+       <EditIcon className={classes.editIcon}  /> edit 
      </div>
      </>
       ),

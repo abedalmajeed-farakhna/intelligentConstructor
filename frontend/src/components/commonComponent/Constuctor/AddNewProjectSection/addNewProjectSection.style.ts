@@ -29,6 +29,16 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
   },
   checked:{
     backgroundColor:theme.colors.primary,
+  },
+  blockTitle:{
+    color:'black',
+    fontSize:20,
+    fontWeight:'bold',
+    marginBottom:'15px'
+  },
+  customBlock:{
+    boxShadow: 'rgb(0 0 0 / 15%) 0px 2px 8px !important',
+    marginBottom:'30px'
   }
 }));
 

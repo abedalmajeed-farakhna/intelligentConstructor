@@ -1,6 +1,7 @@
 export interface IFileUploaderProps {
   onChange: (data: string[]) => void;
-  customClassName?:any
+  customClassName?:any;
+  label:string
 }
 
 export interface IFileProps {

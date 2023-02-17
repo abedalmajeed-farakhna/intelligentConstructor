@@ -15,12 +15,16 @@ import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import CustomButton from "../../../CoreComponents/CustomButton/customButton.index";
 import { showSuccessPopup } from "../../../../utils/projectUtils";
 import Loading from "../../../CoreComponents/Loading/loading.index";
+import ProjectStatus from "../../../CoreComponents/ProjectStatus/projectStatus.index";
+import { ProjectStatusEnum } from "../../../../enums/projectStatusEnum";
+import ProfileImage from "../../../CoreComponents/ProfileImage/profileImage.index";
 
 const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
   values,
   selectedUser,
   editable,
-  sector
+  sector,
+  projectStatus
 }) => {
   // we will read it from the backend
   const classes = useStyles();
@@ -45,18 +49,12 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
 
     {
       field: "profileImage",
-      headerName: "ProfileImage",
+      headerName: "",
       width: 70,
       filterable: false,
       sortable: false,
-      renderCell: (params) => (
-        <div className={classes.imageContainer}>
-          <img
-            className={classes.image}
-            src={`/Upload/${params.row.profileImage}`}
-          />
-        </div>
-      ),
+      renderCell: (params) => (<ProfileImage path={params.row.profileImage}/>   )
+
     },
     {
       field: "username",
@@ -137,19 +135,37 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
 
   return (
     <div role="group" aria-labelledby="my-radio-group02">
-    <RadioGroup  onChange={handleRadioChange}
-      aria-labelledby="demo-radio-buttons-group-label"
-      defaultValue={value}
-      name="radio-buttons-group"
-    >
-      suggested:{rowsData[0].fullName}   
-      
-    
-
- {isEditable &&     <div> <CustomButton text={" Send Request"}  onClick={sendRequest}/></div>}
-      <CustomDataGrid columns={columns} rows={rowsData} />
-    </RadioGroup>
-  </div>
+      <RadioGroup
+        onChange={handleRadioChange}
+        aria-labelledby="demo-radio-buttons-group-label"
+        defaultValue={value}
+        name="radio-buttons-group"
+      >
+        <div className={classes.headerSection} title={(projectStatus  == undefined) ?"":" you cant send request unles the  constartuct on the previous request approves the request"}>
+        {(projectStatus  == undefined|| isEditable) && (
+            <CustomButton
+            disabled={isEditable}
+              className={classes.sendRequest}
+              text={" Send Request"}
+              onClick={sendRequest}
+            />
+          )}
+          
+          {projectStatus === ProjectStatusEnum.Pending && (
+                <CustomButton
+                  text={" Cancel Request"}
+                  className={classes.sendRequest}
+                  onClick={sendRequest}
+                />
+              )}
+          <ProjectStatus projectStatus={projectStatus} />
+        </div>
+        <div className={classes.suggestionOption}>
+          suggested: <span>{rowsData[0]?.fullName}</span>{" "}
+        </div>
+        <CustomDataGrid columns={columns} rows={rowsData} />
+      </RadioGroup>
+    </div>
   );
 };
 export default TopRatedCraftsman;

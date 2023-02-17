@@ -25,9 +25,8 @@ const ImageGallery: React.FC<IImageGalleryProps> = ({
 
   const [data, setData] = useState<undefined | IImageGalleryListProps[]>(list);
   useEffect(() => {
-    console.log(reloadData,"reloadData")
-      getImageList();
-    
+    console.log(reloadData, "reloadData");
+    getImageList();
   }, [reloadData]);
   useEffect(() => {
     if (!list) {
@@ -36,10 +35,12 @@ const ImageGallery: React.FC<IImageGalleryProps> = ({
   }, []);
 
   const getImageList = () => {
-    axios.get(`/Craftsman/GetImageList?requestId=${requestId}&userId=${userId}`).then((res) => {
-      console.log(res, "res");
-      setData(res.data);
-    });
+    axios
+      .get(`/Craftsman/GetImageList?requestId=${requestId}&userId=${userId}`)
+      .then((res) => {
+        console.log(res, "res");
+        setData(res.data);
+      });
   };
 
   const deleteImage = (id) => {
@@ -54,33 +55,50 @@ const ImageGallery: React.FC<IImageGalleryProps> = ({
       getImageList();
     });
   };
-  if (data?.length == 0) return <div > </div>;//No image
+  if (data?.length == 0) return <div> </div>; //No image
 
   return (
     <>
+      <div className={classes.myProjects}>
       {data?.map((element, key) => (
-        <div>
-          <h1> {element.title} {isEditable && 
-          <CustomButton  onClick={() => deleteSection(element.id)} text={"delete section"}/>}</h1>
+        <div className={classes.projectItem}>
+          <div className={classes.projectHead}>
+            <div className={classes.projectTitle}> {element.title} </div>
+            <div className={classes.projectDelete}>
+              {" "}
+              {isEditable && (
+                <CustomButton
+                  onClick={() => deleteSection(element.id)}
+                  text={"delete section"}
+                />
+              )}
+            </div>
+          </div>
 
-          <Grid container spacing={2}>
+          <Grid container className={classes.albumImages}>
             {element.imageList.map((item) => (
               <Grid className={classes.imageListItem}>
                 <img
                   className={classes.image}
-                  width={50}
-                  height={50}
+                  width={160}
+                  height={120}
                   src={`/Upload/ImageGallery/${item.imageName}`}
                   srcSet={`/Upload/ImageGallery/${item.imageName}`}
                   alt={""}
                   loading="lazy"
                 />
-              {isEditable &&    <CustomButton  onClick={() => deleteImage(item.id)} text={"delete image"}/>}
+                {isEditable && (
+                  <CustomButton className={classes.deleteImg}
+                    onClick={() => deleteImage(item.id)}
+                    text={"x"}
+                  />
+                )}
               </Grid>
             ))}
           </Grid>
         </div>
       ))}
+      </div>
     </>
   );
 };

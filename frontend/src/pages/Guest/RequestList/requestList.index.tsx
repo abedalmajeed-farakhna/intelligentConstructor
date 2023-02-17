@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import AlertDialog from "../../../components/CoreComponents/AlertDialog/alertDialog.index";
 import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
+import ProfileImage from "../../../components/CoreComponents/ProfileImage/profileImage.index";
 
 const RequestList: React.FC<IRequestListProps> = ({}) => {
   const classes = useStyles();
@@ -32,14 +33,7 @@ const RequestList: React.FC<IRequestListProps> = ({}) => {
       width: 70,
       filterable: false,
       sortable: false,
-      renderCell: (params) => (
-        <div className={classes.imageContainer}>
-          <img
-            className={classes.image}
-            src={`/Upload/${params.row.toProfileImage}`}
-          />
-        </div>
-      ),
+      renderCell: (params) => <ProfileImage path={params.row.toProfileImage} />,
     },
 
     { field: "toFullName", headerName: "Full Name", width: 190 },

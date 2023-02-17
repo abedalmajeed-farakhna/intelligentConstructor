@@ -7,7 +7,7 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
   },
   circleIcon:{
     fontSize:'10px !important',
-    marginRight:'10px'
+    marginRight:'6px'
   },
   cancel:{
     color:theme.colors.error

@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
@@ -24,7 +24,8 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
   const [regionList, setRegionList] = useState([]);
   const [reloadData, setReloadData] = useState<boolean>(false);
   const [imageList, setImageList] = useState<string[]>([]);
-  const [showUploadImageModal, setShowUploadImageModal] = useState<boolean>(false);
+  const [showUploadImageModal, setShowUploadImageModal] =
+    useState<boolean>(false);
 
   const user: IUser = useSelector((state: IApplicationState) => state.user);
   const [initialValues, setInitialValues] = useState({
@@ -122,8 +123,6 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
     setShowUploadImageModal(false);
   };
 
-
-
   const getImageList = () => {
     axios.get(`/Region/GetRegionList`).then((res) => {
       setRegionList(res.data);
@@ -134,89 +133,111 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
 
   return (
     <div>
-      {showUploadImageModal && (
-        <CraftsmanUploadImageModal
-          hideUploadImageModal={hideUploadImageModal}
-          requestId={0}
-        />
-      )}
-      <ProfileImageUpload
-        type={"image/*"}
-        onChange={(path) => handleOnChangeImage(path)}
-        defaultImage={imagePath}
-      />
-      <label> {initialValues.userName}</label>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(values) => {
-          // same shape as initial values
-          onHandleSubmit(values);
-        }}
-      >
-        {({ errors, touched }) => (
-          <Form>
-            <Box className={classes.root}>
-              <TextInput
-                name="fullName"
-                placeholder="full Name"
-                type="string"
-                error={touched.fullName && errors.fullName}
-                label="Full Name"
+      <Grid container className={classes.root}>
+        <Grid xs={4}>
+          <div className={classes.blockCenter}>
+            {showUploadImageModal && (
+              <CraftsmanUploadImageModal
+                hideUploadImageModal={hideUploadImageModal}
+                requestId={0}
               />
-              <TextInput
-                name="phoneNumber"
-                placeholder="Phone Number"
-                type="string"
-                error={touched.phoneNumber && errors.phoneNumber}
-                label="Phone Number"
-              />
+            )}
+            <ProfileImageUpload
+              type={"image/*"}
+              onChange={(path) => handleOnChangeImage(path)}
+              defaultImage={imagePath}
+            />
+            <label> {initialValues.userName}</label>
+          </div>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+              // same shape as initial values
+              onHandleSubmit(values);
+            }}
+          >
+            {({ errors, touched }) => (
+              <Form className={classes.customForm}>
+                <Box className={classes.formRoot}>
+                  <div className={classes.formField}>
+                    <TextInput
+                      name="fullName"
+                      placeholder="full Name"
+                      type="string"
+                      error={touched.fullName && errors.fullName}
+                      label="Full Name"
+                    />
+                  </div>
+                  <div className={classes.formField}>
+                    <TextInput
+                      name="phoneNumber"
+                      placeholder="Phone Number"
+                      type="string"
+                      error={touched.phoneNumber && errors.phoneNumber}
+                      label="Phone Number"
+                    />
+                  </div>
+                  <div className={classes.formField}>
+                    <TextInput
+                      name="speed"
+                      placeholder="speed"
+                      type="number"
+                      label="speed"
+                      error={touched.speed && errors.speed}
+                    />
+                  </div>
+                  <div className={classes.formField}>
+                    <SelectInput
+                      label="Region"
+                      name={"region"}
+                      options={regionList}
+                      keyName={"id"}
+                    />
+                  </div>
 
-              <TextInput
-                name="speed"
-                placeholder="speed"
-                type="number"
-                label="speed"
-                error={touched.speed && errors.speed}
-              />
-              <SelectInput
-                label="Region"
-                name={"region"}
-                options={regionList}
-                keyName={"id"}
-              />
+                  <div className={classes.formField}>
+                    <SelectInput
+                      label="sector"
+                      name="sector"
+                      options={[
+                        { name: "NONE", value: sectorEnum.NONE },
+                        { name: "Builder", value: sectorEnum.Builder },
+                        { name: "Tiler", value: sectorEnum.Tiler },
+                        {
+                          name: "HousePainter",
+                          value: sectorEnum.HousePainter,
+                        },
+                        { name: "Plumber", value: sectorEnum.Plumber },
+                        { name: "Electrician", value: sectorEnum.Electrician },
+                        { name: "Carpenter", value: sectorEnum.Carpenter },
+                      ]}
+                    />
+                  </div>
 
-              <SelectInput
-                label="sector"
-                name="sector"
-                options={[
-                  { name: "NONE", value: sectorEnum.NONE },
-                  { name: "Builder", value: sectorEnum.Builder },
-                  { name: "Tiler", value: sectorEnum.Tiler },
-                  { name: "HousePainter", value: sectorEnum.HousePainter },
-                  { name: "Plumber", value: sectorEnum.Plumber },
-                  { name: "Electrician", value: sectorEnum.Electrician },
-                  { name: "Carpenter", value: sectorEnum.Carpenter },
-                ]}
-              />
-              <TextInput
-                as="textarea"
-                name="note"
-                placeholder="note"
-                type="string"
-                error={touched.note && errors.note}
-                label="note"
-              />
-              <div>
-                <CustomButton text="upload" onClick={openUploadImageModal} />
-              </div>
-
-              <CustomButton text={"save"} />
-            </Box>
-          </Form>
-        )}
-      </Formik>
-      <ImageGallery reloadData={reloadData} isEditable={true}  />
+                  <div className={classes.formField}>
+                    <TextInput
+                      as="textarea"
+                      name="note"
+                      placeholder="note"
+                      type="string"
+                      error={touched.note && errors.note}
+                      label="note"
+                    />
+                  </div>
+                  <CustomButton text={"save"} className={classes.saveBtn} />
+                </Box>
+              </Form>
+            )}
+          </Formik>
+        </Grid>
+        <Grid xs={8}>
+          <div className={classes.addNewProject}>
+            <CustomButton text="Add New Project" onClick={openUploadImageModal} />
+          </div>
+          <ImageGallery reloadData={reloadData} isEditable={true} />
+        </Grid>
+      </Grid>
     </div>
   );
 };

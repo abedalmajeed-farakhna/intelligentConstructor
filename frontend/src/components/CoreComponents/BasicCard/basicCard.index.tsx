@@ -11,16 +11,11 @@ import React from "react";
 import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
 import { getProjectStatusDescription } from "../../../utils/enumDescriptions";
 import CustomRating from "../CustomRating/customRating.index";
+import ProjectStatus from "../ProjectStatus/projectStatus.index";
 import { IBasicCardProps } from "./basicCard.type";
+import useStyles from "./basicCard.style";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
 const BasicCard: React.FC<IBasicCardProps> = ({
   title,
   name,
@@ -31,23 +26,27 @@ const BasicCard: React.FC<IBasicCardProps> = ({
 }) => {
   console.log(expectedStart, "expectedStart");
   console.log(expectedEnd, "expectedEnd");
+  const classes = useStyles();
+
   return (
-    <Card sx={{ Width: 50 }}>
-      <CardContent>
-        <Typography variant="h5" component="div">
+    <Card sx={{ Width: 50 }} className={classes.boxShadow}>
+      <CardContent className={classes.rootw}>
+        <Typography className={classes.headItem} variant="h5" component="div">
           {title}{" "}
           <CustomRating
             value={ratingValue}
             disabled={status != ProjectStatusEnum.Done}
           />
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        <Typography sx={{ mb: 1}} color="text.secondary">
           {name}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {getProjectStatusDescription(status)}
+        <Typography sx={{ mb: 1 }} color="text.secondary">
+          <ProjectStatus projectStatus={status} />
+
         </Typography>
-        <Typography variant="body2">
+        <Typography variant="body2" className={classes.dateIem}>
+          <CalendarMonthIcon />
           {format(new Date(expectedStart), "yyyy-MM-dd")} -{" "}
           {format(new Date(expectedEnd), "yyyy-MM-dd")}
         </Typography>

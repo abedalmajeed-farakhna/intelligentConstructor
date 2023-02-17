@@ -10,14 +10,8 @@ const GuestDashboard: React.FC<any> = ({ children }) => {
     <Box className={classes.root}>
       <GuestSidebar />
 
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${200}px)` },
-        }}
-      >
+      <Box className={classes.main}>
+
         {children}
       </Box>
     </Box>

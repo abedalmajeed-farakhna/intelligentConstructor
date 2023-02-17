@@ -17,6 +17,7 @@ const PlumberStep: React.FC<IPlumberStepProps> = ({
         !currentDetails ||
         currentDetails.projectStatus == ProjectStatusEnum.Rejected
       }
+      projectStatus={ currentDetails?.projectStatus}
       sector={sectorEnum.Plumber}
     />
   );

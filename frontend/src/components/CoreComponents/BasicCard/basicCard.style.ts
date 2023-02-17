@@ -3,7 +3,32 @@ import { makeStyles } from "@mui/styles";
 
 const useStyle = makeStyles((theme: ThemeOptions) => ({
   root: {
-
+  },
+  headItem:{
+    display:'flex',
+    alignItems:'center',
+    justifyContent:'space-between',
+    marginBottom:'20px !important',
+    color:'black !important'
+  },
+  rootw:{
+    '& p':{
+      color:theme.colors.mainTextColor
+    }
+  },
+  dateIem:{
+    display:'flex',
+    alignItems:'center',
+    color:theme.colors.mainTextColor,
+    '& svg':{
+      fontSize: '15px !important',
+      marginRight: '6px',
+      color: '#4b4b4b',
+      marginTop: '-3px'
+    }
+  },
+  boxShadow:{
+    boxShadow: 'rgb(0 0 0 / 15%) 0px 2px 8px !important',
   }
 }));
 

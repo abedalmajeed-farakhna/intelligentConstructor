@@ -21,6 +21,9 @@ import CustomButton from "../../CoreComponents/CustomButton/customButton.index";
 import { showSuccessPopup } from "../../../utils/projectUtils";
 import Loading from "../../CoreComponents/Loading/loading.index";
 import { getProjectStatusDescription } from "../../../utils/enumDescriptions";
+import ProjectStatus from "../../CoreComponents/ProjectStatus/projectStatus.index";
+import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
+import ProfileImage from "../../CoreComponents/ProfileImage/profileImage.index";
 
 const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
   values,
@@ -57,18 +60,12 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
     },
 
     {
-      field: "profileImage",
+      field: "ProfileImage",
       headerName: "ProfileImage",
       width: 70,
       filterable: false,
       sortable: false,
-      renderCell: (params) => (
-        <div className={classes.imageContainer}>
-          <img
-            className={classes.image}
-            src={`/Upload/${params.row.profileImage}`}
-          />
-        </div>
+      renderCell: (params) => (<ProfileImage path={params.row.profileImage}/>   
       ),
     },
     {
@@ -187,7 +184,7 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
   if (isLoading) return <Loading />;
 
   if (!values.startDate) return <div> error</div>;
-
+console.log(projectStatus,"projectStatus")
   return (
     <div role="group" aria-labelledby="my-radio-group02">
       <RadioGroup
@@ -196,18 +193,35 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
         defaultValue={value}
         name="radio-buttons-group"
       >
-        suggested:{rowsData[0].fullName}
-        <div>expectedTime: {timeLine[sectionName]?.expectedTime}</div>
-        {projectStatus != undefined && (
-          <div>
-            request Status:{getProjectStatusDescription(projectStatus)}{" "}
-          </div>
-        )}
-        {isEditable && (
-          <div>
-            <CustomButton text={" Send Request"} onClick={sendRequest} />
-          </div>
-        )}
+        <div className={classes.headerSection}>
+          {
+            <>
+              {(projectStatus  == undefined|| isEditable) && (
+                <CustomButton
+                  disabled={!isEditable}
+                  text={" Send Request"}
+                  className={classes.sendRequest}
+                  onClick={sendRequest}
+                />
+              )}
+
+              {projectStatus === ProjectStatusEnum.Pending && (
+                <CustomButton
+                  text={" Cancel Request"}
+                  className={classes.sendRequest}
+                  onClick={sendRequest}
+                />
+              )}
+
+              <ProjectStatus projectStatus={projectStatus} />
+            </>
+          }
+        </div>
+        <div className={classes.suggestionOption}>
+          suggested:{rowsData[0]?.fullName}
+        </div>
+        {/*  <div>expectedTime: {timeLine[sectionName]?.expectedTime}</div>*/}
+
         <CustomDataGrid columns={columns} rows={rowsData} />
       </RadioGroup>
     </div>

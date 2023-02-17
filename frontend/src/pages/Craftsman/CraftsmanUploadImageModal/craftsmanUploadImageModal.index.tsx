@@ -11,11 +11,16 @@ import { showSuccessPopup } from "../../../utils/projectUtils";
 
 import useStyles from "./craftsmanUploadImageModal.style";
 import { ICraftsmanUploadImageModalProps } from "./craftsmanUploadImageModal.type";
-import { CraftsmanUploadImageModalInitialValues, CraftsmanUploadImageModalSchema} from "./craftsmanUploadImageModal.utils";
+import {
+  CraftsmanUploadImageModalInitialValues,
+  CraftsmanUploadImageModalSchema,
+} from "./craftsmanUploadImageModal.utils";
 import ErrorMessage from "../../../components/CoreComponents/Alerts/Error/errorMessage.index";
 
-const CraftsmanUploadImageModal: React.FC<ICraftsmanUploadImageModalProps> = ({ requestId,hideUploadImageModal}) => {
-  
+const CraftsmanUploadImageModal: React.FC<ICraftsmanUploadImageModalProps> = ({
+  requestId,
+  hideUploadImageModal,
+}) => {
   const classes = useStyles();
   const [imageList, setImageList] = useState<string[]>([]);
   const [error, setError] = useState<string>("");
@@ -46,11 +51,11 @@ const CraftsmanUploadImageModal: React.FC<ICraftsmanUploadImageModalProps> = ({ 
       imageList: imageList,
       requestId: requestId,
     };
-    if(imageList.length ==0){
+    if (imageList.length == 0) {
       setError("you must upload at least one image");
       return;
     }
-    console.log(imageList,"imageList")
+    console.log(imageList, "imageList");
     axios.post(`/Craftsman/AddImageForSpecificRequest`, data).then((res) => {
       if (res.data) {
         hideUploadImageModal();
@@ -63,7 +68,7 @@ const CraftsmanUploadImageModal: React.FC<ICraftsmanUploadImageModalProps> = ({ 
     <FormDialog
       customClassName={classes.majeedpopup}
       //  customClassName={classes.majeedpopup}
-      title={"Upload Image"}
+      title={"Add New Project"}
       isOpen={true}
       onClose={hideUploadImageModal}
     >
@@ -76,23 +81,30 @@ const CraftsmanUploadImageModal: React.FC<ICraftsmanUploadImageModalProps> = ({ 
         }}
       >
         {({ errors, touched }) => (
-          <Form>
+          <Form className={classes.customForm}>
             <DialogContent>
-              <TextInput
-                name="title"
-                placeholder="title"
-                type="string"
-                error={touched.title && errors.title}
-                label="title"
-              />
-              <FileUploader
-                customClassName={classes.fileUploader}
-                onChange={(data) => handleUploadImages(data)}
-              />
-              <ErrorMessage error= {error}/>
+              <div className={classes.formField}>
+                <TextInput
+                  name="title"
+                  placeholder="title"
+                  type="string"
+                  error={touched.title && errors.title}
+                  label="title"
+                />
+              </div>
+              <div className={classes.formField}>
+                
+                <FileUploader
+                label="Add Your Images"
+                  customClassName={classes.fileUploader}
+                  onChange={(data) => handleUploadImages(data)}
+                />
+              </div>
+
+              <ErrorMessage error={error} />
             </DialogContent>
-            <DialogActions>
-              <CustomButton text={"upload"} />
+            <DialogActions className={classes.addBtn}>
+              <CustomButton text={"add"} />
             </DialogActions>
           </Form>
         )}

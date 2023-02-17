@@ -52,12 +52,12 @@ const AddProjectCraftsmanPage: React.FC<any> = ({}) => {
   console.log(timeLine, "timeLine");
   return (
     <div>
-      <AddNewProjectSection title={"Project Details"}>
-        <div>
-          <h3> name :{data.projectName}</h3>
-          <h3> startDate:{format(new Date(data.startDate), "yyyy-MM-dd")} </h3>
-          <h3> area : {data.space}</h3>
-          <h3> region:{data.region.name}</h3>
+      <AddNewProjectSection  title={"Project Details"}>
+        <div className={classes.projectDetailss}>
+          <div className={classes.projectDetailsItem}> Project Name: <span>{data.projectName}</span></div>
+          <div className={classes.projectDetailsItem}> startDate: <span>{format(new Date(data.startDate), "yyyy-MM-dd")}</span> </div>
+          <div className={classes.projectDetailsItem}> area: <span>{data.space}</span></div>
+          <div className={classes.projectDetailsItem}> region: <span>{data.region.name}</span></div>
         </div>
       </AddNewProjectSection>
       

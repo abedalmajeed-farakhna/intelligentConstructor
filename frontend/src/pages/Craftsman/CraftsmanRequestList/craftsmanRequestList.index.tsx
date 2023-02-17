@@ -40,11 +40,7 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
       sortable: false,
       filterable: false,
       width: 30,
-      renderCell: (params) => (
-        <div className={classes.imageContainer}>
-          <ProfileImage path={params.row.fromProfileImage} />
-        </div>
-      ),
+      renderCell: (params) => <ProfileImage path={params.row.fromProfileImage} />,
     },
     {
       field: "fromFullName",

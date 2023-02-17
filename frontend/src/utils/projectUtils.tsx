@@ -22,7 +22,7 @@ export const showSuccessPopup = (message?: string) => {
     title: message || "Done",
     icon: "success",
     timerProgressBar: true,
-    confirmButtonColor: "red",
+    confirmButtonColor: "#2196f3",
   });
 };
 

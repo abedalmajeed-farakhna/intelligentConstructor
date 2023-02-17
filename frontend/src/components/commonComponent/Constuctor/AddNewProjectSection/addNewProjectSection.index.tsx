@@ -20,12 +20,16 @@ const AddNewProjectSection: React.FC<IAddNewProjectSectionProps> = ({
   title,
   children
 }) => {
- 
+  const classes = useStyles();
+
 
   return (
-    <Card sx={{ Width: 50 }}>
+    <Card className={classes.customBlock} sx={{ Width: 50 }}>
       <CardContent>
-        <h1> {title}</h1>
+        <div>
+          <div className={classes.blockTitle}> {title}</div>
+          
+          </div>
         {children}
       </CardContent>
     </Card>
