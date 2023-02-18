@@ -34,12 +34,13 @@ const App = () => {
             index
             element={
               <RedirectToHome>
-                <Main />
+                <Login />
               </RedirectToHome>
             }
           />
 
           <Route
+          index
             path={PATH_NAMES.LOGIN}
             element={
               <RedirectToHome>

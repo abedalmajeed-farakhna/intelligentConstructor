@@ -28,7 +28,7 @@ const RequestDetails: React.FC<IRequestDetailsProps> = ({}) => {
   const requestId = getIdFromLocationPath();
   const user: IUser = useSelector((state: IApplicationState) => state.user);
 
-console.log(user,"user")
+  console.log(user, "user");
   useEffect(() => {
     axios
       .get(`/Constructor/GetRequestDetailsById?requestId=${requestId}`)
@@ -39,40 +39,57 @@ console.log(user,"user")
 
   if (!data) return <Loading />;
   return (
-    <>
-      <BreadCrump current={"Request Details"}  linkList={[{ name: "Request List", link: PATH_NAMES.CRAFTSMAN_REQUEST_LISt }]}/>
+    < div className={classes.container}>
+      <BreadCrump
+        current={"Request Details"}
+        linkList={[
+          { name: "Request List", link: PATH_NAMES.CRAFTSMAN_REQUEST_LISt },
+        ]}
+      />
 
-      <div> description :{data.requestDescription}</div>
-      <div>
-        user Name :
-        {user.type === userTypeEnum.CONSTRUCTOR ? (
-          <CustomLink
-            path={`${PATH_NAMES.CRAFTSMAN_INFORMATION}/${data.toUserId}`}
-            text={data.toUserName}
+      <Grid container className={classes.root}>
+        <Grid xs={4}>
+          
+          <div className={classes.itemField}>
+            <span>user Name:</span>
+            {user.type === userTypeEnum.CONSTRUCTOR ? (
+              <CustomLink
+                path={`${PATH_NAMES.CRAFTSMAN_INFORMATION}/${data.toUserId}`}
+                text={data.toUserName}
+              />
+            ) : (
+              data.toUserName
+            )}
+          </div>
+          <div className={classes.itemField}>
+            <span>Start Date:</span>{format(new Date(data.startDate), "yyyy-MM-dd")}
+          </div>
+          <div className={classes.itemField}>
+            <span>status:</span> <ProjectStatus projectStatus={data.requestStatus} />
+          </div>
+      
+          {data.projectId && (
+            <div className={classes.itemField}>
+             <span>project:</span>
+              {
+                <CustomLink
+                  path={`${PATH_NAMES.PROJECT_DETAILS}/${data.projectId}`}
+                  text={data.projectName ?? ""}
+                />
+              }
+            </div>
+          )}
+          <div className={classes.itemField}><span>description:</span> {data.requestDescription}</div>
+        </Grid>
+        <Grid xs={8}>
+          <ImageGallery
+            requestId={requestId}
+            list={data?.imageGalleryList}
+            isEditable={user.type === userTypeEnum.CRAFTSMAN}
           />
-        ) : (
-          data.toUserName
-        )}
-      </div>
-      <div> Start Date :{format(new Date(data.startDate), "yyyy-MM-dd")}</div>
-      <div>
-        status : <ProjectStatus projectStatus={data.requestStatus} />
-      </div>
-      {data.projectId && (
-        <div>
-          project :
-          {
-            <CustomLink
-              path={`${PATH_NAMES.PROJECT_DETAILS}/${data.projectId}`}
-              text={data.projectName ?? ""}
-            />
-          }
-        </div>
-      )}
-
-      <ImageGallery  requestId={requestId} list={data?.imageGalleryList}  isEditable={user.type === userTypeEnum.CRAFTSMAN}  />
-        
-    </>
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 export default RequestDetails;

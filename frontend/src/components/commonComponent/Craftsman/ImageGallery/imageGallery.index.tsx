@@ -80,7 +80,7 @@ const ImageGallery: React.FC<IImageGalleryProps> = ({
               <Grid className={classes.imageListItem}>
                 <img
                   className={classes.image}
-                  width={160}
+                  width={152}
                   height={120}
                   src={`/Upload/ImageGallery/${item.imageName}`}
                   srcSet={`/Upload/ImageGallery/${item.imageName}`}

@@ -13,6 +13,13 @@ const useStyle = makeStyles((theme) => ({
     marginRight: "1em",
     textDecoration: "none",
   },
+  navbar:{
+    boxShadow: `0 5px 20px -5px rgb(0 0 0 / 7%) !important`,
+   backgroundColor:"white !important"
+  },
+  homeIcon:{
+    color:'black'
+  }
 }));
 
 export default useStyle;

@@ -19,14 +19,17 @@ import CustomLink from "../../../components/CoreComponents/CustomLink/customLink
 import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
 import ErrorMessage from "../../../components/CoreComponents/Alerts/Error/errorMessage.index";
 import Navbar from "../../../components/CoreComponents/Navbar/navbar.index";
+import useStyles from "./login.style";
 
 const Login: React.FC<any> = ({}) => {
+  const classes = useStyles();
+
   const [error, setError] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
 
   const onHandleSubmit = (values) => {
-    console.log(values,"values")
+    console.log(values, "values");
     axios.post(`/Account/Login`, values).then((res) => {
       const data = res.data;
       if (data.isAuthontecated) {
@@ -47,7 +50,7 @@ const Login: React.FC<any> = ({}) => {
   };
 
   return (
-    <Box>
+    <div className={classes.root}>
       <Navbar />
       <Container
         sx={{
@@ -67,25 +70,12 @@ const Login: React.FC<any> = ({}) => {
         >
           {({ errors, touched }) => (
             <Form>
-              <Box
-                sx={{
-                  margin: "1em 0",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  boxShadow: "0 0 3px #023047",
-                  gap: "1em",
-                  padding: "1em",
-                  minWidth: "600px",
-                  borderRadius: "5px",
-                }}
-              >
+              <div className={classes.root}>
                 <Box sx={{ textAlign: "center" }}>
                   <Box
+                    className={classes.profileIcon}
                     sx={{
-                      padding: "1em",
                       borderRadius: "50%",
-                      border: "1px solid #757ce8",
                     }}
                   >
                     <Person />
@@ -109,24 +99,24 @@ const Login: React.FC<any> = ({}) => {
                   label="Password"
                 />
 
-               
-
-
-              <CustomButton icon={<LoginIcon />} text={"Login"}  />
-                    <ErrorMessage error={error}/>
+                <CustomButton icon={<LoginIcon />} text={"Login"} />
+                <ErrorMessage error={error} />
                 <Box>
                   <Typography>
                     Does not hava an account{" "}
-                    
-                    <CustomLink path={PATH_NAMES.SIGNUP} text={"Sign up"}                    />
+                    <CustomLink
+                      className={classes.signUp}
+                      path={PATH_NAMES.SIGNUP}
+                      text={"Sign up"}
+                    />
                   </Typography>
                 </Box>
-              </Box>
+              </div>
             </Form>
           )}
         </Formik>
       </Container>
-    </Box>
+    </div>
   );
 };
 

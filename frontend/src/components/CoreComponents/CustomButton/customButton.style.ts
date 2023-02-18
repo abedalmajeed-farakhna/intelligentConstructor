@@ -8,6 +8,10 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
     width: 300,
     boxShadow: " none",
     fontWeight: "400",
+    textTransform:"capitalize",
+    '&.MuiButton-root':{
+      textTransform:"capitalize !important",
+    }
   },
   disabled:{
     background:`${theme.colors.gray3} !important`,

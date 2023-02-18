@@ -1,6 +1,6 @@
 import { Home } from "@mui/icons-material";
 import useStyles from "./style";
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, colors, Toolbar, Typography } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import React from "react";
 
@@ -10,23 +10,13 @@ const Navbar = () => {
   const classes = useStyles();
 
   return (
-    <AppBar sx={{ background: currentUrl != "/" ? "" : "transparent" }}>
+    <AppBar  className={classes.navbar}>
       <Toolbar className={classes.toolbar}>
-        <Typography>LOGO</Typography>
+      <img src={  `images/logo.png`}/>
         <Box>
           {currentUrl != "/" && (
             <Link className={classes.link} to="/">
-              <Home />
-            </Link>
-          )}
-          {currentUrl == "/" && (
-            <Link className={classes.link} to="/login">
-              Login
-            </Link>
-          )}
-          {currentUrl == "/" && (
-            <Link className={classes.link} to="/signup">
-              Sign up
+              <Home  className={classes.homeIcon}/>
             </Link>
           )}
         </Box>

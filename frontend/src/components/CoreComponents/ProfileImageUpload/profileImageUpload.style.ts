@@ -15,6 +15,7 @@ const useStyle = makeStyles((theme) => ({
     border: "2px solid #fff",
     backgroundSize: "cover",
     marginBottom:'20px',
+    backgroundPosition:'center'
   },
   image: {
     width: 170,
@@ -24,7 +25,7 @@ const useStyle = makeStyles((theme) => ({
     position: 'absolute',
     zIndex: "3",
     left: "20px",
-    bottom: "10px",
+    bottom: "15px",
     borderRadius: "50%",
     backgroundColor: "#e4e6eb !important",
     padding: "6px",

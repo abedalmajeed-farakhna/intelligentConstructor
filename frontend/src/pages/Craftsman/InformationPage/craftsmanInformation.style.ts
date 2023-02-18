@@ -21,6 +21,7 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
     },
   },
   customForm: {
+    marginTop:20,
     "& label": {
       color: "black",
       textTransform: "capitalize",

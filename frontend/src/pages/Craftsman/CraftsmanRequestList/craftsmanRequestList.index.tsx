@@ -19,6 +19,8 @@ import { PATH_NAMES } from "../../../constants/route";
 
 import useStyles from "./craftsmanRequestList.style";
 import { ICraftsmanRequestListProps } from "./craftsmanRequestList.type";
+import ProjectStatus from "../../../components/CoreComponents/ProjectStatus/projectStatus.index";
+
 
 
 const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
@@ -40,7 +42,9 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
       sortable: false,
       filterable: false,
       width: 30,
-      renderCell: (params) => <ProfileImage path={params.row.fromProfileImage} />,
+      renderCell: (params) => (
+        <ProfileImage path={params.row.fromProfileImage} />
+      ),
     },
     {
       field: "fromFullName",
@@ -57,13 +61,6 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
         <CustomRating value={params.row.rating} readOnly={true} />
       ),
     },
-
-    {
-      field: "requestDescription",
-      headerName: "Description",
-      width: 100,
-    },
-
     {
       field: "endDate",
       headerName: "End Date",
@@ -87,46 +84,46 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
       headerName: "Status", // to be removed
       width: 150,
       renderCell: (params) => (
-        <div> {getProjectStatusDescription(params.row.requestStatus)}</div>
+       <ProjectStatus projectStatus={params.row.requestStatus}/>
       ),
     },
     {
-      field: "Actions",
-      width: 100,
+      field: "upload",
+      headerName: "Status", // to be removed
+      width: 150,
       renderCell: (params) => (
-        <CraftsmanAction
-          requestStatus={params.row.requestStatus}
-          id={params.row.id}
-        />
-      ),
-    },
-    {
-      field: "uploadImage",
-      width: 120,
-      renderCell: (params) => (
-        params.row.requestStatus,
-        (
-          <CustomButton
-            text="upload"
-            //   requestStatus= {params.row.requestStatus}
-            disabled={
-              params.row.requestStatus != ProjectStatusEnum.Done &&
-              params.row.requestStatus != ProjectStatusEnum.Inprogres
-            }
-            onClick={() => openUploadImageModal(params.row.id)}
-          />
-        )
+        
+        <CustomButton  className={classes.uploadBtn}
+        text="upload"
+        //   requestStatus= {params.row.requestStatus}
+        disabled={
+          params.row.requestStatus != ProjectStatusEnum.Done &&
+          params.row.requestStatus != ProjectStatusEnum.Inprogres
+        }/>
+         
       ),
     },
 
+  
     {
-      field:"",
-      headerName:"Actions",
-      width:120,
-      renderCell :(params)=>(<div className={classes.tableICon}>
-        <ViewIcon className={classes.viewICon} onClick={()=>showRequestDetails(params.row.id)} />
-      </div>)
-    }
+      field: "#",
+      headerName: "Actions",
+      width: 250,
+      renderCell: (params) => (
+        <>
+          <CraftsmanAction
+            requestStatus={params.row.requestStatus}
+            id={params.row.id}
+          />
+         
+         
+        
+          <div className={classes.tableICon}  onClick={() => showRequestDetails(params.row.id)}>
+            <ViewIcon  className={classes.viewICon} /> View
+          </div>
+        </>
+      ),
+    },
   ];
   
   useEffect(() => {

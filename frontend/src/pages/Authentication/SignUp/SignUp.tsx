@@ -15,6 +15,7 @@ import Navbar from "../../../components/CoreComponents/Navbar/navbar.index";
 import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
 import { IUser } from "../../../types/types";
 import { setUser } from "../../../reducers/reducers/userReducer";
+import useStyles from "./signUp.style";
 
 
 import { signUpInitialValues, signUpSchema } from "./signUp.utils";
@@ -22,6 +23,8 @@ import { signUpInitialValues, signUpSchema } from "./signUp.utils";
 const SignUp: React.FC<any> = ({}) => {
   const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
+  const classes = useStyles();
+
 
   const onHandleSubmit = (values) => {
     let data = {
@@ -60,7 +63,6 @@ const SignUp: React.FC<any> = ({}) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
         }}
       >
         <Formik
@@ -73,25 +75,12 @@ const SignUp: React.FC<any> = ({}) => {
         >
           {({ errors, touched }) => (
             <Form>
-              <Box
-                sx={{
-                  margin: "1em 0",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  boxShadow: "0 0 3px #023047",
-                  gap: "1em",
-                  padding: "1em",
-                  minWidth: "600px",
-                  borderRadius: "5px",
-                }}
+              <div className={classes.root}
               >
                 <Box sx={{ textAlign: "center" }}>
-                  <Box
+                  <Box className={classes.profileIcon}
                     sx={{
-                      padding: "1em",
                       borderRadius: "50%",
-                      border: "1px solid #757ce8",
                     }}
                   >
                     <Person />
@@ -136,7 +125,9 @@ const SignUp: React.FC<any> = ({}) => {
                   error={touched.phoneNumber && errors.phoneNumber}
                   label="Phone Number"
                 />
+
                 <SelectInput
+                 label="user type"
                   name="userType"
                   options={[
                     { name: "Constructor", value: userTypeEnum.CONSTRUCTOR },
@@ -148,10 +139,10 @@ const SignUp: React.FC<any> = ({}) => {
                 <Box>
                   <Typography>
                     Already have an account
-                    <CustomLink path={PATH_NAMES.LOGIN} text={"Login"} />
+                    <CustomLink className={classes.login} path={PATH_NAMES.LOGIN} text={"Login"} />
                   </Typography>
                 </Box>
-              </Box>
+              </div>
             </Form>
           )}
         </Formik>

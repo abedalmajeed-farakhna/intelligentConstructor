@@ -43,7 +43,14 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
   }
 },
 viewICon:{
-  color:theme.colors.doneColor
+  color:theme.colors.doneColor,
+  marginRight:'3px'
+},
+uploadBtn:{
+  width:'75px',
+  fontSize: '13px !important',
+  textTransform: 'capitalize',
+  padding: '3px !important',
 }
 }));
 

@@ -10,10 +10,16 @@ import AddReactionIcon from '@mui/icons-material/AddReaction';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import OfflinePinIcon from '@mui/icons-material/OfflinePin';
 import { Done } from "@mui/icons-material";
+import useStyles from "./craftsmanAction.style";
+import HourglassTopIcon from '@mui/icons-material/HourglassTop';
+
 const CraftsmanAction: React.FC<ICraftsmanActionProps> = ({
   requestStatus,
-  id,
+  id
 }) => {
+
+  const classes = useStyles();
+
   const [currentRequestStatus, setCurrentRequestStatus] =
     useState(requestStatus);
 
@@ -53,39 +59,36 @@ const CraftsmanAction: React.FC<ICraftsmanActionProps> = ({
     case ProjectStatusEnum.Pending:
       return (
         <>
-          <CustomIconButton
-            handleOnClick={acceptRequest}
-            title={"Accept"}
-            icon={<CheckCircleIcon color="success" />}
-          />
-          <CustomIconButton
-            handleOnClick={reject}
-            title={"Reject"}
-            icon={<CancelIcon color="error" />}
-          />
+          <div className={classes.tableICon} onClick={acceptRequest}>
+            <CheckCircleIcon color="success" className={classes.icon} /> Accept
+          </div>
+          <div className={classes.tableICon} onClick={reject}>
+            <CancelIcon   className={classes.icon} color="error" /> Reject
+          </div>
         </>
       );
 
     case ProjectStatusEnum.Aproved:
       return (
-        <CustomIconButton
-          handleOnClick={inProgress}
-          title={"Start Progress"}
-          icon={<AddReactionIcon color="primary" />}
-        />
+        <div className={classes.tableICon} onClick={inProgress}>
+            <HourglassTopIcon color="primary" className={classes.icon} />
+          Start working
+        </div>
       );
-    case ProjectStatusEnum.Rejected:
+   /* case ProjectStatusEnum.Rejected:
       return <> Rejected</>;
+*/
+    case ProjectStatusEnum.Inprogres:
+      return (
+        <div className={classes.tableICon} onClick={doneWorking}>
 
-      case ProjectStatusEnum.Inprogres:
-        return  <CustomIconButton
-        handleOnClick={doneWorking}
-        title={"Done Progress"}
-        icon={<OfflinePinIcon color="success" />}
-      />;
+          <DoneAllIcon color="success" className={classes.icon}/> Done
+        </div>
+        
+      );
 
-        case ProjectStatusEnum.Done:
-        return <DoneAllIcon color="secondary"/>;
+   /* case ProjectStatusEnum.Done:
+      return <DoneAllIcon color="secondary" />;*/
   }
 
   return <div></div>;

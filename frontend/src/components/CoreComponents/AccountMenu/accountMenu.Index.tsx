@@ -30,7 +30,7 @@ const AccountMenu = () => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.logo}> myLogo</div>
+      <div className={classes.logo}> <img width={150} src={  `images/logo.png`}/></div>
 
       <div className={classes.container}>
         <IconButton
