@@ -84,6 +84,7 @@ const RequestDetails: React.FC<IRequestDetailsProps> = ({}) => {
         <Grid xs={8}>
           <ImageGallery
             requestId={requestId}
+            userId ={data?.toUserId}
             list={data?.imageGalleryList}
             isEditable={user.type === userTypeEnum.CRAFTSMAN}
           />

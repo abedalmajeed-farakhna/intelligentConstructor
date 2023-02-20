@@ -23,6 +23,7 @@ const BasicCard: React.FC<IBasicCardProps> = ({
   expectedStart,
   expectedEnd,
   ratingValue,
+  requestId
 }) => {
   console.log(expectedStart, "expectedStart");
   console.log(expectedEnd, "expectedEnd");
@@ -36,6 +37,7 @@ const BasicCard: React.FC<IBasicCardProps> = ({
           <CustomRating
             value={ratingValue}
             disabled={status != ProjectStatusEnum.Done}
+             id ={requestId}
           />
         </Typography>
         <Typography sx={{ mb: 1}} color="text.secondary">

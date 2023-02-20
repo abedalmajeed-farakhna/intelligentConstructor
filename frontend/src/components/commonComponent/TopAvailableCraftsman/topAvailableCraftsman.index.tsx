@@ -24,6 +24,7 @@ import { getProjectStatusDescription } from "../../../utils/enumDescriptions";
 import ProjectStatus from "../../CoreComponents/ProjectStatus/projectStatus.index";
 import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
 import ProfileImage from "../../CoreComponents/ProfileImage/profileImage.index";
+import AlertDialog from "../../CoreComponents/AlertDialog/alertDialog.index";
 
 const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
   values,
@@ -33,20 +34,23 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
   projectStatus,
   sectionName,
   timeLine,
+  requestId,
   handleUpdateTimeLine,
 }) => {
-  console.log(values, "values 01" + sector);
-  // format(new Date(values.startDate), "yyyy-MM-dd")
   const classes = useStyles();
   const [rowsData, setRows] = useState<ITopAvailableCraftsman[]>([]);
   const [isEditable, setIsEditable] = useState<boolean | undefined>(editable);
+  const [currentProjectStatus, setCurrentProjectStatus] = useState<ProjectStatusEnum | undefined>(projectStatus);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [showAlertDialog, setShowAlertDialog] = useState<boolean>(false);
 
   const [value, setValue] = React.useState("");
 
   const columns: GridColDef[] = [
     {
-      field: "",
+      field: "#",
+      headerName: "",
+      width:50,
       renderCell: (params) => (
         <FormControlLabel
           disabled={!isEditable}
@@ -98,18 +102,20 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
     {
       field: "speed",
       headerName: "speed",
-      width: 150,
+      width: 70,
     },
-    { field: "expectedTime", headerName: "expected time" },
+    { field: "expectedTime", headerName: "expected time" ,width: 140,},
     {
       field: "ExpectedStartDate",
       headerName: "ExpectedStartDate",
+      width:180,
       renderCell: (params) =>
         format(new Date(params.row.expectedStartDate), "yyyy-MM-dd"),
     },
     {
       field: "ExpectedEndDate",
       headerName: "ExpectedEndDate",
+      width:180,
       renderCell: (params) => addNumberOfDays(params.row.expectedEndDate, -1),
     },
   ];
@@ -164,6 +170,8 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
     getTopAvailableCraftsmanInSpecificInterval(values.startDate);
   }, []);
 
+
+ 
   const sendRequest = () => {
     const currentUserinfo = rowsData.find((t) => t.id == value);
     if(currentUserinfo == undefined) return;
@@ -177,49 +185,83 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
     };
     axios.post(`/Project/SendRequest`, data).then(() => {
       setIsEditable(false);
+      setCurrentProjectStatus(ProjectStatusEnum.Pending)
       showSuccessPopup();
     });
+  };
+
+
+  const onDeleteRequest = (curentRequestId) => {
+    const requestData = {
+      requestId: curentRequestId,
+    };
+    axios.post(`/Project/CancelRequest`, requestData).then(() => {
+      setIsEditable(true);
+      setCurrentProjectStatus(undefined)
+   //   setdata(data?.filter((t) => t.id != CurentRequestId));
+    });
+  };
+  
+  const onHideAlertDialog = () => {
+    setShowAlertDialog(false);
+  };
+  
+  const onShowAlertDialog = () => {
+    setShowAlertDialog(true);
   };
 
   if (isLoading) return <Loading />;
 
   if (!values.startDate) return <div> error</div>;
-console.log(projectStatus,"projectStatus")
+//console.log(projectStatus,"projectStatus")
   return (
     <div role="group" aria-labelledby="my-radio-group02">
+       {showAlertDialog && (
+        <AlertDialog
+          title={""}
+          message={"Are you sure you wont to delete this request?"}
+          onHandleClose={onHideAlertDialog}
+          onClick={()=>onDeleteRequest(requestId)}
+      />
+      )}
       <RadioGroup
         onChange={handleRadioChange}
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue={value}
         name="radio-buttons-group"
       >
+        
         <div className={classes.headerSection}>
           {
             <>
-              {(projectStatus  == undefined|| isEditable) && (
+              {(currentProjectStatus  == undefined|| isEditable) && (
                 <CustomButton
                   disabled={!isEditable}
                   text={" Send Request"}
-                  className={classes.sendRequest}
+                  className={classes.actionButton}
                   onClick={sendRequest}
                 />
               )}
 
-              {projectStatus === ProjectStatusEnum.Pending && (
+              {currentProjectStatus === ProjectStatusEnum.Pending && (
                 <CustomButton
-                  text={" Cancel Request"}
-                  className={classes.sendRequest}
-                  onClick={sendRequest}
+                  text={"Cancel Request"}
+                  className={classes.actionButton}
+                  onClick={onShowAlertDialog}
                 />
               )}
 
-              <ProjectStatus projectStatus={projectStatus} />
+              <ProjectStatus projectStatus={currentProjectStatus} />
             </>
           }
+        </div>
+        <div className={classes.noteLabel}>
+        you can't send the request unless the previous status is approved!
         </div>
         <div className={classes.suggestionOption}>
           suggested:{rowsData[0]?.fullName}
         </div>
+
         {/*  <div>expectedTime: {timeLine[sectionName]?.expectedTime}</div>*/}
 
         <CustomDataGrid columns={columns} rows={rowsData} />

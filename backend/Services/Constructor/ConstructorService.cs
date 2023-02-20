@@ -175,6 +175,13 @@ namespace Backend.Services
                 {
                     Id = project.ProjectId,
                     ProjectName = project.ProjectName,
+                    ElectricianFullName = craftsmanRequestList?.FirstOrDefault(t => t.Sector == SectorEnum.Electrician)?.ToUserName,
+                     PlumberFullName = craftsmanRequestList?.FirstOrDefault(t => t.Sector == SectorEnum.Plumber)?.ToUserName,
+                     BuilderFullName = craftsmanRequestList?.FirstOrDefault(t => t.Sector == SectorEnum.Builder)?.ToUserName,
+                     TilerFullName = craftsmanRequestList?.FirstOrDefault(t => t.Sector == SectorEnum.Tiler)?.ToUserName,
+                     HousPainterFullName = craftsmanRequestList?.FirstOrDefault(t => t.Sector == SectorEnum.HousePainter)?.ToUserName,
+                     CarpenterFullName = craftsmanRequestList?.FirstOrDefault(t => t.Sector == SectorEnum.Carpenter)?.ToUserName,
+
                     ProjectDetails = craftsmanRequestList
 
                 });
@@ -205,6 +212,7 @@ namespace Backend.Services
                     Sector = user.Sector,
                     RatingValue = user.RatingValue,
                     UserId = new Guid(user.Id),
+                    RequestId = t.Id
                 });
                 
             }); 

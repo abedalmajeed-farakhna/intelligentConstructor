@@ -6,5 +6,6 @@ export interface IBasicCardProps {
   status: ProjectStatusEnum;
   expectedStart: Date;
   expectedEnd: Date;
-  ratingValue: number;
+  ratingValue?: number;
+  requestId: number;
 }

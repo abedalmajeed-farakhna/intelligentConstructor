@@ -5,12 +5,12 @@ import * as Yup from "yup";
 
 export const validationSchema = Yup.object().shape({
   projectName: Yup.string()
-    .min(2, "Too Short!")
+    .min(5, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
 
   space: Yup.number()
-    .min(0, "the space shouldnot bee less than 1")
+    .min(0, "the space shouldn\'t be less than 1")
     .required("Required"),
 });
 

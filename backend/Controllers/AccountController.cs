@@ -24,16 +24,34 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<LoginResponse> Login([FromBody] LoginRequest request)
+        public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request)
         {
-            return await _authenticationService.LoginAsync(request);
+            try
+            {
+                return await _authenticationService.LoginAsync(request);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
         }
 
         //[Authorize]
         [HttpPost]
-        public async Task<bool> SignUp([FromBody] SignUpRequest request)
+        public async Task<ActionResult<bool>> SignUp([FromBody] SignUpRequest request)
         {
-            return await _authenticationService.SignUpAsync(request);
+          
+            try
+            {
+                return await _authenticationService.SignUpAsync(request);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // [Authorize]

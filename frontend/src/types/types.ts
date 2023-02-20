@@ -29,7 +29,8 @@ export interface ICraftsmanDetailsProps {
   ratingValue?: number;
   sector: sectorEnum;
   userName: string;
-  userId:string
+  userId:string;
+  requestId?:number;
 }
 
 export interface IImageGalleryListProps {

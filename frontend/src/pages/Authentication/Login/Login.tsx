@@ -46,7 +46,10 @@ const Login: React.FC<any> = ({}) => {
       } else {
         setError("invalid username or pawword");
       }
-    });
+    })
+    .catch((error) => {
+      setError("invalid username or pawword");
+    });;
   };
 
   return (

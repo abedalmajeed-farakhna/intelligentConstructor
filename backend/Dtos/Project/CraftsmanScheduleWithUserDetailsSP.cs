@@ -8,7 +8,7 @@ namespace Backend.Dtos.Project
 {
     public class CraftsmanScheduleWithUserDetailsSP
     {
-       
+
         public SectorEnum Sector { get; set; }
         public int Id { get; set; }
         public Guid FromUserId { get; set; }
@@ -18,7 +18,10 @@ namespace Backend.Dtos.Project
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public ProjectStatusEnum RequestStatus { get; set; }
-
-
+        public string? FromUserProfileImage { get; set; }
+        public string? ToUserProfileImage { get; set; }
+        public string? FromUserName { get; set; }
+        public string? ToUserName { get; set; }
+        public int? RateValue { get; set; }
     }
 }

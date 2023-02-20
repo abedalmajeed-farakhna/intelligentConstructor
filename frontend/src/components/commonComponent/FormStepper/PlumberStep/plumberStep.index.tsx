@@ -13,10 +13,15 @@ const PlumberStep: React.FC<IPlumberStepProps> = ({
   return (
     <TopRatedCraftsman
       values={values}
+      selectedUser={currentDetails?.userId}
+
       editable={
         !currentDetails ||
-        currentDetails.projectStatus == ProjectStatusEnum.Rejected
+        currentDetails.projectStatus == ProjectStatusEnum.Rejected ||
+        currentDetails.projectStatus == ProjectStatusEnum.Cancel
       }
+      requestId={currentDetails?.requestId}
+
       projectStatus={ currentDetails?.projectStatus}
       sector={sectorEnum.Plumber}
     />

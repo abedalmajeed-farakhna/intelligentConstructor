@@ -13,11 +13,12 @@ const CustomeListItem: React.FC<ICustomeListItemProps> = ({
   icon,
   path,
   text,
+  activeList
 }) => {
   const classes = useStyles();
   const currentUrl = window.location.pathname;
 
-  const isActive = currentUrl == path;
+  const isActive = activeList?.find((t) => currentUrl.includes(t)) != undefined;
   return (
     <ListItem
       key={text}

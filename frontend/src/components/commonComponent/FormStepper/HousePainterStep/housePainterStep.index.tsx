@@ -14,22 +14,25 @@ const HousePainterStep: React.FC<IHousePainterStepProps> = ({
   timeLine,
   handleUpdateTimeLine,
 }) => {
-
-  console.log(currentDetails, "currentDetails:HousePainterStep");
-  console.log(previousDetails, "previousDetails:HousePainterStep");
+  //console.log(currentDetails, "currentDetails:HousePainterStep");
+  //console.log(previousDetails, "previousDetails:HousePainterStep");
   return (
     <TopAvailableCraftsman
       sectionName="housePainter"
       timeLine={timeLine}
       handleUpdateTimeLine={handleUpdateTimeLine}
       projectStatus={currentDetails?.projectStatus}
+      selectedUser={currentDetails?.userId}
+
+      requestId={currentDetails?.requestId}
       editable={
         previousDetails &&
         ![ProjectStatusEnum.Rejected, ProjectStatusEnum.Pending].includes(
           previousDetails.projectStatus
         ) &&
         (!currentDetails ||
-          currentDetails.projectStatus == ProjectStatusEnum.Rejected)
+          currentDetails.projectStatus == ProjectStatusEnum.Rejected ||
+          currentDetails.projectStatus == ProjectStatusEnum.Cancel)
       }
       values={values}
       sector={sectorEnum.HousePainter}

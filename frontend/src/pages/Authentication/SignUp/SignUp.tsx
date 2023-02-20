@@ -1,4 +1,4 @@
-import React, { Dispatch } from "react";
+import React, { Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
@@ -19,9 +19,12 @@ import useStyles from "./signUp.style";
 
 
 import { signUpInitialValues, signUpSchema } from "./signUp.utils";
+import ErrorMessage from "../../../components/CoreComponents/Alerts/Error/errorMessage.index";
 
 const SignUp: React.FC<any> = ({}) => {
   const dispatch: Dispatch<any> = useDispatch();
+  const [error, setError] = useState<string>("");
+
   const navigate = useNavigate();
   const classes = useStyles();
 
@@ -50,8 +53,12 @@ const SignUp: React.FC<any> = ({}) => {
           dispatch(setUser(user));
 
           navigate(`/dashboard`);
-        });
+        }
+        )
       }
+    }).catch((error) => {
+      console.error("There was an error!", error);
+      setError(error.response.data);
     });
   };
 
@@ -135,6 +142,7 @@ const SignUp: React.FC<any> = ({}) => {
                     { name: "Guest", value: userTypeEnum.GUEST },
                   ]}
                 />
+                 <ErrorMessage error={error} />
                 <CustomButton text={"Sign up"} />
                 <Box>
                   <Typography>

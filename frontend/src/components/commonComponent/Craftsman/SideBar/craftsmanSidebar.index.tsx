@@ -21,12 +21,15 @@ const CraftsmanSidebar = () => {
               icon={<DashboardIcon />}
               text={"Dashboard"}
               path={"/"}
+                 activeList={["dashboard"]}
+
             />
             
             <CustomeListItem
               icon={<RequestIcon />}
               text={"RequestList"}
               path={PATH_NAMES.CRAFTSMAN_REQUEST_LISt}
+              activeList={["CraftsmanRequestList"]}
             />
           </List>
           

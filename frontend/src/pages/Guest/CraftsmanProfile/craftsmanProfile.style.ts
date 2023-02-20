@@ -32,16 +32,18 @@ const useStyle = makeStyles((theme:ThemeOptions) => ({
       padding:"0px 10px"
     },
     imageContainer:{  
-        overflow: "hidden",
-        width: 150,
-        height: 150,
-        borderRadius: "50%" ,
-        margin: "auto",
-        border:`6px solid ${theme.colors.primary}`,
-        marginBottom:'20px',
+      
     },
     image:{    
       maxWidth: "100%",
+      width: `162px !important`,
+      height: `162px !important`,
+      overflow: "hidden",
+     
+      borderRadius: "50%" ,
+      margin: "auto",
+      border:`6px solid ${theme.colors.primary}`,
+      marginBottom:'20px',
     },
     ratingBlock:{
       position: "absolute",

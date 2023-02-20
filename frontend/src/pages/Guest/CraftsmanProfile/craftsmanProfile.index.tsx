@@ -14,6 +14,7 @@ import EmailIcon from '@mui/icons-material/MailOutline';
 import TimeICon from '@mui/icons-material/QueryBuilder';
 import { Class } from "@mui/icons-material";
 import ImageGallery from "../../../components/commonComponent/Craftsman/ImageGallery/imageGallery.index";
+import ProfileImage from "../../../components/CoreComponents/ProfileImage/profileImage.index";
 
 const CraftsmanProfile: React.FC<any> = ({ children }) => {
   const location = window.location;
@@ -70,11 +71,8 @@ const CraftsmanProfile: React.FC<any> = ({ children }) => {
           <div className={classes.root}>
             <div className={classes.imageContainer}>
               {
-                <img
-                  className={classes.image}
-                  src={`/Upload/${data?.profileImage}`}
-                  alt="ProfileImage"
-                />
+                <ProfileImage path={data?.profileImage} className={classes.image}/>
+               
               }
             </div>
             <div className={classes.ratingBlock}>

@@ -13,7 +13,8 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
     color:`${theme.colors.gray3} !important`
   },
   description:{
-    color:`${theme.colors.gray6} !important`
+    color:`${theme.colors.gray6} !important`,
+    height:120
   }
 }));
 

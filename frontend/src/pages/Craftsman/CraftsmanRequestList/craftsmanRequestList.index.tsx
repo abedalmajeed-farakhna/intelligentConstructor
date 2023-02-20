@@ -61,6 +61,15 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
         <CustomRating value={params.row.rating} readOnly={true} />
       ),
     },
+    
+    {
+      field: "startDate",
+      headerName: "Start Date",
+      width: 150,
+      type: "date",
+      renderCell: (params) =>
+        format(new Date(params.row.startDate), "yyyy-MM-dd"),
+    },
     {
       field: "endDate",
       headerName: "End Date",
@@ -70,14 +79,6 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
         format(new Date(params.row.endDate), "yyyy-MM-dd"),
     },
 
-    {
-      field: "startDate",
-      headerName: "Start Date",
-      width: 150,
-      type: "date",
-      renderCell: (params) =>
-        format(new Date(params.row.startDate), "yyyy-MM-dd"),
-    },
 
     {
       field: "requestStatus",
@@ -93,7 +94,7 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
       width: 150,
       renderCell: (params) => (
         
-        <CustomButton  className={classes.uploadBtn}
+        <CustomButton  className={classes.uploadBtn} onClick={()=>openUploadImageModal(params.row.id)}
         text="upload"
         //   requestStatus= {params.row.requestStatus}
         disabled={

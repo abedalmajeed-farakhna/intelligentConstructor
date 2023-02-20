@@ -8,18 +8,22 @@ import { IBuilderStepProps } from "./builderStep.type";
 
 const BuilderStep: React.FC<IBuilderStepProps> = ({
   values,
-  builderDetails,timeLine,handleUpdateTimeLine
+  builderDetails,
+  timeLine,
+  handleUpdateTimeLine,
 }) => {
   const editable =
     !builderDetails ||
-    builderDetails.projectStatus == ProjectStatusEnum.Rejected;
+    builderDetails.projectStatus == ProjectStatusEnum.Rejected ||
+    builderDetails.projectStatus == ProjectStatusEnum.Cancel;
   return (
     <TopAvailableCraftsman
-    sectionName="builder"
-    timeLine={timeLine}
-    handleUpdateTimeLine={handleUpdateTimeLine}
+      sectionName="builder"
+      timeLine={timeLine}
+      handleUpdateTimeLine={handleUpdateTimeLine}
       selectedUser={builderDetails?.userId}
       projectStatus={builderDetails?.projectStatus}
+      requestId={builderDetails?.requestId}
       values={values}
       sector={sectorEnum.Builder}
       editable={editable}

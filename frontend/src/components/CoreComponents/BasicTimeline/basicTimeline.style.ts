@@ -16,7 +16,7 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
     },
   },
   nameSection:{
-    cursor:"pointer"
+    //cursor:"pointer"
   },
   triangle:{
     width: 0,

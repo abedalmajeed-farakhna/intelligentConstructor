@@ -26,26 +26,9 @@ const BasicTimeline: React.FC<IBasicTimelineProps> = ({ data }) => {
   const projectStatus = getProjectStatus(allRequestStatus);
   
   return (
-    <div>
-      <div onClick={TriggerTimeLine} className={classes.nameSection}>
-        <ProjectStatus projectStatus={projectStatus} />
-      </div>
-      {isTimeLineOpen && (
-        <div className={classes.root}>
-          <div className={classes.triangle} />
-          <Timeline>
-            {data?.map((element, key) => (
-              <BasicTimelineItem
-                name={getSectorEnumDescriptions(element.sector)}
-                startDate={element.startDate}
-                status={element.requestStatus}
-                end={key == data?.length - 1}
-              />
-            ))}
-          </Timeline>
-        </div>
-      )}
-    </div>
+    <div onClick={TriggerTimeLine} className={classes.nameSection}>
+    <ProjectStatus projectStatus={projectStatus} />
+  </div>
   );
 };
 export default BasicTimeline;

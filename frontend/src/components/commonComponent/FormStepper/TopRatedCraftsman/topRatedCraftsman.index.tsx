@@ -18,26 +18,35 @@ import Loading from "../../../CoreComponents/Loading/loading.index";
 import ProjectStatus from "../../../CoreComponents/ProjectStatus/projectStatus.index";
 import { ProjectStatusEnum } from "../../../../enums/projectStatusEnum";
 import ProfileImage from "../../../CoreComponents/ProfileImage/profileImage.index";
+import AlertDialog from "../../../CoreComponents/AlertDialog/alertDialog.index";
 
 const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
   values,
   selectedUser,
   editable,
   sector,
-  projectStatus
+ projectStatus,
+  requestId,
 }) => {
   // we will read it from the backend
   const classes = useStyles();
   const [rowsData, setRows] = useState<ITopRatedCraftsman[]>([]);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [isEditable, setIsEditable] = useState<boolean>(editable);
-  const [value, setValue] = React.useState('');
-  
+  const [value, setValue] = React.useState("");
+  const [currentProjectStatus, setCurrentProjectStatus] = useState<
+    ProjectStatusEnum | undefined
+  >(projectStatus);
+  const [showAlertDialog, setShowAlertDialog] = useState<boolean>(false);
+
   const columns: GridColDef[] = [
     {
-      field: "",
+      field: "#",
+      headerName: "",
+      width:50,
       renderCell: (params) => (
-        <FormControlLabel disabled={!isEditable}
+        <FormControlLabel
+          disabled={!isEditable}
           value={params.row.id}
           //checked={params.row.username ===selectedUser}
           control={<Radio />}
@@ -53,15 +62,14 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
       width: 70,
       filterable: false,
       sortable: false,
-      renderCell: (params) => (<ProfileImage path={params.row.profileImage}/>   )
-
+      renderCell: (params) => <ProfileImage path={params.row.profileImage} />,
     },
     {
       field: "username",
       headerName: "User name",
       description: "Username ",
       sortable: false,
-      width: 160,
+      width: 180,
       renderCell: (params) => (
         <CustomLink
           path={`/craftsmanInformation/${params.row.id}`}
@@ -83,11 +91,6 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
         <CustomRating value={params.row.ratingValue} readOnly={true} />
       ),
     },
-    {
-      field: "speed",
-      headerName: "speed",
-      width: 150,
-    }
   ];
 
   const handleOnCahnage = (e) => {
@@ -95,70 +98,98 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
   };
   const sendRequest = () => {
     console.log(value, "value");
-    const currentUserinfo = rowsData.find(t=>t.id == value);
+    const currentUserinfo = rowsData.find((t) => t.id == value);
     const data = {
       ToUserId: value,
       Description: ` we have a  new project with area ${values.area}`,
-      projectId : values.projectId
+      projectId: values.projectId,
     };
     axios.post(`/Project/SendRequest`, data).then(() => {
       showSuccessPopup();
       setIsEditable(false);
+      setCurrentProjectStatus(ProjectStatusEnum.Pending)
     });
   };
- 
+
   const handleRadioChange = (event) => {
     setValue(event.target.value);
-   // updateTimeLine(event.target.value,rowsData);
+    // updateTimeLine(event.target.value,rowsData);
     //if (!values[checkBoxName]) return;
     //console.log(values[checkBoxName], "values[checkBoxName]]");
-
   };
+
+  const onHideAlertDialog = () => {
+    setShowAlertDialog(false);
+  };
+  
+  const onShowAlertDialog = () => {
+      setShowAlertDialog(true);
+  };
+  
+  const onDeleteRequest = (curentRequestId) => {
+    const requestData = {
+      requestId: curentRequestId,
+    };
+    axios.post(`/Project/CancelRequest`, requestData).then(() => {
+      setIsEditable(true);
+      setCurrentProjectStatus(undefined)
+   //   setdata(data?.filter((t) => t.id != CurentRequestId));
+    });
+  };
+  
+
   useEffect(() => {
     setLoading(true);
 
-      axios
-        .get(
-          `/Constructor/GetTopRatedCraftsman?sector=${sector}&region=${Number(values.regionId)}`
-        )
-        .then((result) => {
-          setRows(result.data);
-          //console.log(result.data);
-            const defaultValue = selectedUser || result?.data[0]?.id;
-            setValue(defaultValue)
-            setLoading(false);
-
-        });
-    
+    axios
+      .get(
+        `/Constructor/GetTopRatedCraftsman?sector=${sector}&region=${Number(
+          values.regionId
+        )}`
+      )
+      .then((result) => {
+        setRows(result.data);
+        //console.log(result.data);
+        const defaultValue = selectedUser || result?.data[0]?.id;
+        setValue(defaultValue);
+        setLoading(false);
+      });
   }, []);
   if (isLoading) return <Loading />;
 
   return (
     <div role="group" aria-labelledby="my-radio-group02">
+        {showAlertDialog && (
+        <AlertDialog
+          title={""}
+          message={"Are you sure you wont to delete this request?"}
+          onHandleClose={onHideAlertDialog}
+          onClick={()=>onDeleteRequest(requestId)}
+        />
+      )}
       <RadioGroup
         onChange={handleRadioChange}
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue={value}
         name="radio-buttons-group"
       >
-        <div className={classes.headerSection} title={(projectStatus  == undefined) ?"":" you cant send request unles the  constartuct on the previous request approves the request"}>
-        {(projectStatus  == undefined|| isEditable) && (
+        <div className={classes.headerSection}>
+          {isEditable && (
             <CustomButton
-            disabled={isEditable}
               className={classes.sendRequest}
               text={" Send Request"}
               onClick={sendRequest}
             />
           )}
-          
-          {projectStatus === ProjectStatusEnum.Pending && (
-                <CustomButton
-                  text={" Cancel Request"}
-                  className={classes.sendRequest}
-                  onClick={sendRequest}
-                />
-              )}
-          <ProjectStatus projectStatus={projectStatus} />
+
+          {currentProjectStatus === ProjectStatusEnum.Pending && (
+            <CustomButton
+              text={" Cancel Request"}
+              className={classes.sendRequest}
+              onClick={onShowAlertDialog}
+            />
+          )}
+          <ProjectStatus projectStatus={currentProjectStatus} />
         </div>
         <div className={classes.suggestionOption}>
           suggested: <span>{rowsData[0]?.fullName}</span>{" "}

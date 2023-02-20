@@ -16,7 +16,7 @@ const ProfileImage: React.FC<IProfileImageProps> = ({ path, className }) => {
 
               
       ) : (
-        <Avatar sx={{ width: 32, height: 32 }} />
+        <Avatar  className={classNames(className)}  sx={{ width: 32, height: 32 }} />
       )}
     </>
   );

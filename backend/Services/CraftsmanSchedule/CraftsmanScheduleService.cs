@@ -5,6 +5,7 @@ using Backend.Enums;
 using Backend.Repositories;
 using WebApplication1.Data.Migrations;
 using WebApplication1.Dtos.Constructor;
+using WebApplication1.Dtos.Settings;
 using WebApplication1.Models;
 using WebApplication1.Models.Craftsman;
 
@@ -108,7 +109,7 @@ namespace Backend.Services
                 });
             }
 
-            return result.OrderBy(t => t.ExpectedEndDate).OrderBy(t=>t.RatingValue).ToList();
+            return result.OrderBy(t => t.ExpectedEndDate).ToList();
 
         }
 
@@ -137,8 +138,31 @@ namespace Backend.Services
                 });
             }
 
-            return result.OrderBy(t => t.RatingValue).ToList();
+            return result.OrderByDescending(t => t.RatingValue).ToList();
 
+        }
+
+        public async Task<int> GetNumberOfRecivedRequest(ProjectStatusEnum? projectStatus)
+        {
+            var userId = _authenticationService.GetCurrentUserId();
+            return await _craftsmanScheduleRepository.GetNumberOfRecivedRequest(userId, projectStatus);
+        }
+
+        public async Task<int> GetNumberOfSentRequest(ProjectStatusEnum? projectStatus)
+        {
+            var userId = _authenticationService.GetCurrentUserId();
+            return await _craftsmanScheduleRepository.GetNumberOfSentRequest(userId, projectStatus);
+        }
+        public async Task<List<GetTopRatedRequestsLisResponse>> GetTopRatedRequestsList()
+        {
+            var userId = _authenticationService.GetCurrentUserId();
+            return await _craftsmanScheduleRepository.GetTopRatedRequestsList(userId);
+        }
+
+        public async Task<List<GetLastRequestsResponse>> GetLastRecivedRequestsList()
+        {
+            var userId = _authenticationService.GetCurrentUserId();
+            return await _craftsmanScheduleRepository.GetLastRecivedRequestsList(userId);
         }
     }
 }

@@ -14,9 +14,13 @@ const ElectricianStep: React.FC<IElectricianStepProps> = ({values,
     <TopRatedCraftsman
       editable={
         !currentDetails ||
-        currentDetails.projectStatus == ProjectStatusEnum.Rejected
+        currentDetails.projectStatus == ProjectStatusEnum.Rejected || 
+        currentDetails.projectStatus == ProjectStatusEnum.Cancel
       }
       projectStatus={ currentDetails?.projectStatus}
+      requestId={currentDetails?.requestId}
+      selectedUser={currentDetails?.userId}
+
       values={values}
       sector={sectorEnum.Electrician}
     />

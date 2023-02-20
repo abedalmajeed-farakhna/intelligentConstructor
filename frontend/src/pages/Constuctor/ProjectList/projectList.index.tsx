@@ -40,57 +40,58 @@ const ProjectList: React.FC<IProjectListProps> = ({}) => {
     {
       field: "Status",
       headerName: "Status",
-      width: 150,
+      width: 130,
       renderCell: (params) => (
         <BasicTimeline data={params.row.projectDetails}/>
       ),
     },
     {
-      field: "Electrician",
+      field: "electricianFullName",
       headerName: "Electrician",
       width: 120,
       renderCell: (params) => (
-        <div> test</div>
+        <div> {params.row.electricianFullName??"-"}</div>
       ),
     },
     {
-      field: "Plumber",
+      field: "plumberFullName",
       headerName: "Plumber",
       width: 120,
       renderCell: (params) => (
-        <div> test 02</div>
+        <div> {params.row.plumberFullName??"-"}</div>
       ),
     },
     {
-      field: "Builder",
+      field: "builderFullName",
       headerName: "Builder",
       width: 120,
       renderCell: (params) => (
-        <div> test 02</div>
+        <div> {params.row.builderFullName??"-"}</div>
       ),
     },
     {
-      field: "Tiler",
+      field: "tilerFullName",
       headerName: "Tiler",
       width: 120,
       renderCell: (params) => (
-        <div> test 02</div>
+        <div> {params.row.tilerFullName??"-"}</div>
       ),
     },
+  
     {
-      field: "carpenter",
-      headerName: "carpenter",
-      width: 120,
-      renderCell: (params) => (
-        <div> test 02</div>
-      ),
-    },
-    {
-      field: "hous painter",
+      field: "housPainterFullName",
       headerName: "hous painter",
       width: 120,
       renderCell: (params) => (
-        <div> test 02</div>
+        <div>{params.row.housPainterFullName??"-"}</div>
+      ),
+    },
+    {
+      field: "carpenterFullName",
+      headerName: "carpenter",
+      width: 120,
+      renderCell: (params) => (
+        <div> {params.row.carpenterFullName??"-"}</div>
       ),
     },
    

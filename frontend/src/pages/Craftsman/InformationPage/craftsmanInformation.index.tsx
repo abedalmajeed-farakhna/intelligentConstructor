@@ -79,7 +79,6 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
     axios.post(`/Craftsman/updateInformation`, data).then((res) => {
       console.log(res, "res");
       showSuccessPopup();
-      setReloadData(!reloadData);
     });
   };
 
@@ -119,7 +118,10 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
   const openUploadImageModal = () => {
     setShowUploadImageModal(true);
   };
-  const hideUploadImageModal = () => {
+  const hideUploadImageModal = (refresh) => {
+   // refresh &&
+     setReloadData(!reloadData);
+
     setShowUploadImageModal(false);
   };
 
@@ -138,7 +140,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
           <div className={classes.blockCenter}>
             {showUploadImageModal && (
               <CraftsmanUploadImageModal
-                hideUploadImageModal={hideUploadImageModal}
+                hideUploadImageModal={(refresh)=>hideUploadImageModal(refresh)}
                 requestId={0}
               />
             )}

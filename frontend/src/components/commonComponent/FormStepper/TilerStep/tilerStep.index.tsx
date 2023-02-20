@@ -11,10 +11,10 @@ const TilerStep: React.FC<ITilerStepProps> = ({
   values,
   currentDetails,
   previousDetails,
-  timeLine, handleUpdateTimeLine
+  timeLine,
+  handleUpdateTimeLine,
 }) => {
- 
- /* let stratDate;
+  /* let stratDate;
   if (builderDetails) {
     if (
       builderDetails?.projectStatus != ProjectStatusEnum.Pending &&
@@ -28,17 +28,21 @@ const TilerStep: React.FC<ITilerStepProps> = ({
   console.log("tiler :builderDetails ", previousDetails);
   return (
     <TopAvailableCraftsman
-     sectionName="tiler"
-    timeLine={timeLine}
-    handleUpdateTimeLine={handleUpdateTimeLine}
+      sectionName="tiler"
+      timeLine={timeLine}
+      handleUpdateTimeLine={handleUpdateTimeLine}
+      requestId={currentDetails?.requestId}
       projectStatus={currentDetails?.projectStatus}
+      selectedUser={currentDetails?.userId}
+
       editable={
         previousDetails &&
         ![ProjectStatusEnum.Rejected, ProjectStatusEnum.Pending].includes(
           previousDetails.projectStatus
         ) &&
         (!currentDetails ||
-          currentDetails.projectStatus == ProjectStatusEnum.Rejected)
+          currentDetails.projectStatus == ProjectStatusEnum.Rejected ||
+          currentDetails.projectStatus == ProjectStatusEnum.Cancel)
       }
       values={values}
       sector={sectorEnum.Tiler}

@@ -18,14 +18,27 @@ import {
 import AlertDialog from "../../../components/CoreComponents/AlertDialog/alertDialog.index";
 import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
 import ProfileImage from "../../../components/CoreComponents/ProfileImage/profileImage.index";
+import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
+import ViewIcon from '@mui/icons-material/Visibility';
+import DeleteIcon from '@mui/icons-material/Delete';
+import classNames from "classnames";
+
+import { useNavigate } from "react-router-dom";
+import { PATH_NAMES } from "../../../constants/route";
 
 const RequestList: React.FC<IRequestListProps> = ({}) => {
   const classes = useStyles();
   const [data, setdata] = useState<any>([]);
+  const navigate = useNavigate();
+
   const [CurentRequestId, setCurentRequestId] = useState<number>(-1);
 
   const [showAlertDialog, setShowAlertDialog] = useState<boolean>(false);
 
+  const showRequestDetails=(id)=>{
+    navigate(`${PATH_NAMES.RequestDetails}/${id}`); //TODO save name in redux
+
+  }
   const columns: GridColDef[] = [
     {
       field: "toProfileImage",
@@ -62,28 +75,40 @@ const RequestList: React.FC<IRequestListProps> = ({}) => {
         <ProjectStatus projectStatus={params.row.requestStatus} />
       ),
     },
+
     {
-      field: "",
+      field: "id",
       headerName: "Action ",
-      width: 190,
+      filterable: false,
+      sortable: false,
+      width: 180,
       renderCell: (params) => (
-        <div
-          className={
-            params.row.requestStatus != ProjectStatusEnum.Pending
-              ? classes.disabled
-              : classes.actionColumn
-          }
-          title="cancel request"
-        >
-          {" "}
-          <ClearIcon
-            onClick={() =>
-              onShowAlertDialog(params.row.id, params.row.requestStatus)
-            }
-          />
-        </div>
+        <>
+          <div className={classes.tableICon}>
+            <ViewIcon
+              className={classes.viewICon}
+              onClick={() => showRequestDetails(params.row.id)}
+            />
+          </div>
+          <div
+            className={classNames(
+              classes.tableICon,
+              classes.deleteICon,
+              params.row.requestStatus != ProjectStatusEnum.Pending &&
+                classes.disabled
+            )}
+            title="cancel request"
+          >
+            <DeleteIcon
+              onClick={() =>
+                onShowAlertDialog(params.row.id, params.row.requestStatus)
+              }
+            />
+          </div>
+        </>
       ),
     },
+    
   ];
 
   useEffect(() => {

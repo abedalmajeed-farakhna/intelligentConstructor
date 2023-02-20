@@ -8,6 +8,8 @@ using WebApplication1.Models.Craftsman;
 using Backend.Enums;
 using WebApplication1.Data.Migrations;
 using Microsoft.Data.SqlClient;
+using WebApplication1.Dtos.Settings;
+using System.Runtime.CompilerServices;
 
 namespace Backend.Repositories
 {
@@ -96,6 +98,5 @@ namespace Backend.Repositories
             return list.Where(t => t.Sector == sector && t.RegionId == regionId).ToList();
 
         }
-
     }
 }

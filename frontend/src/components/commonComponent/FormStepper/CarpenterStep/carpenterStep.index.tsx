@@ -11,22 +11,27 @@ const CarpenterStep: React.FC<ICarpenterStepProps> = ({
   values,
   previousDetails,
   currentDetails,
-  timeLine, handleUpdateTimeLine
+  timeLine,
+  handleUpdateTimeLine,
 }) => {
   return (
     <>
       <TopAvailableCraftsman
-      sectionName="carpenter"
-      timeLine={timeLine}
-      handleUpdateTimeLine={handleUpdateTimeLine}
+        sectionName="carpenter"
+        timeLine={timeLine}
+        handleUpdateTimeLine={handleUpdateTimeLine}
         projectStatus={currentDetails?.projectStatus}
+        requestId={currentDetails?.requestId}
+        selectedUser={currentDetails?.userId}
+
         editable={
           previousDetails &&
           ![ProjectStatusEnum.Rejected, ProjectStatusEnum.Pending].includes(
             previousDetails.projectStatus
           ) &&
           (!currentDetails ||
-            currentDetails.projectStatus == ProjectStatusEnum.Rejected)
+            currentDetails.projectStatus == ProjectStatusEnum.Rejected ||
+            currentDetails.projectStatus == ProjectStatusEnum.Cancel)
         }
         values={values} // startDate: stratDate  || new Date('20/1/2022')
         sector={sectorEnum.Carpenter}

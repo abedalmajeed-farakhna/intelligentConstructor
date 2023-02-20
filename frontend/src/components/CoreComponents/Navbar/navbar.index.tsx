@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <AppBar  className={classes.navbar}>
       <Toolbar className={classes.toolbar}>
-      <img src={  `images/logo.png`}/>
+      <img src={  `/images/logo.png`}/>
         <Box>
           {currentUrl != "/" && (
             <Link className={classes.link} to="/">

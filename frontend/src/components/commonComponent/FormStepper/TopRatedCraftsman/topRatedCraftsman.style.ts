@@ -41,9 +41,10 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
     }
   },
   suggestionOption:{
-    color: 'green',
+    color: "#0c5460",
+    backgroundColor: "#d1ecf1",
+    border: "1px solid #bee5eb",
     padding: '10px',
-    background: '#00800024',
     borderRadius: '5px',
     textTransform: 'capitalize',
     marginBottom: '10px',

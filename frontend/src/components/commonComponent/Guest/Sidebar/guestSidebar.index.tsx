@@ -21,19 +21,22 @@ const GuestSidebar = () => {
           <List>
             <CustomeListItem
               icon={<DashboardIcon />}
-              path={PATH_NAMES.INFORMATION}
+              path={"/"}
               text={"Dashboard"}
+              activeList={["dashboard"]}
             />
 
             <CustomeListItem
               icon={<CraftsmanIcon />}
               path={PATH_NAMES.CRAFTSMAN}
               text={"craftsman"}
+              activeList={["craftsman"]}
             />
              <CustomeListItem
               icon={<RequestIcon />}
               path={PATH_NAMES.REQUEST}
               text={"request"}
+              activeList={["request"]}
             />
             
           </List>

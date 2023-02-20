@@ -16,7 +16,7 @@ namespace Backend.Repositories
 
         public async Task<List<GetImageListResponse>> GetImageGalleryList(Guid userId, int? requestId)
         {
-            var list = await _context.imageGalleryGroup.Where(t => t.userId == userId).ToListAsync();
+            var list = await _context.imageGalleryGroup.Where(t => t.userId == userId).OrderByDescending(t => t.Id).ToListAsync();
             if (requestId != null && requestId > 0)
             {
                 list = list.Where(t=>t.RequestId== requestId).ToList();

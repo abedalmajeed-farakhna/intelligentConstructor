@@ -8,6 +8,7 @@ export interface ITopRatedCraftsmanProps {
   selectedUser?: string;
   editable: boolean;
   projectStatus?: ProjectStatusEnum;
+  requestId?:number
 }
 
 export interface ITopRatedCraftsman {

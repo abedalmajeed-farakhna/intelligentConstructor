@@ -3,18 +3,10 @@ import { ProjectStatusEnum } from "../enums/projectStatusEnum";
 import { addNumberOfDays } from "./DateUtils";
 
 export const getProjectStatus = (allRequestStatus: ProjectStatusEnum[]) => {
-  if (
-    allRequestStatus.find((t) => t == ProjectStatusEnum.Inprogres) != undefined
-  ) {
-    return ProjectStatusEnum.Inprogres;
-  }
-  if (
-    allRequestStatus.filter((t) => t == ProjectStatusEnum.Done).length ==
-    allRequestStatus.length
-  ) {
+  if (allRequestStatus.filter((t) => t == ProjectStatusEnum.Done).length == 6) {
     return ProjectStatusEnum.Done;
   }
-  return ProjectStatusEnum.Aproved;
+  return ProjectStatusEnum.Inprogres;
 };
 
 export const showSuccessPopup = (message?: string) => {

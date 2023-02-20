@@ -59,7 +59,8 @@ namespace Backend.Services
                 }
             }
 
-            return new LoginResponse { isAuthontecated = false };
+            throw new Exception("invalid user name / password ");
+
         }
 
         public async Task<bool> SignUpAsync(SignUpRequest request)

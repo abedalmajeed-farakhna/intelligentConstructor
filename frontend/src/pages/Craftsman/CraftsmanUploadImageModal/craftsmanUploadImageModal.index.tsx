@@ -58,7 +58,7 @@ const CraftsmanUploadImageModal: React.FC<ICraftsmanUploadImageModalProps> = ({
     console.log(imageList, "imageList");
     axios.post(`/Craftsman/AddImageForSpecificRequest`, data).then((res) => {
       if (res.data) {
-        hideUploadImageModal();
+        hideUploadImageModal(true);
         showSuccessPopup();
       }
     });
@@ -70,7 +70,7 @@ const CraftsmanUploadImageModal: React.FC<ICraftsmanUploadImageModalProps> = ({
       //  customClassName={classes.majeedpopup}
       title={"Add New Project"}
       isOpen={true}
-      onClose={hideUploadImageModal}
+      onClose={()=>hideUploadImageModal(false)}
     >
       <Formik
         initialValues={CraftsmanUploadImageModalInitialValues}

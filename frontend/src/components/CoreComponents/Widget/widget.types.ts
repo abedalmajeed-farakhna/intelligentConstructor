@@ -1,4 +1,5 @@
 export interface IWidgetProps {
 title:string ;
-data:any
+className?:string,
+children: React.ReactChild;
 }

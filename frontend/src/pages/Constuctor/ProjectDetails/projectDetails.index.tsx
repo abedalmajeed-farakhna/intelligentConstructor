@@ -86,6 +86,7 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({}) => {
                 status={element.projectStatus}
                 expectedStart={element.expectedStartDate}
                 expectedEnd={element.expectedEndDate}
+                requestId={element.requestId}
               />
             </Grid>
           ))}

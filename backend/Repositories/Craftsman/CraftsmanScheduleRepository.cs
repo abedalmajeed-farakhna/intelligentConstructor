@@ -9,6 +9,7 @@ using Backend.Dtos.Project;
 using WebApplication1.Dtos.Constructor;
 using WebApplication1.Models;
 using Backend.Dtos.Craftsman;
+using WebApplication1.Dtos.Settings;
 
 namespace Backend.Repositories
 {
@@ -139,7 +140,7 @@ namespace Backend.Repositories
         }
         public async Task<List<CraftsmanSchedule>> GetCraftsmanRequestList(Guid userId)
         {
-            return await _context.craftsmanSchedule.Where(t => t.ToUserId == userId).ToListAsync();
+            return await _context.craftsmanSchedule.Where(t => t.ToUserId == userId).OrderByDescending(t=>t.Id).ToListAsync();
         }
 
 
@@ -168,6 +169,7 @@ namespace Backend.Repositories
             var fromDateParameter = new SqlParameter("@fromDate", request.FromDate);
             var SpaceParameter = new SqlParameter("@totalspace", request.Space);
 
+
             string sql = "EXECUTE [dbo].[GetTopAvailableCraftsmanInSpecificInterval]  @sector={0} , @fromDate={1}, @totalspace ={2}";
             return (await _context.GetTopAvailableCraftsmanInSpecificInterval.FromSqlRaw(sql, sectorParameter , fromDateParameter, SpaceParameter).ToListAsync());
 
@@ -182,5 +184,50 @@ namespace Backend.Repositories
 
 
 
+
+        // widgets 
+        public async Task<List<GetLastRequestsResponse>> GetLastRecivedRequestsList(Guid userId)
+        {
+            return await _context.craftsmanSchedule.Where(t => t.ToUserId == userId).OrderByDescending(t => t.Id).Take(5).Select(t => new GetLastRequestsResponse
+            {
+                RequestDescription = t.RequestDescription,
+                RequestStatus = t.RequestStatus,
+                Id = t.Id,
+            }).ToListAsync();
+        }
+
+        public async Task<List<GetTopRatedRequestsLisResponse>> GetTopRatedRequestsList(Guid userId)
+        {
+            string sql = "EXECUTE [dbo].[CraftsmanScheduleWithUserDetailsSP]";
+            var list = await _context.CraftsmanScheduleWithUserDetailsSP.FromSqlRaw(sql).ToListAsync();
+            return list.Where(t => t.ToUserId == userId && t.RequestStatus == ProjectStatusEnum.Done)
+                .OrderByDescending(t => t.RateValue).TakeLast(5).Select(t => new GetTopRatedRequestsLisResponse
+                {
+                    RequestDescription = t.RequestDescription,
+                    RequestStatus = t.RequestStatus,
+                    Id = t.Id,
+                    RateValue = t.RateValue,
+                }).ToList();
+        }
+        public async Task<int> GetNumberOfRecivedRequest(Guid userId, ProjectStatusEnum? projectStatus)
+        {
+            var list = _context.craftsmanSchedule.Where(t => t.ToUserId == userId);
+            if (projectStatus != null)
+            {
+                list = list.Where(t => t.RequestStatus == projectStatus);
+
+            }
+            return await list.CountAsync();
+        }
+        public async Task<int> GetNumberOfSentRequest(Guid userId, ProjectStatusEnum? projectStatus)
+        {
+            var list = _context.craftsmanSchedule.Where(t => t.FromUserId == userId);
+            if (projectStatus != null)
+            {
+                list = list.Where(t => t.RequestStatus == projectStatus);
+
+            }
+            return await list.CountAsync();
+        }
     }
 }
