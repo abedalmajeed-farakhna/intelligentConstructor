@@ -16,6 +16,9 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
       width: "calc( 100% - 30px)",
     },
   },
+  error:{
+    textAlign: "center",
+  },
   signUp: {
     textAlign: "center",
     color: `${theme.colors.primary} !important`,

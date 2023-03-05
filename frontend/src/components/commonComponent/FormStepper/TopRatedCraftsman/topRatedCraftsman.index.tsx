@@ -43,7 +43,7 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
     {
       field: "#",
       headerName: "",
-      width:50,
+      width:70,
       renderCell: (params) => (
         <FormControlLabel
           disabled={!isEditable}
@@ -69,7 +69,7 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
       headerName: "User name",
       description: "Username ",
       sortable: false,
-      width: 180,
+      width: 250,
       renderCell: (params) => (
         <CustomLink
           path={`/craftsmanInformation/${params.row.id}`}
@@ -81,12 +81,12 @@ const TopRatedCraftsman: React.FC<ITopRatedCraftsmanProps> = ({
     {
       field: "fullName",
       headerName: "full name",
-      width: 150,
+      width: 200,
     },
     {
       field: "ratingValue",
       headerName: "Rating Value",
-      width: 150,
+      width: 200,
       renderCell: (params) => (
         <CustomRating value={params.row.ratingValue} readOnly={true} />
       ),

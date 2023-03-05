@@ -30,13 +30,13 @@ const TopRatedProject: React.FC<any> = ({  }) => {
       field: "requestDescription",
       headerName: "Description",
       sortable: false,
-      width: 160
+      width: 300
     },
 
     {
       field: "requestStatus",
       headerName: "Status",
-      width: 130,
+      width: 100,
       renderCell: (params) => (
         <ProjectStatus projectStatus={params.row.requestStatus}/>
       ),
@@ -44,7 +44,7 @@ const TopRatedProject: React.FC<any> = ({  }) => {
     {
       field: "rateValue",
       headerName: "",
-      width: 150,
+      width: 140,
       renderCell: (params) => (
         <CustomRating value={params.row.rateValue} readOnly={true} />
       ),

@@ -23,7 +23,7 @@ const CarpenterStep: React.FC<ICarpenterStepProps> = ({
         projectStatus={currentDetails?.projectStatus}
         requestId={currentDetails?.requestId}
         selectedUser={currentDetails?.userId}
-
+        showNote={(!previousDetails ||[ProjectStatusEnum.Rejected, ProjectStatusEnum.Pending].includes(previousDetails.projectStatus))}
         editable={
           previousDetails &&
           ![ProjectStatusEnum.Rejected, ProjectStatusEnum.Pending].includes(

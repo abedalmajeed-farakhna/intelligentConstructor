@@ -5,11 +5,16 @@ const useStyle = makeStyles((theme: ThemeOptions) => ({
   root: {
     color:theme.colors.gray3,
     '& .MuiListItemButton-gutters':{
-      padding:"10px 15px"
+      padding:"0"
     },
     '& .MuiSvgIcon-fontSizeMedium':{
       fontSize:"22px"
     }
+  },
+  link:{
+    width: '100%',
+    //background: 'red',
+    padding: '10px 15px',
   },
   active:{
     background:"rgb(24 144 255 / 20%)",

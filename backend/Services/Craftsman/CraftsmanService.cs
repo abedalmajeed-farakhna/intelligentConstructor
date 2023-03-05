@@ -94,12 +94,12 @@ namespace Backend.Services
 
         public async Task<List<GetImageListResponse>> GetImageGalleryList(int? requestId, Guid? userId)
         {
-            if(userId == null)
+            if (userId == null && requestId == null)
             {
                 userId = _authenticationService.GetCurrentUserId();
 
             }
-            return await _imageGalleryRepository.GetImageGalleryList(userId.GetValueOrDefault(), requestId);
+            return await _imageGalleryRepository.GetImageGalleryList(userId, requestId);
         }
 
         public async Task<bool> AddImageForSpecificRequest(AddImageForSpecificRequestRequest request)

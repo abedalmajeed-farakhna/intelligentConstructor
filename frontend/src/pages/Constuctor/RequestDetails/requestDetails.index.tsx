@@ -43,7 +43,7 @@ const RequestDetails: React.FC<IRequestDetailsProps> = ({}) => {
       <BreadCrump
         current={"Request Details"}
         linkList={[
-          { name: "Request List", link: PATH_NAMES.CRAFTSMAN_REQUEST_LISt },
+          { name: "Request List", link: user.type === userTypeEnum.CONSTRUCTOR ?PATH_NAMES.CONSTUCTOR_REQUEST:PATH_NAMES.CRAFTSMAN_REQUEST_LISt },
         ]}
       />
 
@@ -71,12 +71,7 @@ const RequestDetails: React.FC<IRequestDetailsProps> = ({}) => {
           {data.projectId && (
             <div className={classes.itemField}>
              <span>project:</span>
-              {
-                <CustomLink
-                  path={`${PATH_NAMES.PROJECT_DETAILS}/${data.projectId}`}
-                  text={data.projectName ?? ""}
-                />
-              }
+             {data.projectName}
             </div>
           )}
           <div className={classes.itemField}><span>description:</span> {data.requestDescription}</div>

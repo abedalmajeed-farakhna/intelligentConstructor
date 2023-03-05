@@ -29,7 +29,7 @@ const LastRecivedRequests: React.FC<any> = ({  }) => {
       field: "requestDescription",
       headerName: "Description",
       sortable: false,
-      width: 160
+      width: 400
     },
 
     {

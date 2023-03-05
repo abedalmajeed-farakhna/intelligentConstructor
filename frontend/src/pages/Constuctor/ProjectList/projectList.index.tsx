@@ -12,6 +12,8 @@ import CustomButton from "../../../components/CoreComponents/CustomButton/custom
 import { useNavigate } from "react-router-dom";
 import ViewIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/ModeEdit';
+import { getProjectStatus } from "../../../utils/projectUtils";
+import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
 
 
 const ProjectList: React.FC<IProjectListProps> = ({}) => {
@@ -106,9 +108,11 @@ const ProjectList: React.FC<IProjectListProps> = ({}) => {
         <div className={classes.tableICon}  onClick={()=>showProjectDetails(params.row.id)}>
         <ViewIcon className={classes.viewICon} /> view
       </div>
-       <div className={classes.tableICon} onClick={()=>editProjectDetails(params.row.id)}>
-       <EditIcon className={classes.editIcon}  /> edit 
-     </div>
+       { getProjectStatus(params.row.projectDetails.map((t) => {
+    return t.requestStatus;
+  })) != ProjectStatusEnum.Done && <div className={classes.tableICon} onClick={()=>editProjectDetails(params.row.id)}>
+      <EditIcon className={classes.editIcon}  /> edit 
+     </div>}
      </>
       ),
     },
@@ -127,7 +131,7 @@ const ProjectList: React.FC<IProjectListProps> = ({}) => {
   return (
     <div>
       <div>
-        <BreadCrump current={"ProjectList"} linkList={[]} />
+        <BreadCrump current={"Project List"} linkList={[]} />
       </div>
 
       <div>

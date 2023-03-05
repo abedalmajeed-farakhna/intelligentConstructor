@@ -87,7 +87,7 @@ namespace Backend.Repositories
 
             string sql = "exec [dbo].[CraftsmanUserInformation_sp]";
             var list = await _context.CraftsmanUserInformation.FromSqlRaw(sql).ToListAsync();
-            return list.Where(t => t.Sector == sector ).ToList();
+            return list.Where(t => t.Sector == sector ).OrderByDescending(t=>t.RatingValue).ToList();
 
         }
         public async Task<List<CraftsmanUserInformationSP>> GetCraftsmanBySectorAndRegion(SectorEnum sector, int regionId)

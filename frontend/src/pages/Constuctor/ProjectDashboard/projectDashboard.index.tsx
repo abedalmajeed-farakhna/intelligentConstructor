@@ -88,7 +88,7 @@ const ProjectDashboard: React.FC<any> = ({}) => {
     <div>
       <BreadCrump
         current={"Add Project"}
-        linkList={[{ name: "ProjectList", link: PATH_NAMES.PROJECT_LIST }]}
+        linkList={[{ name: "Projects", link: PATH_NAMES.PROJECT_LIST }]}
       />
       <AddNewProjectForm />
     </div>

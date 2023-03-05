@@ -19,7 +19,7 @@ namespace Backend.Services
             _userManager = userManager;
         }
 
-        public async Task<bool> UpdateProfileImageAsync(UpdateProfileImageRequest request)
+        public async Task<string> UpdateProfileImageAsync(UpdateProfileImageRequest request)
         {
 
             var filename = await _uploadService.SaveImageAsync(request.Image, "./Upload");
@@ -33,7 +33,7 @@ namespace Backend.Services
             }
             user.ProfileImage = filename;
             await _userManager.UpdateAsync(user);
-            return true;
+            return filename;
         }
     }
 }

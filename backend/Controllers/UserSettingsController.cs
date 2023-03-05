@@ -21,7 +21,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> UpdateProfileImage([FromBody] UpdateProfileImageRequest request)
+        public async Task<string> UpdateProfileImage([FromBody] UpdateProfileImageRequest request)
         {
             return await _userService.UpdateProfileImageAsync(request);
         }

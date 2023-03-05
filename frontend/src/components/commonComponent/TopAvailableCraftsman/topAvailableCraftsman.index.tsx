@@ -14,7 +14,7 @@ import {
 } from "./topAvailableCraftsman.type";
 import { GetFromDateValue } from "./topAvailableCraftsman.utils";
 import { format } from "date-fns";
-import { addNumberOfDays } from "../../../utils/DateUtils";
+import { addNumberOfDays, getFormatedStringFromDays } from "../../../utils/DateUtils";
 import CustomRating from "../../CoreComponents/CustomRating/customRating.index";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import CustomButton from "../../CoreComponents/CustomButton/customButton.index";
@@ -35,6 +35,7 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
   sectionName,
   timeLine,
   requestId,
+  showNote,
   handleUpdateTimeLine,
 }) => {
   const classes = useStyles();
@@ -50,7 +51,7 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
     {
       field: "#",
       headerName: "",
-      width:50,
+      width: 20,
       renderCell: (params) => (
         <FormControlLabel
           disabled={!isEditable}
@@ -65,19 +66,18 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
 
     {
       field: "ProfileImage",
-      headerName: "ProfileImage",
-      width: 70,
+      headerName: "",
+      width: 40,
       filterable: false,
       sortable: false,
-      renderCell: (params) => (<ProfileImage path={params.row.profileImage}/>   
-      ),
+      renderCell: (params) => <ProfileImage path={params.row.profileImage} />,
     },
     {
       field: "username",
       headerName: "User name",
       description: "Username ",
       sortable: false,
-      width: 160,
+      width: 170,
       renderCell: (params) => (
         <CustomLink
           path={`/craftsmanInformation/${params.row.id}`}
@@ -89,12 +89,12 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
     {
       field: "fullName",
       headerName: "full name",
-      width: 150,
+      width: 125,
     },
     {
       field: "ratingValue",
       headerName: "Rating Value",
-      width: 150,
+      width: 130,
       renderCell: (params) => (
         <CustomRating value={params.row.ratingValue} readOnly={true} />
       ),
@@ -102,20 +102,30 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
     {
       field: "speed",
       headerName: "speed",
-      width: 70,
+      width: 130,
+      renderCell: (params) => (
+        <>{params.row.speed } Meters Per Day</>
+      ),
     },
-    { field: "expectedTime", headerName: "expected time" ,width: 140,},
+    {
+      field: "expectedTime",
+      headerName: "expected time",
+      width: 180,
+      renderCell: (params) => (
+        <>{getFormatedStringFromDays(params.row.expectedTime)}</>
+      ),
+    },
     {
       field: "ExpectedStartDate",
-      headerName: "ExpectedStartDate",
-      width:180,
+      headerName: "Expected Start Date",
+      width: 150,
       renderCell: (params) =>
         format(new Date(params.row.expectedStartDate), "yyyy-MM-dd"),
     },
     {
       field: "ExpectedEndDate",
-      headerName: "ExpectedEndDate",
-      width:180,
+      headerName: "Expected End Date",
+      width: 150,
       renderCell: (params) => addNumberOfDays(params.row.expectedEndDate, -1),
     },
   ];
@@ -255,9 +265,9 @@ const TopAvailableCraftsman: React.FC<ITopAvailableCraftsmanProps> = ({
             </>
           }
         </div>
-        <div className={classes.noteLabel}>
+       {showNote && <div className={classes.noteLabel}>
         you can't send the request unless the previous status is approved!
-        </div>
+        </div>}
         <div className={classes.suggestionOption}>
           suggested:{rowsData[0]?.fullName}
         </div>

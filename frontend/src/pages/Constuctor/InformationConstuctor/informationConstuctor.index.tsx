@@ -3,7 +3,10 @@ import axios from "axios";
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
+//import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
 import CustomButton from "../../../components/CoreComponents/CustomButton/customButton.index";
 import TextInput from "../../../components/CoreComponents/TextInput/textInput.index";
 import { IUser } from "../../../types/types";
@@ -15,11 +18,13 @@ import { validationSchema } from "./informationConstuctor.utils";
 import useStyles from "./informationConstuctor.style";
 import SelectInput from "../../../components/CoreComponents/SelectInput/selectInput.index";
 import { showSuccessPopup } from "../../../utils/projectUtils";
+import { setUser } from "../../../reducers/reducers/userReducer";
 
 const InformationConstuctor: React.FC<any> = ({}) => {
   const classes = useStyles();
 
   const user: IUser = useSelector((state: IApplicationState) => state.user);
+  const dispatch: Dispatch<any> = useDispatch();
 
       const [initialValues, setInitialValues] = useState({
     fullName: "",
@@ -78,7 +83,12 @@ const InformationConstuctor: React.FC<any> = ({}) => {
       const data = {
         image: base64data,
       };
-      axios.post(`/UserSettings/UpdateProfileImage`, data).then((res) => {});
+      axios.post(`/UserSettings/UpdateProfileImage`, data).then((res) => {
+        var newUser = {...user,profileImage:res.data}
+        dispatch(setUser(newUser));
+
+        
+      });
     };
   };
 
@@ -122,7 +132,7 @@ const InformationConstuctor: React.FC<any> = ({}) => {
                 name="capacity"
                 placeholder="capacity"
                 type="number"
-                label="capacity"
+                label="capacity(Meters Per Month)"
                 error={touched.capacity && errors.capacity}
               />
 

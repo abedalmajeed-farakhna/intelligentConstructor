@@ -20,6 +20,7 @@ import { PATH_NAMES } from "../../../constants/route";
 import useStyles from "./craftsmanRequestList.style";
 import { ICraftsmanRequestListProps } from "./craftsmanRequestList.type";
 import ProjectStatus from "../../../components/CoreComponents/ProjectStatus/projectStatus.index";
+import BreadCrump from "../../../components/CoreComponents/BreadCrump/breadCrump.index";
 
 
 
@@ -50,7 +51,7 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
       field: "fromFullName",
       headerName: "Full Name",
       sortable: false,
-      width: 100,
+      width: 120,
     },
 
     {
@@ -70,14 +71,6 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
       renderCell: (params) =>
         format(new Date(params.row.startDate), "yyyy-MM-dd"),
     },
-    {
-      field: "endDate",
-      headerName: "End Date",
-      width: 150,
-      type: "date",
-      renderCell: (params) =>
-        format(new Date(params.row.endDate), "yyyy-MM-dd"),
-    },
 
 
     {
@@ -90,7 +83,7 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
     },
     {
       field: "upload",
-      headerName: "Status", // to be removed
+      headerName: "upload images", // to be removed
       width: 150,
       renderCell: (params) => (
         
@@ -113,6 +106,7 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
       renderCell: (params) => (
         <>
           <CraftsmanAction
+          reloadData ={getData}
             requestStatus={params.row.requestStatus}
             id={params.row.id}
           />
@@ -127,11 +121,14 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
     },
   ];
   
-  useEffect(() => {
+  const getData =()=>{
     axios.get(`/Project/GetReceivedRequestList`).then((result) => {
       setData(result.data);
       console.log(result.data);
     });
+  }
+  useEffect(() => {
+    getData();
   }, []);
 
   const openUploadImageModal = (id:number) => {
@@ -152,6 +149,9 @@ const CraftsmanRequestList: React.FC<ICraftsmanRequestListProps> = ({}) => {
   };
   return (
     <>
+     <BreadCrump
+        current={"Requests"}
+      />
       {showUploadImageModal && (
         <CraftsmanUploadImageModal requestId ={activeRow}
           hideUploadImageModal={hideUploadImageModal}

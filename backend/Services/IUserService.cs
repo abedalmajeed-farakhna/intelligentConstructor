@@ -6,7 +6,7 @@ namespace Backend.Services
     public interface IUserService
     {
 
-        Task<bool> UpdateProfileImageAsync(UpdateProfileImageRequest request);
+        Task<string> UpdateProfileImageAsync(UpdateProfileImageRequest request);
        
     }
 }

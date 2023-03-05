@@ -30,6 +30,7 @@ const TilerStep: React.FC<ITilerStepProps> = ({
     <TopAvailableCraftsman
       sectionName="tiler"
       timeLine={timeLine}
+      showNote={(!previousDetails ||[ProjectStatusEnum.Rejected, ProjectStatusEnum.Pending].includes(previousDetails.projectStatus))}
       handleUpdateTimeLine={handleUpdateTimeLine}
       requestId={currentDetails?.requestId}
       projectStatus={currentDetails?.projectStatus}

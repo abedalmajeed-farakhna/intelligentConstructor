@@ -4,6 +4,27 @@ import { makeStyles } from "@mui/styles";
 const useStyle = makeStyles((theme: ThemeOptions) => ({
   root: {
   },
+  dFlexCol:{
+    display:'flex',
+    flexDirection:'column',
+  },
+  portfolio:{
+    cursor:'pointer',
+    '& p':{
+      color:theme.colors.mainTextColor,
+      fontSize:15,
+      margin:'5px 0px'
+    },
+    '& svg':{
+      color:theme.colors.primary,
+      fontSize:23,
+      margin:'0 auto'
+    }
+  },
+  dFlex:{
+    display:'flex',
+    justifyContent:'space-between'
+  },
   headItem:{
     display:'flex',
     alignItems:'center',

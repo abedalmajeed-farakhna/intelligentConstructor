@@ -128,8 +128,8 @@ namespace Backend.Repositories
             var userIdParameter = new SqlParameter("@userId", userId);
 
             string sql = "EXECUTE [dbo].[GetreceivedRequestList_SP]  @userId={0}";
-            return (await _context.ReceivedRequestList.FromSqlRaw(sql, userIdParameter).ToListAsync());
-
+            var list = (await _context.ReceivedRequestList.FromSqlRaw(sql, userIdParameter).ToListAsync()).OrderByDescending(x => x.Id).ToList();
+            return list;
         }
         public async Task<List<CraftsmanScheduleWithUserDetailsSP>> GetCraftsmanRequestListByProjectId(int projectid)
         {
@@ -200,8 +200,8 @@ namespace Backend.Repositories
         {
             string sql = "EXECUTE [dbo].[CraftsmanScheduleWithUserDetailsSP]";
             var list = await _context.CraftsmanScheduleWithUserDetailsSP.FromSqlRaw(sql).ToListAsync();
-            return list.Where(t => t.ToUserId == userId && t.RequestStatus == ProjectStatusEnum.Done)
-                .OrderByDescending(t => t.RateValue).TakeLast(5).Select(t => new GetTopRatedRequestsLisResponse
+            return list.Where(t => t.ToUserId == userId)
+                .OrderByDescending(t => t.RateValue).Take(5).Select(t => new GetTopRatedRequestsLisResponse
                 {
                     RequestDescription = t.RequestDescription,
                     RequestStatus = t.RequestStatus,

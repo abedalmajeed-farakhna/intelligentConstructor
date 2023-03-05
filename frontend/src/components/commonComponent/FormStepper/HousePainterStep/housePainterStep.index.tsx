@@ -18,8 +18,9 @@ const HousePainterStep: React.FC<IHousePainterStepProps> = ({
   //console.log(previousDetails, "previousDetails:HousePainterStep");
   return (
     <TopAvailableCraftsman
-      sectionName="housePainter"
+      sectionName="house Painter"
       timeLine={timeLine}
+      showNote={(!previousDetails ||[ProjectStatusEnum.Rejected, ProjectStatusEnum.Pending].includes(previousDetails.projectStatus))}
       handleUpdateTimeLine={handleUpdateTimeLine}
       projectStatus={currentDetails?.projectStatus}
       selectedUser={currentDetails?.userId}

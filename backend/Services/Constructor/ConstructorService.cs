@@ -199,6 +199,10 @@ namespace Backend.Services
             var list = new List<CraftsmanInformationDto>();
             var craftsmansInformation = await _craftsmanService.getAllCraftsmanInformation();
 
+
+            // Electrician
+            var electrician = craftsmansInformation.Where(t=>t.Sector == SectorEnum.Electrician).OrderByDescending(t=>t.Id).FirstOrDefault();
+            
             craftsmans.ForEach(async t =>
             {
                 var user = craftsmansInformation.FirstOrDefault(u => u.Id == t.ToUserId.ToString());

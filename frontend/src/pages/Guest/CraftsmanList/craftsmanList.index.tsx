@@ -12,14 +12,14 @@ const CraftsmanList: React.FC<any> = ({ children }) => {
   return (
 <>
 
-    <BreadCrump current={"CraftsmanList"} linkList={[]}/>
+    <BreadCrump current={"Craftsman List"} linkList={[]}/>
 
     <Grid container spacing={1} className={classes.root}>
   <Grid  xs={4}  className={classes.cardItem}>
   <ImageCard
           imagePath="painter.jpg"
 
-          text={"painter"}
+          text={"house Painter"}
           description={"A Painter is a professional who helps prepare surfaces, mix paints for different needs, and apply them with brushes or rollers to fill in cracks or apply color on walls and other objects around a home, such as furniture pieces or doors. "}
           
           sector={sectorEnum.HousePainter}/>

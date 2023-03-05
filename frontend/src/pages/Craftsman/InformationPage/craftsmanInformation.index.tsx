@@ -15,9 +15,13 @@ import ProfileImageUpload from "../../../components/CoreComponents/ProfileImageU
 import { showSuccessPopup } from "../../../utils/projectUtils";
 import ImageGallery from "../../../components/commonComponent/Craftsman/ImageGallery/imageGallery.index";
 import CraftsmanUploadImageModal from "../CraftsmanUploadImageModal/craftsmanUploadImageModal.index";
+import { useDispatch } from "react-redux";
 
+//import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
 import { validationSchema } from "./craftsmanInformation.utils";
 import useStyles from "./craftsmanInformation.style";
+import { setUser } from "../../../reducers/reducers/userReducer";
 
 const CraftsmanInformation: React.FC<any> = ({}) => {
   const classes = useStyles();
@@ -28,6 +32,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
     useState<boolean>(false);
 
   const user: IUser = useSelector((state: IApplicationState) => state.user);
+  const dispatch: Dispatch<any> = useDispatch();
   const [initialValues, setInitialValues] = useState({
     fullName: "",
     note: "",
@@ -92,7 +97,10 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
       const data = {
         image: base64data,
       };
-      axios.post(`/UserSettings/UpdateProfileImage`, data).then((res) => {});
+      axios.post(`/UserSettings/UpdateProfileImage`, data).then((res) => {
+        var newUser = {...user,profileImage:res.data}
+        dispatch(setUser(newUser));
+      });
     };
   };
 
@@ -185,7 +193,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
                       name="speed"
                       placeholder="speed"
                       type="number"
-                      label="speed"
+                      label="speed (Meters Per Day)"
                       error={touched.speed && errors.speed}
                     />
                   </div>
@@ -207,7 +215,7 @@ const CraftsmanInformation: React.FC<any> = ({}) => {
                         { name: "Builder", value: sectorEnum.Builder },
                         { name: "Tiler", value: sectorEnum.Tiler },
                         {
-                          name: "HousePainter",
+                          name: "House Painter",
                           value: sectorEnum.HousePainter,
                         },
                         { name: "Plumber", value: sectorEnum.Plumber },

@@ -9,6 +9,6 @@ namespace Backend.Repositories
         Task<bool> DeleteImage(int id);
         Task<bool> DeleteSection(int id);
         Task<int> AddImageGalleryGroup(ImageGalleryGroup data);
-        Task<List<GetImageListResponse>> GetImageGalleryList(Guid userId, int? requestId);
+        Task<List<GetImageListResponse>> GetImageGalleryList(Guid? userId, int? requestId);
     }
 }

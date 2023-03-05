@@ -15,7 +15,8 @@ import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 
 const CraftsmanAction: React.FC<ICraftsmanActionProps> = ({
   requestStatus,
-  id
+  id,
+  reloadData
 }) => {
 
   const classes = useStyles();
@@ -28,6 +29,7 @@ const CraftsmanAction: React.FC<ICraftsmanActionProps> = ({
     axios.post(`/Project/AcceptRequest`, data).then(() => {
       showSuccessPopup();
       setCurrentRequestStatus(ProjectStatusEnum.Aproved);
+      reloadData();
     });
   };
 
@@ -36,6 +38,7 @@ const CraftsmanAction: React.FC<ICraftsmanActionProps> = ({
     axios.post(`/Project/RejectRequest`, data).then(() => {
       showSuccessPopup();
       setCurrentRequestStatus(ProjectStatusEnum.Rejected);
+      reloadData();
     });
   };
   
@@ -44,6 +47,7 @@ const CraftsmanAction: React.FC<ICraftsmanActionProps> = ({
     axios.post(`/Project/StartWorking`, data).then(() => {
       showSuccessPopup();
       setCurrentRequestStatus(ProjectStatusEnum.Inprogres);
+      reloadData();
     });
   };
 
@@ -53,6 +57,7 @@ const CraftsmanAction: React.FC<ICraftsmanActionProps> = ({
     axios.post(`/Project/DoneWorking`, data).then(() => {
       showSuccessPopup();
       setCurrentRequestStatus(ProjectStatusEnum.Done);
+      reloadData();
     });
   }
   switch (currentRequestStatus) {

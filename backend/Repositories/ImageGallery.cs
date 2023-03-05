@@ -14,9 +14,13 @@ namespace Backend.Repositories
             _context = context;
         }
 
-        public async Task<List<GetImageListResponse>> GetImageGalleryList(Guid userId, int? requestId)
+        public async Task<List<GetImageListResponse>> GetImageGalleryList(Guid? userId, int? requestId)
         {
-            var list = await _context.imageGalleryGroup.Where(t => t.userId == userId).OrderByDescending(t => t.Id).ToListAsync();
+            var list = await _context.imageGalleryGroup.OrderByDescending(t => t.Id).ToListAsync();
+            if(userId != null)
+            {
+                list = list.Where(t => t.userId == userId).ToList();
+            }
             if (requestId != null && requestId > 0)
             {
                 list = list.Where(t=>t.RequestId== requestId).ToList();

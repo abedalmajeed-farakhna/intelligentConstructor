@@ -17,4 +17,5 @@ export const PATH_NAMES = {
   PROJECT_DETAILSLink: "/PROJECTDETAILS",
   CRAFTSMAN_REQUEST_LISt: "/CraftsmanRequestList",
   RequestDetails: "/RequestDetails",
+  Gallery: "/Gallery",
 };

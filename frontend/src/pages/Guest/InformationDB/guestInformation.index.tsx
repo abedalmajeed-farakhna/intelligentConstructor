@@ -10,13 +10,17 @@ import ProfileImageUpload from "../../../components/CoreComponents/ProfileImageU
 import TextInput from "../../../components/CoreComponents/TextInput/textInput.index";
 import { IApplicationState } from "../../../redux/ApplicationState";
 import { IUser } from "../../../types/types";
+import { useDispatch } from "react-redux";
 
+//import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
 import { validationSchema } from "./guestInformation.utils";
 import useStyles from "./guestInformation.style";
+import { setUser } from "../../../reducers/reducers/userReducer";
 
 const GuestInformation: React.FC<any> = ({}) => {
   const classes = useStyles();
-
+  const dispatch: Dispatch<any> = useDispatch();
   const user: IUser = useSelector((state: IApplicationState) => state.user);
   const [initialValues, setInitialValues] = useState({
     fullName: "",
@@ -62,7 +66,11 @@ const GuestInformation: React.FC<any> = ({}) => {
       const data = {
         image: base64data,
       };
-      axios.post(`/UserSettings/UpdateProfileImage`, data).then((res) => {});
+      axios.post(`/UserSettings/UpdateProfileImage`, data).then((res) => {
+
+        var newUser = {...user,profileImage:res.data}
+        dispatch(setUser(newUser));
+      });
     };
   };
 

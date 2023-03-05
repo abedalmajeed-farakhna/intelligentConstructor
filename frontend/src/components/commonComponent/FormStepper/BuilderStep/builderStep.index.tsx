@@ -27,6 +27,7 @@ const BuilderStep: React.FC<IBuilderStepProps> = ({
       values={values}
       sector={sectorEnum.Builder}
       editable={editable}
+      showNote={false}
     />
   );
 };

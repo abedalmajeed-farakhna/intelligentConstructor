@@ -27,6 +27,7 @@ const CustomeListItem: React.FC<ICustomeListItemProps> = ({
     >
       <ListItemButton>
         <CustomLink
+        className={classes.link}
           path={path}
           text={text}
           isActive={isActive}

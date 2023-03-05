@@ -9,7 +9,7 @@ export const getSectorEnumDescriptions = (sector: sectorEnum): string => {
       return "Tiler";
 
     case sectorEnum.HousePainter:
-      return "HousePainter";
+      return "House Painter";
 
     case sectorEnum.Carpenter:
       return "Carpenter";

@@ -103,7 +103,7 @@ const Login: React.FC<any> = ({}) => {
                 />
 
                 <CustomButton icon={<LoginIcon />} text={"Login"} />
-                <ErrorMessage error={error} />
+                <ErrorMessage  className={classes.error} error={error} />
                 <Box>
                   <Typography>
                     Does not hava an account{" "}

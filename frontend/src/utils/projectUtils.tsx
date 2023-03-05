@@ -6,6 +6,13 @@ export const getProjectStatus = (allRequestStatus: ProjectStatusEnum[]) => {
   if (allRequestStatus.filter((t) => t == ProjectStatusEnum.Done).length == 6) {
     return ProjectStatusEnum.Done;
   }
+  if (
+    allRequestStatus.filter(
+      (t) => t == ProjectStatusEnum.Inprogres || t == ProjectStatusEnum.Done
+    ).length == 0
+  ) {
+    return ProjectStatusEnum.Pending;
+  }
   return ProjectStatusEnum.Inprogres;
 };
 

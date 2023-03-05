@@ -44,6 +44,9 @@ const CraftsmanBySector: React.FC<any> = ({ children }) => {
       field: "speed",
       headerName: "speed",
       width: 270,
+      renderCell: (params) => (
+        <>{params.row.speed } Meters Per Day</>
+      ),
     },
     {
       field:"ratingValue",

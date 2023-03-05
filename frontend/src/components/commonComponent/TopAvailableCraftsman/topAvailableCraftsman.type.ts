@@ -6,6 +6,7 @@ import { ITimeLineProps } from "../FormStepper/formStepper.type";
 export interface ITopAvailableCraftsmanProps {
   values: ICraftsmanStepValuesProps;
   sector: sectorEnum;
+  showNote:boolean,
   editable?: boolean;
   selectedUser?: string;
   projectStatus?: ProjectStatusEnum;

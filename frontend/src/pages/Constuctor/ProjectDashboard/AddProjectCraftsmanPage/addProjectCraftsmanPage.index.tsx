@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import useStyles from "./addProjectCraftsmanPage.style";
 import AddNewProjectSection from "../../../../components/commonComponent/Constuctor/AddNewProjectSection/addNewProjectSection.index";
 import BuilderStep from "../../../../components/commonComponent/FormStepper/BuilderStep/builderStep.index";
 import { ITimeLineProps } from "../../../../components/commonComponent/FormStepper/formStepper.type";
 import { PATH_NAMES } from "../../../../constants/route";
-import { addNumberOfDays } from "../../../../utils/DateUtils";
+import { addNumberOfDays, getFormatedStringFromDays } from "../../../../utils/DateUtils";
 import { getIdFromLocationPath } from "../../../../utils/projectUtils";
 import Loading from "../../../../components/CoreComponents/Loading/loading.index";
 import { dataInitialValue, IDataProps } from "./addProjectCraftsmanPage.type";
@@ -50,17 +50,38 @@ const AddProjectCraftsmanPage: React.FC<any> = ({}) => {
   if (!data.projectName) return <Loading />;
 
   console.log(timeLine, "timeLine");
+  const total = Object.values(timeLine).reduce(
+    (sum, previousValue) => sum + previousValue.numberOfDays,
+    0
+  );
   return (
     <div>
-      <AddNewProjectSection  title={"Project Details"}>
+      <div className={classes.total}>
+        <CalendarMonthIcon />
+       <span  className={classes.totalSpan}> {getFormatedStringFromDays(total)}</span> 
+      </div>
+      <AddNewProjectSection title={"Project Details"}>
         <div className={classes.projectDetailss}>
-          <div className={classes.projectDetailsItem}> Project Name: <span>{data.projectName}</span></div>
-          <div className={classes.projectDetailsItem}> startDate: <span>{format(new Date(data.startDate), "yyyy-MM-dd")}</span> </div>
-          <div className={classes.projectDetailsItem}> area: <span>{data.space}</span></div>
-          <div className={classes.projectDetailsItem}> region: <span>{data.region.name}</span></div>
+          <div className={classes.projectDetailsItem}>
+            {" "}
+            Project Name: <span>{data.projectName}</span>
+          </div>
+          <div className={classes.projectDetailsItem}>
+            {" "}
+            startDate:{" "}
+            <span>{format(new Date(data.startDate), "yyyy-MM-dd")}</span>{" "}
+          </div>
+          <div className={classes.projectDetailsItem}>
+            {" "}
+            area: <span>{data.space}</span>
+          </div>
+          <div className={classes.projectDetailsItem}>
+            {" "}
+            region: <span>{data.region.name}</span>
+          </div>
         </div>
       </AddNewProjectSection>
-      
+
       <AddNewProjectSection title={"Electrician"}>
         <ElectricianStep
           values={{
@@ -74,7 +95,7 @@ const AddProjectCraftsmanPage: React.FC<any> = ({}) => {
           )}
         />
       </AddNewProjectSection>
-      
+
       <AddNewProjectSection title={"Plumber"}>
         <PlumberStep
           values={{

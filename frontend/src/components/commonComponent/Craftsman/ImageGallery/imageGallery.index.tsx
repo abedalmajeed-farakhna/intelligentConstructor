@@ -9,6 +9,7 @@ import { IImageGalleryListProps } from "../../../../types/types";
 import { Grid } from "@mui/material";
 import CustomButton from "../../../CoreComponents/CustomButton/customButton.index";
 import AlertDialog from "../../../CoreComponents/AlertDialog/alertDialog.index";
+import Loading from "../../../CoreComponents/Loading/loading.index";
 
 const ImageGallery: React.FC<IImageGalleryProps> = ({
   list,
@@ -18,6 +19,7 @@ const ImageGallery: React.FC<IImageGalleryProps> = ({
   isEditable,
 }) => {
   const classes = useStyles();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [data, setData] = useState<undefined | IImageGalleryListProps[]>(list);
   const [selectedImageId, setSelectedImageId] = useState<number>(0);
@@ -27,9 +29,13 @@ const ImageGallery: React.FC<IImageGalleryProps> = ({
     getImageList();
   }, [reloadData]);
   useEffect(() => {
+    console.log("list,",list);
     if (!list) {
       getImageList();
+    }else{
+      setLoading(false)
     }
+    
   }, []);
   const onShowImageDialog =(id)=>{
     setSelectedImageId(id);
@@ -47,11 +53,14 @@ const ImageGallery: React.FC<IImageGalleryProps> = ({
   }
   
   const getImageList = () => {
+    console.log("getImageList,");
     axios
       .get(`/Craftsman/GetImageList?requestId=${requestId}&userId=${userId}`)
       .then((res) => {
         console.log(res, "res");
         setData(res.data);
+        setLoading(false)
+
       });
   };
 
@@ -67,7 +76,9 @@ const ImageGallery: React.FC<IImageGalleryProps> = ({
       getImageList();
     });
   };
-  if (data?.length == 0) return <div> </div>; //No image
+
+  if(loading) return <Loading/>
+  if (data?.length == 0) return <div> </div>;
 
   return (
     <>

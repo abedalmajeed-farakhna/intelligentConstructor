@@ -47,7 +47,7 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({}) => {
       <div>
         <BreadCrump
           current={"Project Details"}
-          linkList={[{ name: "ProjectList", link: PATH_NAMES.PROJECT_LIST }]}
+          linkList={[{ name: "Project List", link: PATH_NAMES.PROJECT_LIST }]}
         />
       </div>
       <div>

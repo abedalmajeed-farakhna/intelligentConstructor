@@ -1,20 +1,18 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  CardActions,
-  Button,
-} from "@mui/material";
-import { format } from "date-fns";
 import React from "react";
+import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
+
+import { Card, CardContent, Typography } from "@mui/material";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import PermMediaIcon from "@mui/icons-material/PermMedia";
+
 import { ProjectStatusEnum } from "../../../enums/projectStatusEnum";
-import { getProjectStatusDescription } from "../../../utils/enumDescriptions";
 import CustomRating from "../CustomRating/customRating.index";
 import ProjectStatus from "../ProjectStatus/projectStatus.index";
-import { IBasicCardProps } from "./basicCard.type";
 import useStyles from "./basicCard.style";
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { PATH_NAMES } from "../../../constants/route";
+
+import { IBasicCardProps } from "./basicCard.type";
 
 const BasicCard: React.FC<IBasicCardProps> = ({
   title,
@@ -23,12 +21,16 @@ const BasicCard: React.FC<IBasicCardProps> = ({
   expectedStart,
   expectedEnd,
   ratingValue,
-  requestId
+  requestId,
 }) => {
-  console.log(expectedStart, "expectedStart");
-  console.log(expectedEnd, "expectedEnd");
-  const classes = useStyles();
+  const navigate = useNavigate();
 
+  // console.log(expectedStart, "expectedStart");
+  //console.log(expectedEnd, "expectedEnd");
+  const classes = useStyles();
+  const goToGalary = () => {
+    navigate(`${PATH_NAMES.Gallery}/${requestId}`); //TODO save name in redux
+  };
   return (
     <Card sx={{ Width: 50 }} className={classes.boxShadow}>
       <CardContent className={classes.rootw}>
@@ -37,16 +39,25 @@ const BasicCard: React.FC<IBasicCardProps> = ({
           <CustomRating
             value={ratingValue}
             disabled={status != ProjectStatusEnum.Done}
-             id ={requestId}
+            id={requestId}
           />
         </Typography>
-        <Typography sx={{ mb: 1}} color="text.secondary">
+
+        <div className={classes.dFlex}>
+          <div className={classes.dFlexCol}>
+          <Typography sx={{ mb: 1 }} color="text.secondary">
+            <ProjectStatus projectStatus={status} />
+          </Typography>
+          <Typography sx={{ mb: 1 }} color="text.secondary">
           {name}
         </Typography>
-        <Typography sx={{ mb: 1 }} color="text.secondary">
-          <ProjectStatus projectStatus={status} />
+          </div>
+          <div onClick={goToGalary} className={classes.portfolio}>
+            <p>Show My Portfolio</p>
+            <PermMediaIcon />
+          </div>
+        </div>
 
-        </Typography>
         <Typography variant="body2" className={classes.dateIem}>
           <CalendarMonthIcon />
           {format(new Date(expectedStart), "yyyy-MM-dd")} -{" "}
