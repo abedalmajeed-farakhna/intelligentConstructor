@@ -18,7 +18,10 @@ namespace Backend.Services
         private readonly ICraftsmanScheduleRepository _craftsmanScheduleRepository;
         private readonly ICraftsmanService _craftsmanService;
         private readonly IRegionRepository _regionRepository;
-        public ConstructorService(IConstructorRepository constructorRepository, IAuthenticationService authenticationService  ,IUserRepository userRepository ,IProjectRepository projectRepository, ICraftsmanScheduleRepository craftsmanScheduleRepository , ICraftsmanService craftsmanService, IRegionRepository regionRepository )
+        private readonly IRatingRepository _ratingRepository;
+        public ConstructorService(IConstructorRepository constructorRepository, IAuthenticationService authenticationService  ,IUserRepository userRepository 
+            ,IProjectRepository projectRepository, ICraftsmanScheduleRepository craftsmanScheduleRepository 
+            , ICraftsmanService craftsmanService, IRegionRepository regionRepository , IRatingRepository ratingRepository)
         {
             _userRepository = userRepository;
             _constructorRepository = constructorRepository;
@@ -27,6 +30,7 @@ namespace Backend.Services
             _craftsmanScheduleRepository = craftsmanScheduleRepository;
             _craftsmanService = craftsmanService;
             _regionRepository = regionRepository;
+             _ratingRepository = ratingRepository;
 
         }
 
@@ -202,10 +206,11 @@ namespace Backend.Services
 
             // Electrician
             var electrician = craftsmansInformation.Where(t=>t.Sector == SectorEnum.Electrician).OrderByDescending(t=>t.Id).FirstOrDefault();
-            
+            var ratingValues = await _ratingRepository.GetRatingValue();
             craftsmans.ForEach(async t =>
             {
                 var user = craftsmansInformation.FirstOrDefault(u => u.Id == t.ToUserId.ToString());
+                //var ratingValue = await  _ratingRepository.GetRatingValue(t.Id);
                 list.Add(new CraftsmanInformationDto
                 {
                     ExpectedEndDate = t.EndDate,
@@ -214,12 +219,12 @@ namespace Backend.Services
                     FullName = user.FullName,
                     UserName = user.UserName,
                     Sector = user.Sector,
-                    RatingValue = user.RatingValue,
+                    RatingValue = ratingValues.FirstOrDefault(a => a.RequestId == t.Id)?.RateValue,
                     UserId = new Guid(user.Id),
                     RequestId = t.Id
                 });
-                
-            }); 
+
+            });
             
 
             var project= await _projectRepository.GetProjectByProjectId(ProjectId);

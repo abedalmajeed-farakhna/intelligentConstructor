@@ -51,8 +51,8 @@ const ConstuctorRequestList: React.FC<IRequestListProps> = ({}) => {
       headerName: "End Date",
       type: "date",
       width: 160,
-      renderCell: (params) =>
-        format(new Date(params.row.endDate), "yyyy-MM-dd"),
+      renderCell: (params) =><>{params.row.requestStatus === ProjectStatusEnum.Done ? format(new Date(params.row.endDate), "yyyy-MM-dd"):"-"}</>
+       ,
     },
     {
       field: "requestStatus",

@@ -1,5 +1,7 @@
-﻿using Backend.Dtos;
+﻿using Azure.Core;
+using Backend.Dtos;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using WebApplication1.Data;
 using WebApplication1.Models;
 
@@ -12,6 +14,10 @@ namespace Backend.Repositories
         public RatingRepository(ApplicationDbContext context)
         {
             _context = context;
+        }
+        public async Task<List<Rating>> GetRatingValue()
+        {
+            return await _context.Rating.ToListAsync();
         }
 
 
