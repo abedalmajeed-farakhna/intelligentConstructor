@@ -8,6 +8,5 @@ namespace Backend.Dtos.Craftsman
         public string Note { get; set; }
         public int? Speed { get; set; }
         public string? ProfileImage { get; set; }
-
     }
 }
